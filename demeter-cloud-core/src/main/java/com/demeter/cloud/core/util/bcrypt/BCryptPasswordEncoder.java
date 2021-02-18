@@ -89,4 +89,10 @@ public class BCryptPasswordEncoder {
 
 		return BCrypt.checkpw(rawPassword.toString(), encodedPassword);
 	}
+
+  public static void main(String[] args) {
+	  //BCryptPasswordEncoder
+	  BCryptPasswordEncoder encoder =new BCryptPasswordEncoder();
+    System.out.println(encoder.encode("123456@Abc"));
+  }
 }

@@ -18,14 +18,15 @@ public interface RoleInfoService {
     /**
      * 查询角色list
      *
-     * @param roleName 角色名称
-     * @param page     页码
-     * @param size     条目数
-     * @param sort     排序
-     * @param order    排序
+     * @param code  角色编码
+     * @param name  角色名称
+     * @param page  页码
+     * @param size  条目数
+     * @param sort  排序
+     * @param order 排序
      * @return 返回列表
      */
-    List<RoleInfo> queryRoleList(String roleName, Integer page, Integer size, String sort, String order);
+    List<RoleInfo> queryRoleList(String code, String name, Integer page, Integer size, String sort, String order);
 
     /**
      * 查询

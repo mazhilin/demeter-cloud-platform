@@ -17,8 +17,6 @@ spring:
 
 server:
   port: 9001
-  servlet:
-    context-path: /api
   compression:
     min-response-size: 1024
   tomcat:
@@ -31,8 +29,6 @@ server:
       min-spare: 100
     max-http-form-post-size: 2048
     max-swallow-size: 2048
-    mbeanregistry:
-      enabled: true
 
 #系统日志配置
 logging:
@@ -40,5 +36,6 @@ logging:
     root:  info
     org.springframework:  info
     org.mybatis:  info
-    com.demeter.cloud.console:  DEBUG
-    com.demeter.cloud:  INFO
+    com.demeter.cloud.console:  info
+    com.demeter.cloud.model.mapper:  debug
+    com.demeter.cloud:  info

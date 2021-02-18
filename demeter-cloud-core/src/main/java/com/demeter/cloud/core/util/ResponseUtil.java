@@ -74,11 +74,11 @@ public class ResponseUtil {
 	}
 
 	public static Object badArgument() {
-		return fail(401, "参数不对");
+		return fail(401, "参数不对!");
 	}
 
 	public static Object badArgumentValue() {
-		return fail(402, "参数值不对");
+		return fail(402, "参数值不对!");
 	}
 
 	public static Object unlogin() {
@@ -102,7 +102,7 @@ public class ResponseUtil {
 	}
 
 	public static Object unauthz() {
-		return fail(506, "无操作权限");
+		return fail(403, "无操作权限");
 	}
 
 }

@@ -108,12 +108,37 @@ public class AdminUserExample {
     }
 
     protected abstract static class GeneratedCriteria {
+        protected List<Criterion> roleIdsCriteria;
+
+        protected List<Criterion> allCriteria;
+
         protected List<Criterion> criteria;
 
         protected GeneratedCriteria() {
             super();
             criteria = new ArrayList<Criterion>();
+            roleIdsCriteria = new ArrayList<Criterion>();
         }
+        public List<Criterion> getRoleIdsCriteria() {
+            return roleIdsCriteria;
+        }
+
+        protected void addRoleIdsCriterion(String condition, Object value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            roleIdsCriteria.add(new Criterion(condition, value, "com.mall.cloud.model.mybatis.JsonIntegerArrayTypeHandler"));
+            allCriteria = null;
+        }
+
+        protected void addRoleIdsCriterion(String condition, Integer[] value1, Integer[] value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            roleIdsCriteria.add(new Criterion(condition, value1, value2, "com.mall.cloud.model.mybatis.JsonIntegerArrayTypeHandler"));
+            allCriteria = null;
+        }
+
 
         public boolean isValid() {
             return criteria.size() > 0;

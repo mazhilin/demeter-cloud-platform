@@ -12,7 +12,7 @@
     <result column="gender" jdbcType="TINYINT" property="gender" />
     <result column="profile_picture" jdbcType="VARCHAR" property="profilePicture" />
     <result column="type" jdbcType="TINYINT" property="type" />
-    <result column="role_ids" jdbcType="VARCHAR" property="roleIds" />
+    <result column="role_ids" jdbcType="VARCHAR" property="roleIds" typeHandler="com.demeter.cloud.model.mybatis.JsonIntegerArrayTypeHandler" />
     <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp" />
     <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
     <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
@@ -202,7 +202,7 @@
     values (#{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{nickname,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{gender,jdbcType=TINYINT}, #{profilePicture,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, 
-      #{roleIds,jdbcType=VARCHAR}, #{lastLoginIp,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{roleIds,jdbcType=VARCHAR,typeHandler=com.demeter.cloud.model.mybatis.JsonIntegerArrayTypeHandler}, #{lastLoginIp,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP},
       #{isDelete,jdbcType=TINYINT}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, 
       #{remark,jdbcType=VARCHAR})
@@ -300,7 +300,7 @@
         #{type,jdbcType=TINYINT},
       </if>
       <if test="roleIds != null">
-        #{roleIds,jdbcType=VARCHAR},
+        #{roleIds,jdbcType=VARCHAR,typeHandler=com.demeter.cloud.model.mybatis.JsonIntegerArrayTypeHandler},
       </if>
       <if test="lastLoginIp != null">
         #{lastLoginIp,jdbcType=VARCHAR},
@@ -462,7 +462,7 @@
         `type` = #{type,jdbcType=TINYINT},
       </if>
       <if test="roleIds != null">
-        role_ids = #{roleIds,jdbcType=VARCHAR},
+        role_ids = #{roleIds,jdbcType=VARCHAR,typeHandler=com.demeter.cloud.model.mybatis.JsonIntegerArrayTypeHandler},
       </if>
       <if test="lastLoginIp != null">
         last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
@@ -505,7 +505,7 @@
       gender = #{gender,jdbcType=TINYINT},
       profile_picture = #{profilePicture,jdbcType=VARCHAR},
       `type` = #{type,jdbcType=TINYINT},
-      role_ids = #{roleIds,jdbcType=VARCHAR},
+      role_ids = #{roleIds,jdbcType=VARCHAR,typeHandler=com.demeter.cloud.model.mybatis.JsonIntegerArrayTypeHandler},
       last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
       last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
       is_delete = #{isDelete,jdbcType=TINYINT},

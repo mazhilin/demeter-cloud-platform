@@ -23,7 +23,7 @@ import java.util.List;
  * @version 1.0.0
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
-@Service
+@Service("adminUserService")
 @Transactional(rollbackFor = {BusinessException.class, RuntimeException.class, Exception.class})
 public class AdminUserServiceImpl extends BaseService implements AdminUserService {
     private final AdminUser.Column[] result = new AdminUser.Column[]{AdminUser.Column.id, AdminUser.Column.account, AdminUser.Column.name, AdminUser.Column.type, AdminUser.Column.profilePicture, AdminUser.Column.roleIds, AdminUser.Column.lastLoginIp, AdminUser.Column.lastLoginTime};
@@ -40,7 +40,7 @@ public class AdminUserServiceImpl extends BaseService implements AdminUserServic
     @Override
     public List<AdminUser> queryAdminUserByAccount(String account) {
         AdminUserExample example = new AdminUserExample();
-        example.or().andAccountEqualTo(account).andIsDeleteEqualTo((byte) 0).andStatusEqualTo((byte) 1);
+        example.or().andAccountEqualTo(account);
         return adminUserMapper.selectByExample(example);
     }
 

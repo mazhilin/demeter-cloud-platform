@@ -11,6 +11,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +37,12 @@ public class ConsoleAuthorizeRealm extends AuthorizingRealm {
 	@Autowired
 	private PermissionInfoService permissionInfoService;
 
+
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		if (principals == null) {
 			throw new AuthorizationException("PrincipalCollection method argument cannot be null.");
 		}
-
 		AdminUser admin = (AdminUser) getAvailablePrincipal(principals);
 		Integer[] roleIds = admin.getRoleIds();
 		Set<String> roles = roleInfoService.queryByIds(roleIds);
@@ -80,7 +81,10 @@ public class ConsoleAuthorizeRealm extends AuthorizingRealm {
 			throw new UnknownAccountException("找不到用户（" + account + "）的帐号信息");
 		}
 
-		return new SimpleAuthenticationInfo(admin, password, getName());
+		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo();
+		info.setPrincipals(new SimplePrincipalCollection(admin, getName()));
+		info.setCredentials(password);
+		return info;
 	}
 
 }

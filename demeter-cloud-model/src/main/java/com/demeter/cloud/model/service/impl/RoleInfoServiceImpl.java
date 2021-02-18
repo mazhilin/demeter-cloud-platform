@@ -35,20 +35,24 @@ public class RoleInfoServiceImpl implements RoleInfoService {
     /**
      * 查询角色list
      *
-     * @param roleName 角色名称
-     * @param page     页码
-     * @param size     条目数
-     * @param sort     排序
-     * @param order    排序
+     * @param code  角色编码
+     * @param name  角色名称
+     * @param page  页码
+     * @param size  条目数
+     * @param sort  排序
+     * @param order 排序
      * @return 返回列表
      */
     @Override
-    public List<RoleInfo> queryRoleList(String roleName, Integer page, Integer size, String sort, String order) {
+    public List<RoleInfo> queryRoleList(String code,String name, Integer page, Integer size, String sort, String order) {
         RoleInfoExample example = new RoleInfoExample();
         RoleInfoExample.Criteria criteria = example.createCriteria();
 
-        if (!StringUtils.isEmpty(roleName)) {
-            criteria.andNameEqualTo("%" + roleName + "%");
+        if (!StringUtils.isEmpty(code)) {
+            criteria.andCodeEqualTo(code);
+        }
+        if (!StringUtils.isEmpty(name)) {
+            criteria.andNameEqualTo("%" + name + "%");
         }
         criteria.andIsDeleteEqualTo((byte) 0);
         criteria.andStatusEqualTo((byte) 1);

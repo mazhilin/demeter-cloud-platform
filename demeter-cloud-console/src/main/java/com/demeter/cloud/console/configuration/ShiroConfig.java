@@ -2,6 +2,7 @@ package com.demeter.cloud.console.configuration;
 
 import com.demeter.cloud.console.shiro.ConsoleAuthorizeRealm;
 import com.demeter.cloud.console.shiro.ConsoleWebSessionManager;
+import com.google.common.collect.Maps;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.mgt.SessionManager;
@@ -13,7 +14,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Configuration
@@ -24,20 +24,28 @@ public class ShiroConfig {
 		return new ConsoleAuthorizeRealm();
 	}
 
+	/**
+	 * 核心权限配置
+	 * @param securityManager 安全权限
+	 * @return 返回
+	 */
 	@Bean
 	public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
-		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-		filterChainDefinitionMap.put("/console/user/login", "anon");
-		filterChainDefinitionMap.put("/admin/auth/401", "anon");
-		filterChainDefinitionMap.put("/admin/auth/index", "anon");
-		filterChainDefinitionMap.put("/admin/auth/403", "anon");
+		Map<String, String> filterChainDefinitionMap = Maps.newConcurrentMap();
+		filterChainDefinitionMap.put("/console/authority/login", "anon");
+		filterChainDefinitionMap.put("/console/authority/logout", "logout");
+		filterChainDefinitionMap.put("/console/authority/401", "anon");
+		filterChainDefinitionMap.put("/console/authority/index", "anon");
+		filterChainDefinitionMap.put("/console/authority/403", "anon");
+		filterChainDefinitionMap.put("/console/authority/503", "anon");
+		filterChainDefinitionMap.put("/console/**", "authc");
 
-		filterChainDefinitionMap.put("/admin/**", "authc");
-		shiroFilterFactoryBean.setLoginUrl("/admin/auth/401");
-		shiroFilterFactoryBean.setSuccessUrl("/admin/auth/index");
-		shiroFilterFactoryBean.setUnauthorizedUrl("/admin/auth/403");
+		// 统一权限配置
+		shiroFilterFactoryBean.setLoginUrl("/console/authority/401");
+		shiroFilterFactoryBean.setSuccessUrl("/console/authority/index");
+		shiroFilterFactoryBean.setUnauthorizedUrl("/console/authority/403");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
 	}
@@ -50,10 +58,10 @@ public class ShiroConfig {
 
 	@Bean
 	public DefaultWebSecurityManager securityManager() {
-		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-		securityManager.setRealm(realm());
-		securityManager.setSessionManager(sessionManager());
-		return securityManager;
+		DefaultWebSecurityManager security = new DefaultWebSecurityManager();
+		security.setRealm(realm());
+		security.setSessionManager(sessionManager());
+		return security;
 	}
 
 	@Bean
@@ -68,6 +76,7 @@ public class ShiroConfig {
 	public static DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
 		DefaultAdvisorAutoProxyCreator creator = new DefaultAdvisorAutoProxyCreator();
 		creator.setProxyTargetClass(true);
+		creator.setUsePrefix(true);
 		return creator;
 	}
 }
