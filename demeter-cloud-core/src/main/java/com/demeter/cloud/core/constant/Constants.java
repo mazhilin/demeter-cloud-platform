@@ -26,4 +26,14 @@ public final class Constants {
      * 统一的字符编码格式
      */
     public static final String UNIFIED_CODE = "UTF-8";
+    public static final String DEFAULT_AVATAR = "https://avatar.csdnimg.cn/8/A/0/2_qiguliuxing.jpg";
+
+    public static final String DEFAULT_ORDER_FIX = "商礼优品小程序订单：";
+
+    public static final String MISS_PARAMS = "缺少必要参数";
+
+    /**
+     * 设置缓存 6小时，有效期单位 ： 分钟
+     */
+    public static final Long CACHE_EXPIRE_MINUTES = 60 * 6L;
 }

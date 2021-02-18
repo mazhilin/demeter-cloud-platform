@@ -35,7 +35,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <fork>true</fork>
-                    <mainClass>com.mall.cloud.schedule.ShopScheduleJobApplication</mainClass>
+                    <mainClass>com.demeter.cloud.schedule.ScheduleJobApplication</mainClass>
                     <layout>ZIP</layout>
                     <classifier>${project.version}</classifier>
                     <executable>false</executable>

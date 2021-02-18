@@ -58,7 +58,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <fork>true</fork>
-                    <mainClass>com.mall.cloud.program.ShopProgramApiApplication</mainClass>
+                    <mainClass>com.demeter.cloud.program.ProgramApiApplication</mainClass>
                     <layout>ZIP</layout>
                     <classifier>${project.version}</classifier>
                     <executable>false</executable>
