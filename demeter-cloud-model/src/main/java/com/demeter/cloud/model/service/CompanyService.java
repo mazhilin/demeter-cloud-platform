@@ -1,7 +1,6 @@
 package com.demeter.cloud.model.service;
 
 import com.demeter.cloud.model.entity.Company;
-import com.demeter.cloud.model.entity.StorageFile;
 
 import java.util.List;
 

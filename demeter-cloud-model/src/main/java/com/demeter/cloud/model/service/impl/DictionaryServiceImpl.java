@@ -23,7 +23,7 @@ import java.util.List;
  * @version 1.0.0
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
-@Service("companyService")
+@Service("dictionaryService")
 @Transactional(rollbackFor = {BusinessException.class, RuntimeException.class, Exception.class})
 public class DictionaryServiceImpl extends BaseService implements DictionaryService {
 
