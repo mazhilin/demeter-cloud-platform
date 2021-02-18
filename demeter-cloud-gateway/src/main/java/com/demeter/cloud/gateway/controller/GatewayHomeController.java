@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * <p>封装Qicloud项目GatewayHomeController类.<br></p>
- * <p>//TODO...<br></p>
+ * <p>首页<br></p>
  *
  * @author Powered by marklin 2021-02-19 03:03
  * @version 1.0.0
