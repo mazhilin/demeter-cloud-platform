@@ -567,4 +567,11 @@
     update demeter_public_parameter set is_delete = 1
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="findByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from demeter_public_parameter
+    where code = #{code,jdbcType=VARCHAR}
+  </select>
 </mapper>

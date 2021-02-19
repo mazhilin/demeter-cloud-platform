@@ -1,11 +1,11 @@
 package com.demeter.cloud.model.service.impl;
 
-import com.demeter.cloud.model.entity.Company;
-import com.demeter.cloud.model.entity.CompanyExample;
+import com.demeter.cloud.model.entity.PublicParameter;
+import com.demeter.cloud.model.entity.PublicParameterExample;
 import com.demeter.cloud.model.exception.BusinessException;
-import com.demeter.cloud.model.mapper.CompanyMapper;
+import com.demeter.cloud.model.mapper.PublicParameterMapper;
 import com.demeter.cloud.model.persistence.service.BaseService;
-import com.demeter.cloud.model.service.CompanyService;
+import com.demeter.cloud.model.service.PublicParameterService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,37 +16,36 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * <p>封装Qicloud项目CompanyServiceImpl类.<br></p>
+ * <p>封装Qicloud项目PublicParameterServiceImpl类.<br></p>
  * <p>//TODO...<br></p>
  *
- * @author Powered by marklin 2021-02-18 13:18
+ * @author Powered by marklin 2021-02-20 00:24
  * @version 1.0.0
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
-@Service("companyService")
+@Service("publicParameterService")
 @Transactional(rollbackFor = {BusinessException.class, RuntimeException.class, Exception.class})
-public class CompanyServiceImpl extends BaseService implements CompanyService {
-
+public class PublicParameterServiceImpl extends BaseService implements PublicParameterService {
     @Resource
-    private CompanyMapper companyMapper;
+    private PublicParameterMapper publicParameterMapper;
 
     /**
-     * 查询列表
+     * 查询参数列表
      *
      * @return 返回列表
      */
     @Override
-    public List<Company> queryCompanyList() {
-        CompanyExample example = new CompanyExample();
+    public List<PublicParameter> queryPublicParameterList() {
+        PublicParameterExample example = new PublicParameterExample();
         example.or();
-        return companyMapper.selectByExample(example);
+        return publicParameterMapper.selectByExample(example);
     }
 
     /**
      * 查询列表
      *
      * @param name  名称
-     * @param code
+     * @param code  编码
      * @param page  页码
      * @param limit 条数
      * @param sort  排序
@@ -54,9 +53,9 @@ public class CompanyServiceImpl extends BaseService implements CompanyService {
      * @return 返回列表
      */
     @Override
-    public List<Company> queryList(String name, String code, Integer page, Integer limit, String sort, String order) {
-        CompanyExample example = new CompanyExample();
-        CompanyExample.Criteria criteria = example.createCriteria();
+    public List<PublicParameter> queryList(String name, String code, Integer page, Integer limit, String sort, String order) {
+        PublicParameterExample example = new PublicParameterExample();
+        PublicParameterExample.Criteria criteria = example.createCriteria();
 
         if (!StringUtils.isEmpty(name)) {
             criteria.andNameLike("%" + name + "%");
@@ -72,9 +71,8 @@ public class CompanyServiceImpl extends BaseService implements CompanyService {
         }
 
         PageHelper.startPage(page, limit);
-        return companyMapper.selectByExample(example);
+        return publicParameterMapper.selectByExample(example);
     }
-
 
     /**
      * 查询
@@ -83,32 +81,32 @@ public class CompanyServiceImpl extends BaseService implements CompanyService {
      * @return 返回文件信息
      */
     @Override
-    public Company queryById(Integer id) {
-        return companyMapper.selectByPrimaryKey(id);
+    public PublicParameter queryById(Integer id) {
+        return publicParameterMapper.selectByPrimaryKey(id);
     }
 
     /**
      * 更新
      *
-     * @param company 信息
+     * @param parameter 信息
      * @return 返回文件信息
      */
     @Override
-    public int update(Company company) {
-        company.setUpdateTime(LocalDateTime.now());
-        return companyMapper.updateByPrimaryKeySelective(company);
+    public int update(PublicParameter parameter) {
+        parameter.setUpdateTime(LocalDateTime.now());
+        return publicParameterMapper.updateByPrimaryKeySelective(parameter);
     }
 
     /**
      * 新增
      *
-     * @param company 文件信息
+     * @param parameter 文件信息
      */
     @Override
-    public void add(Company company) {
-        company.setCreateTime(LocalDateTime.now());
-        company.setUpdateTime(LocalDateTime.now());
-        companyMapper.insertSelective(company);
+    public void add(PublicParameter parameter) {
+        parameter.setCreateTime(LocalDateTime.now());
+        parameter.setUpdateTime(LocalDateTime.now());
+        publicParameterMapper.insertSelective(parameter);
     }
 
     /**
@@ -118,8 +116,8 @@ public class CompanyServiceImpl extends BaseService implements CompanyService {
      * @return
      */
     @Override
-    public Company queryByCode(String code) {
-        return companyMapper.findByCode(code);
+    public PublicParameter queryByCode(String code) {
+        return publicParameterMapper.findByCode(code);
     }
 
     /**
@@ -129,6 +127,6 @@ public class CompanyServiceImpl extends BaseService implements CompanyService {
      */
     @Override
     public void deleteById(Integer id) {
-        companyMapper.logicalDeleteByPrimaryKey(id);
+        publicParameterMapper.logicalDeleteByPrimaryKey(id);
     }
 }

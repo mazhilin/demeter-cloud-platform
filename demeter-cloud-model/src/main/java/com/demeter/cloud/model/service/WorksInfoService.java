@@ -1,6 +1,6 @@
 package com.demeter.cloud.model.service;
 
-import com.demeter.cloud.model.entity.CustomerUser;
+
 import com.demeter.cloud.model.entity.WorksInfo;
 
 import java.util.List;

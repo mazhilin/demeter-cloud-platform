@@ -1,5 +1,6 @@
 package com.demeter.cloud.model.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.demeter.cloud.model.entity.AdminUser;
 import com.demeter.cloud.model.entity.AdminUserExample;
 import com.demeter.cloud.model.exception.BusinessException;
@@ -14,6 +15,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>封装Qicloud项目AdminUserServiceImpl类.<br></p>
@@ -39,9 +41,12 @@ public class AdminUserServiceImpl extends BaseService implements AdminUserServic
      */
     @Override
     public List<AdminUser> queryAdminUserByAccount(String account) {
+        logger.info("[begin to db]::数据库-查询用户信息，请求参数:账户{}", account);
         AdminUserExample example = new AdminUserExample();
         example.or().andAccountEqualTo(account);
-        return adminUserMapper.selectByExample(example);
+        List<AdminUser> userList = adminUserMapper.selectByExample(example);
+        logger.info("[end   to db]::数据库-查询用户信息，返回结果: \n{}", JSONObject.toJSONString(userList));
+        return Objects.requireNonNull(userList);
     }
 
     /**
@@ -130,7 +135,9 @@ public class AdminUserServiceImpl extends BaseService implements AdminUserServic
      */
     @Override
     public int updateById(AdminUser adminUser) {
+        logger.info("[begin to db]::数据库-更新用户信息，请求参数: \n{}", JSONObject.toJSONString(adminUser));
         adminUser.setUpdateTime(LocalDateTime.now());
+        logger.info("[end   to db]::数据库-更新用户信息，返回结果: \n{}", JSONObject.toJSONString(adminUser));
         return adminUserMapper.updateByPrimaryKeySelective(adminUser);
     }
 

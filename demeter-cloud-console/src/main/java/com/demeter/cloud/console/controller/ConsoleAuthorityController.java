@@ -68,7 +68,7 @@ public class ConsoleAuthorityController extends BaseController {
         try {
             currentUser.login(new UsernamePasswordToken(account, password));
             List<AdminUser> adminList = adminUserService.queryAdminUserByAccount(account);
-            if (CheckEmptyUtil.isNotEmpty(adminList) && adminList.size() < 2) {
+            if (CheckEmptyUtil.isNotEmpty(adminList) && adminList.size() == 1) {
                 AdminUser admin = adminList.get(0);
                 admin.setLastLoginTime(LocalDateTime.now());
                 admin.setLastLoginIp(IpUtil.getIpAddr(request));

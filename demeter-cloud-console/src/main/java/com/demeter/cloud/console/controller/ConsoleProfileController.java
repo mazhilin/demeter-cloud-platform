@@ -29,7 +29,7 @@ import static com.demeter.cloud.console.web.ConsoleWebResponse.ADMIN_INVALID_OLD
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/console/profile")
+@RequestMapping(value = "/api/console/profile")
 @Validated
 public class ConsoleProfileController extends BaseController {
 
@@ -37,7 +37,7 @@ public class ConsoleProfileController extends BaseController {
     private AdminUserService adminUserService;
 
     @RequiresAuthentication
-    @PostMapping("/password")
+    @PostMapping(value = "password")
     public Object create(@RequestBody String body) {
         logger.info("【请求开始】系统管理->修改密码,请求参数,body:{}", body);
 

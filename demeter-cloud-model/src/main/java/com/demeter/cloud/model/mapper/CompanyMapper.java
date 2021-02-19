@@ -91,4 +91,6 @@ public interface CompanyMapper {
      * @project https://github.com/itfsw/mybatis-generator-plugin
      */
     int logicalDeleteByPrimaryKey(Integer id);
+
+    Company findByCode(@Param("code") String code);
 }

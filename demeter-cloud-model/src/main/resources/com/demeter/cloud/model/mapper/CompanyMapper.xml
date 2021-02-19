@@ -531,4 +531,11 @@
     update demeter_company set is_delete = 1
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="findByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from demeter_company
+    where code = #{code,jdbcType=VARCHAR}
+  </select>
 </mapper>

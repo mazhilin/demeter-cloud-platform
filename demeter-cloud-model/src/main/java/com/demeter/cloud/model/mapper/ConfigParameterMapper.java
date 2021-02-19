@@ -91,4 +91,7 @@ public interface ConfigParameterMapper {
      * @project https://github.com/itfsw/mybatis-generator-plugin
      */
     int logicalDeleteByPrimaryKey(Integer id);
+
+
+    ConfigParameter findByCode(@Param("code") String code);
 }

@@ -32,7 +32,7 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/console/storage")
+@RequestMapping(value = "/api/console/storage")
 @Validated
 public class ConsoleStorageController extends BaseController {
     @Autowired
@@ -79,17 +79,16 @@ public class ConsoleStorageController extends BaseController {
                         file.getInputStream(), file.getSize(), file.getContentType(), originalFilename);
         Map<String, Object> data = new HashMap<>();
         data.put("url", url);
-
         logger.info("【请求结束】系统中心->文件管理->查询:响应结果:{}", JSONObject.toJSONString(data));
         return ResponseUtil.ok(data);
     }
 
-    @RequiresPermissions("admin:storage:read")
+    @RequiresPermissions("admin:storage:show")
     @RequiresPermissionsDesc(
             menu = {"系统中心", "文件管理"},
             button = "详情")
-    @PostMapping("/read")
-    public Object read(@NotNull Integer id) {
+    @PostMapping("/show")
+    public Object show(@NotNull Integer id) {
         logger.info("【请求开始】系统中心->文件管理->详情,请求参数,id:{}", id);
 
         StorageFile storageFileInfo = fileService.queryFileById(id);

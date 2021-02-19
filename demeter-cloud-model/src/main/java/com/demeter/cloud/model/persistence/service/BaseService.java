@@ -12,6 +12,6 @@ import org.slf4j.LoggerFactory;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 public abstract class BaseService implements Service{
-    private static final Logger logger = LoggerFactory.getLogger(BaseService.class);
+    protected   final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 }
