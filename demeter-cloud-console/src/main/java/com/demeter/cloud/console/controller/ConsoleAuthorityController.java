@@ -6,7 +6,7 @@ import com.demeter.cloud.console.utils.ConsoleWebResponseUtil;
 import com.demeter.cloud.console.web.ConsoleWebResponse;
 import com.demeter.cloud.console.web.Permission;
 import com.demeter.cloud.core.util.CheckEmptyUtil;
-import com.demeter.cloud.core.util.IpUtil;
+import com.demeter.cloud.core.util.IpAddressUtil;
 import com.demeter.cloud.core.util.JacksonUtil;
 import com.demeter.cloud.core.util.ResponseUtil;
 import com.demeter.cloud.model.entity.AdminUser;
@@ -71,7 +71,7 @@ public class ConsoleAuthorityController extends BaseController {
             if (CheckEmptyUtil.isNotEmpty(adminList) && adminList.size() == 1) {
                 AdminUser admin = adminList.get(0);
                 admin.setLastLoginTime(LocalDateTime.now());
-                admin.setLastLoginIp(IpUtil.getIpAddr(request));
+                admin.setLastLoginIp(IpAddressUtil.getIpAddress(request));
                 adminUserService.updateById(admin);
             }
         } catch (UnknownAccountException uae) {

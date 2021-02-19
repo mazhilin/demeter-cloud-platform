@@ -36,4 +36,25 @@ public final class Constants {
      * 设置缓存 6小时，有效期单位 ： 分钟
      */
     public static final Long CACHE_EXPIRE_MINUTES = 60 * 6L;
+
+    public static final String REQUEST_WITH = "X-Requested-With";
+    public static final String REQUEST_HTTP = "XMLHttpRequest";
+    public static final String FORWARDED_IP = "x-forwarded-for";
+    public static final String PROXY_IP = "Proxy-Client-IP";
+    public static final String WL_PROXY_IP = "WL-Proxy-Client-IP";
+    public static final String HTTP_CLIENT_IP = "HTTP_CLIENT_IP";
+    public static final String HTTP_FORWARDED_IP = "HTTP_X_FORWARDED_FOR";
+    public static final String IP_FOUR_LOCALHOST = "127.0.0.1";
+    public static final String IP_SIX_LOCALHOST = "0:0:0:0:0:0:0:1";
+    public static final String IP_SEPARATOR = ",";
+    public static final String UNKNOWN = "unknown";
+    public static final String OS_NAME = "os.name";
+    /**
+     * 系统密码参数- password
+     */
+    public static final String PASSWORD = "password";
+    /**
+     * 重复密码的参数名 -confirmPassword
+     */
+    public static final String CONFIRM_PASSWORD = "confirmPassword";
 }

@@ -1,5 +1,6 @@
 package com.demeter.cloud.console.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.demeter.cloud.console.annotation.RequiresPermissionsDesc;
 import com.demeter.cloud.console.utils.ConsoleWebResponseUtil;
@@ -111,15 +112,15 @@ public class ConsoleUserController extends BaseController {
             }
         }
         AdminUser adminUser =(AdminUser) SecurityUtils.getSubject().getPrincipal();
+        logger.info("系统中心->用户管理->获取当前登录用户 ,结果：\n{}", JSON.toJSON(adminUser));
         String rawPassword = admin.getPassword();
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encodedPassword = encoder.encode(rawPassword);
         admin.setPassword(encodedPassword);
         admin.setType((byte) 0);
-        admin.setCreateTime(LocalDateTime.now());
-        admin.setCreateBy(String.valueOf(admin.getId()));
-        admin.setUpdateBy(String.valueOf(admin.getId()));
-        admin.setUpdateTime(LocalDateTime.now());
+        admin.setNickname(CheckEmptyUtil.isNotEmpty(admin.getNickname())?admin.getNickname():admin.getName());
+        admin.setCreateBy(adminUser.getId().toString());
+        admin.setUpdateBy(adminUser.getId().toString());
         adminUserService.add(admin);
 
         logger.info("【请求结束】系统中心->用户管理->添加,响应结果:{}", JSONObject.toJSONString(admin));

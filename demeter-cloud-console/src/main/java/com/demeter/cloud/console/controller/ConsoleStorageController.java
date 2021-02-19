@@ -50,7 +50,7 @@ public class ConsoleStorageController extends BaseController {
             String name,
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "10") Integer limit,
-            @Sort @RequestParam(defaultValue = "add_time") String sort,
+            @Sort @RequestParam(defaultValue = "create_time") String sort,
             @Order @RequestParam(defaultValue = "desc") String order) {
         logger.info("【请求开始】系统中心->文件管理->查询,请求参数,name:{},key:{},page:{}", name, key, page);
 
