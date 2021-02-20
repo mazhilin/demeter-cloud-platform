@@ -1,25 +1,25 @@
 package com.demeter.cloud.model.service;
 
-
 import com.demeter.cloud.model.entity.Dictionary;
+import com.demeter.cloud.model.entity.RegionInfo;
 
 import java.util.List;
 
 /**
- * <p>封装Qicloud项目DictionaryService类.<br></p>
+ * <p>封装Qicloud项目RegionInfoService类.<br></p>
  * <p>//TODO...<br></p>
  *
- * @author Powered by marklin 2021-02-18 23:21
+ * @author Powered by marklin 2021-02-20 19:32
  * @version 1.0.0
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
-public interface DictionaryService {
+public interface RegionInfoService {
 
     /**
-     * 查询字典列表
+     * 查询区域列表
      * @return 返回列表
      */
-    List<Dictionary> queryDictionaryList();
+    List<RegionInfo> queryRegionList();
 
     /**
      * 查询列表
@@ -30,7 +30,7 @@ public interface DictionaryService {
      * @param order 排序
      * @return 返回列表
      */
-    List<Dictionary> queryList(String name, String code,Integer page, Integer limit, String sort, String order);
+    List<RegionInfo> queryList(String name, String code,Integer page, Integer limit, String sort, String order);
 
 
     /**
@@ -38,28 +38,28 @@ public interface DictionaryService {
      * @param id id
      * @return 返回文件信息
      */
-    Dictionary queryById(Integer id);
+    RegionInfo queryById(Integer id);
 
 
     /**
      * 更新
-     * @param dictionary 信息
+     * @param region 信息
      * @return 返回文件信息
      */
-    int update(Dictionary dictionary);
+    int update(RegionInfo region);
 
     /**
      * 新增
-     * @param dictionary 文件信息
+     * @param region 文件信息
      */
-    void add(Dictionary dictionary);
+    void add(RegionInfo region);
 
     /**
      * 查询
      * @param code 文件索引
      * @return
      */
-    Dictionary queryByCode(String code);
+    RegionInfo queryByCode(String code);
 
     /**
      * 删除
