@@ -49,7 +49,7 @@
 
         <!--数据库连接信息-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://139.9.40.63:3306/demeter-cloud-platform"
+                        connectionURL="jdbc:mysql://139.9.40.63:3306/demeter-cloud-platform?useSSL=false"
                         userId="root"
                         password="PandoraCloud@2020"/>
 
@@ -89,7 +89,7 @@
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
         <!--表名-->
-        <table tableName="demeter_region_info" domainObjectName="RegionInfo" >
+        <table tableName="demeter_activity_template" domainObjectName="ActivityTemplate" >
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <domainObjectRenamingRule searchString="demeter_" replaceString="" />
         </table>
