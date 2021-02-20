@@ -5,7 +5,7 @@ import com.demeter.cloud.model.entity.CustomerUser;
 import java.util.List;
 
 /**
- * <p>封装Qicloud项目CustomerUserService类.<br></p>
+ * <p>封装Dcloud项目CustomerUserService类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-19 01:26

@@ -1,7 +1,7 @@
 package com.demeter.cloud.core.constant;
 
 /**
- * <p>封装Qicloud项目ConfigApi类.<br></p>
+ * <p>封装Dcloud项目ConfigApi类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2020-12-18 00:02

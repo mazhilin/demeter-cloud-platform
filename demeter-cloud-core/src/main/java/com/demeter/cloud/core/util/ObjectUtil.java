@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>封装Qicloud项目ObjectUtil类.<br></p>
+ * <p>封装Dcloud项目ObjectUtil类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2020-12-04 11:23

@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * <p>封装Qicloud项目CompanyServiceImpl类.<br></p>
+ * <p>封装Dcloud项目CompanyServiceImpl类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-18 13:18

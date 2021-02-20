@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>封装Qicloud项目BaseService类.<br></p>
+ * <p>封装Dcloud项目BaseService类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-16 22:38

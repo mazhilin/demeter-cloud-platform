@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.Hashtable;
 
 /**
- * <p>封装Qicloud项目RecodeUtil类.<br></p>
+ * <p>封装Dcloud项目RecodeUtil类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-01-02 23:43

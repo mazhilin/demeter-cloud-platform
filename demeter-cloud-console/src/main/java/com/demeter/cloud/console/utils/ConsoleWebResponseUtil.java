@@ -4,7 +4,7 @@ import com.demeter.cloud.console.web.ConsoleWebResponse;
 import com.demeter.cloud.core.util.ResponseUtil;
 
 /**
- * <p>封装Qicloud项目ConsoleWebResponseUtil类.<br></p>
+ * <p>封装Dcloud项目ConsoleWebResponseUtil类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-16 23:40

@@ -5,7 +5,7 @@ import com.demeter.cloud.model.entity.PermissionInfo;
 import java.util.Set;
 
 /**
- * <p>封装Qicloud项目PermissionInfoService类.<br></p>
+ * <p>封装Dcloud项目PermissionInfoService类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-17 01:45

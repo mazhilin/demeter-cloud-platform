@@ -3,7 +3,7 @@ package com.demeter.cloud.core.constant;
 import com.demeter.cloud.core.BaseHandler;
 
 /**
- * <p>封装Qicloud项目UserType类.<br></p>
+ * <p>封装Dcloud项目UserType类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-17 00:07

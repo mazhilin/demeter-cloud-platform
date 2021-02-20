@@ -8,7 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 /**
- * <p>封装Qicloud项目MD5Util类.<br></p>
+ * <p>封装Dcloud项目MD5Util类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2020-12-04 09:44

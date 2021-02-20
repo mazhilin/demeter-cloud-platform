@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * <p>封装Qicloud项目ConsolePermissionController类.<br></p>
+ * <p>封装Dcloud项目ConsolePermissionController类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-17 03:09

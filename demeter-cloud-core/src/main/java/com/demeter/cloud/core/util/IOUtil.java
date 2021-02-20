@@ -9,7 +9,7 @@ import java.io.Flushable;
 import java.io.IOException;
 
 /**
- * <p>封装Qicloud项目IOUtil类.<br></p>
+ * <p>封装Dcloud项目IOUtil类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2020-12-09 22:29

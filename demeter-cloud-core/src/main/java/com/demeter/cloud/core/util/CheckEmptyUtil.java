@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * <p>封装Qicloud项目CheckEmptyUtil类.<br></p>
+ * <p>封装Dcloud项目CheckEmptyUtil类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-16 23:19

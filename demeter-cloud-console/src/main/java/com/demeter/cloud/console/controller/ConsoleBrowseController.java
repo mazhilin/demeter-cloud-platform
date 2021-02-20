@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>封装Qicloud项目ConsoleProductController类.<br></p>
+ * <p>封装Dcloud项目ConsoleProductController类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-17 03:25

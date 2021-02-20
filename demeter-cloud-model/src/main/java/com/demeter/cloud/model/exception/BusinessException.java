@@ -1,7 +1,7 @@
 package com.demeter.cloud.model.exception;
 
 /**
- * <p>封装Qicloud项目BusinessException类.<br></p>
+ * <p>封装Dcloud项目BusinessException类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-16 21:33

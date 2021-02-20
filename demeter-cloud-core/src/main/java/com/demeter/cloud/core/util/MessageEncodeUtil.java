@@ -12,7 +12,7 @@ import java.net.URLEncoder;
 import java.util.Objects;
 
 /**
- * <p>封装Qicloud项目MessageEncodeUtil类.<br></p>
+ * <p>封装Dcloud项目MessageEncodeUtil类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-20 02:59

@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * <p>封装Qicloud项目RedisUtil类.<br></p>
+ * <p>封装Dcloud项目RedisUtil类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2020-12-07 22:59

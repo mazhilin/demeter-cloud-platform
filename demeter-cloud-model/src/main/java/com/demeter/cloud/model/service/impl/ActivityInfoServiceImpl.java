@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * <p>封装Qicloud项目ActivityInfoServiceImp类.<br></p >
+ * <p>封装Dcloud项目ActivityInfoServiceImp类.<br></p >
  * <p>//TODO...<br></p >
  *
  * @author Powered by Administrator 2021-02-20 19:47

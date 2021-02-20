@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- * <p>封装Qicloud项目ShopScheduleJobApplication类.<br></p>
+ * <p>封装Dcloud项目ShopScheduleJobApplication类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-19 01:58

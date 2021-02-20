@@ -6,7 +6,7 @@ import com.demeter.cloud.model.entity.Dictionary;
 import java.util.List;
 
 /**
- * <p>封装Qicloud项目DictionaryService类.<br></p>
+ * <p>封装Dcloud项目DictionaryService类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-18 23:21

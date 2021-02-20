@@ -5,7 +5,7 @@ import com.demeter.cloud.model.entity.StorageFile;
 import java.util.List;
 
 /**
- * <p>封装Qicloud项目StorageFileService类.<br></p>
+ * <p>封装Dcloud项目StorageFileService类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-17 00:38

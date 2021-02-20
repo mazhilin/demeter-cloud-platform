@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- * <p>封装Qicloud项目DemeterConsoleApiApplication类.<br></p>
+ * <p>封装Dcloud项目DemeterConsoleApiApplication类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-16 21:02

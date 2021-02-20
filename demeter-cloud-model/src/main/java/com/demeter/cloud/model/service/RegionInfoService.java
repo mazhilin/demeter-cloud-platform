@@ -1,12 +1,11 @@
 package com.demeter.cloud.model.service;
 
-import com.demeter.cloud.model.entity.Dictionary;
 import com.demeter.cloud.model.entity.RegionInfo;
 
 import java.util.List;
 
 /**
- * <p>封装Qicloud项目RegionInfoService类.<br></p>
+ * <p>封装Dcloud项目RegionInfoService类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-20 19:32
@@ -17,20 +16,37 @@ public interface RegionInfoService {
 
     /**
      * 查询区域列表
+     *
      * @return 返回列表
      */
     List<RegionInfo> queryRegionList();
 
     /**
+     * 查询省份列表-queryProvinceList
+     *
+     * @return 返回省份列表
+     */
+    List<RegionInfo> queryProvinceList();
+
+    /**
+     * 根据父级编码查询城市列表
+     *
+     * @param parentId 父级编码
+     * @return 返回列表
+     */
+    List<RegionInfo> queryCityListByParentId(Integer parentId);
+
+    /**
      * 查询列表
-     * @param name 名称
-     * @param page 页码
+     *
+     * @param name  名称
+     * @param page  页码
      * @param limit 条数
-     * @param sort 排序
+     * @param sort  排序
      * @param order 排序
      * @return 返回列表
      */
-    List<RegionInfo> queryList(String name, String code,Integer page, Integer limit, String sort, String order);
+    List<RegionInfo> queryList(String name, Integer code, Integer page, Integer limit, String sort, String order);
 
 
     /**
@@ -56,10 +72,11 @@ public interface RegionInfoService {
 
     /**
      * 查询
+     *
      * @param code 文件索引
      * @return
      */
-    RegionInfo queryByCode(String code);
+    RegionInfo queryByCode(Integer code);
 
     /**
      * 删除

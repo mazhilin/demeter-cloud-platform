@@ -3,7 +3,7 @@ package com.demeter.cloud.console.web;
 import com.demeter.cloud.core.BaseHandler;
 
 /**
- * <p>封装Qicloud项目ConsoleWebResponse类.<br></p>
+ * <p>封装Dcloud项目ConsoleWebResponse类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-16 23:34

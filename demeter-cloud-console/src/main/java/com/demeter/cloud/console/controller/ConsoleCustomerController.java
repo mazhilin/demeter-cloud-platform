@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <p>封装Qicloud项目ConsoleCustomerController类.<br></p>
+ * <p>封装Dcloud项目ConsoleCustomerController类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-17 03:15

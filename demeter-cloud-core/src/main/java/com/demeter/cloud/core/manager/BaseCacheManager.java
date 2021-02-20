@@ -3,7 +3,7 @@ package com.demeter.cloud.core.manager;
 import java.util.Map;
 
 /**
- * <p>封装Qicloud项目BaseCacheManager类.<br></p>
+ * <p>封装Dcloud项目BaseCacheManager类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-19 02:31

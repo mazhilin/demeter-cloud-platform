@@ -12,7 +12,7 @@ import com.demeter.cloud.core.constant.MessageConstant;
 import java.util.Map;
 
 /**
- * 封装Qicloud项目SendMessageUtil类.<br>
+ * 封装Dcloud项目SendMessageUtil类.<br>
  *
  * <p>//TODO...<br>
  *

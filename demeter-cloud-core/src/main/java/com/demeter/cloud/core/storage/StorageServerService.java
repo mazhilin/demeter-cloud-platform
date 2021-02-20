@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.util.stream.Stream;
 
 /**
- * <p>封装Qicloud项目StorageServerService类.<br></p>
+ * <p>封装Dcloud项目StorageServerService类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-17 01:08

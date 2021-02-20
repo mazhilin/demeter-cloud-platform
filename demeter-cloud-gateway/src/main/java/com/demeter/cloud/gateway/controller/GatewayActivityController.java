@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>封装Qicloud项目GatewayActivityController类.<br></p>
+ * <p>封装Dcloud项目GatewayActivityController类.<br></p>
  * <p>活动相关<br></p>
  *
  * @author Powered by marklin 2021-02-19 03:28

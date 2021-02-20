@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static com.demeter.cloud.console.web.ConsoleWebResponse.ADMIN_INVALID_OLD_PASSWORD;
 
 /**
- * <p>封装Qicloud项目ConsoleProfileController类.<br></p>
+ * <p>封装Dcloud项目ConsoleProfileController类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-17 16:32

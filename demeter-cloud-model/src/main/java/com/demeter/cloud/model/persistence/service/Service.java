@@ -1,7 +1,7 @@
 package com.demeter.cloud.model.persistence.service;
 
 /**
- * <p>封装Qicloud项目Service类.<br></p>
+ * <p>封装Dcloud项目Service类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-16 22:37

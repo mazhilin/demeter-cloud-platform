@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.constraints.NotNull;
 
 /**
- * <p>封装Qicloud项目GatewayHomeController类.<br></p>
+ * <p>封装Dcloud项目GatewayHomeController类.<br></p>
  * <p>首页<br></p>
  *
  * @author Powered by marklin 2021-02-19 03:03

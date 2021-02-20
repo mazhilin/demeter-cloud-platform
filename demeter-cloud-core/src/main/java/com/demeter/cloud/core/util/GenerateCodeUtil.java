@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * <p>封装Qicloud项目GenerateCodeUtil类.<br></p>
+ * <p>封装Dcloud项目GenerateCodeUtil类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2020-12-07 22:51

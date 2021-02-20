@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * <p>封装Qicloud项目FastjsonUtil类.<br></p>
+ * <p>封装Dcloud项目FastjsonUtil类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2020-12-09 22:13

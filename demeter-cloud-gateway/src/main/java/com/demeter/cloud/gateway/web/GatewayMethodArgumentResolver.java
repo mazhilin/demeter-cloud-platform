@@ -9,7 +9,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 /**
- * <p>封装Qicloud项目GatewayMethodArgumentResolver类.<br></p>
+ * <p>封装Dcloud项目GatewayMethodArgumentResolver类.<br></p>
  * <p>//TODO...<br></p>
  *
  * @author Powered by marklin 2021-02-19 02:12
