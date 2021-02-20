@@ -26,4 +26,5 @@ public class ConsoleWebSessionManager extends DefaultWebSessionManager {
 			return super.getSessionId(request, response);
 		}
 	}
+
 }

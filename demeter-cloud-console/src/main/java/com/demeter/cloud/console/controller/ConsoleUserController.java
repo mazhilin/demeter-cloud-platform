@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.demeter.cloud.console.annotation.RequiresPermissionsDesc;
 import com.demeter.cloud.console.utils.ConsoleWebResponseUtil;
 import com.demeter.cloud.console.web.ConsoleWebResponse;
+import com.demeter.cloud.core.constant.Constants;
 import com.demeter.cloud.core.util.CheckEmptyUtil;
 import com.demeter.cloud.core.util.ResponseUtil;
 import com.demeter.cloud.core.util.bcrypt.BCryptPasswordEncoder;
@@ -22,7 +23,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -111,14 +111,15 @@ public class ConsoleUserController extends BaseController {
                 return ConsoleWebResponseUtil.fail(ConsoleWebResponse.ADMIN_NAME_EXIST);
             }
         }
-        AdminUser adminUser =(AdminUser) SecurityUtils.getSubject().getPrincipal();
+        AdminUser adminUser = (AdminUser) SecurityUtils.getSubject().getPrincipal();
         logger.info("系统中心->用户管理->获取当前登录用户 ,结果：\n{}", JSON.toJSON(adminUser));
         String rawPassword = admin.getPassword();
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encodedPassword = encoder.encode(rawPassword);
         admin.setPassword(encodedPassword);
         admin.setType((byte) 0);
-        admin.setNickname(CheckEmptyUtil.isNotEmpty(admin.getNickname())?admin.getNickname():admin.getName());
+        admin.setNickname(CheckEmptyUtil.isNotEmpty(admin.getNickname()) ? admin.getNickname() : admin.getName());
+        admin.setEmail(CheckEmptyUtil.isNotEmpty(admin.getEmail()) ? admin.getEmail() : adminUser.getAccount() + Constants.DEFAULT_EMAIL);
         admin.setCreateBy(adminUser.getId().toString());
         admin.setUpdateBy(adminUser.getId().toString());
         adminUserService.add(admin);

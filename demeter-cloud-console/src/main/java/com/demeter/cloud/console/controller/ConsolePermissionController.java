@@ -45,9 +45,9 @@ public class ConsolePermissionController extends BaseController {
     private List<PermissionData> getSystemPermissions() {
         final String basicPackage = "com.mall.cloud.console";
         if (permissionData == null) {
-            List<Permission> permissions = ConsolePermissionUtil.listPermission(context, basicPackage);
-            permissionData = ConsolePermissionUtil.listPermVo(permissions);
-            permissionSet = ConsolePermissionUtil.listPermissionString(permissions);
+            List<Permission> permissions = ConsolePermissionUtil.permissionList(context, basicPackage);
+            permissionData = ConsolePermissionUtil.permissionDataList(permissions);
+            permissionSet = ConsolePermissionUtil.permissionSet(permissions);
         }
         return permissionData;
     }

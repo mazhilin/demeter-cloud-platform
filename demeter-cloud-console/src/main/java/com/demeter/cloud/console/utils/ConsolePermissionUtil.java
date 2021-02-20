@@ -3,6 +3,8 @@ package com.demeter.cloud.console.utils;
 import com.demeter.cloud.console.annotation.RequiresPermissionsDesc;
 import com.demeter.cloud.console.web.Permission;
 import com.demeter.cloud.console.web.PermissionData;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -15,7 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * <p>封装Qicloud项目ConsolePermissionUtil类.<br></p>
@@ -26,8 +31,15 @@ import java.util.*;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 public class ConsolePermissionUtil {
-    public static List<PermissionData> listPermVo(List<Permission> permissions) {
-        List<PermissionData> root = new ArrayList<>();
+
+    /**
+     * 查询系统权限数据集合
+     *
+     * @param permissions 权限数据集合
+     * @return 返回集合
+     */
+    public static List<PermissionData> permissionDataList(List<Permission> permissions) {
+        List<PermissionData> root = Lists.newLinkedList();
         for (Permission permission : permissions) {
             RequiresPermissions requiresPermissions = permission.getRequiresPermissions();
             RequiresPermissionsDesc requiresPermissionsDesc = permission.getRequiresPermissionsDesc();
@@ -93,8 +105,15 @@ public class ConsolePermissionUtil {
         return root;
     }
 
+    /**
+     * 权限列表处理
+     *
+     * @param context      应用上下文
+     * @param basicPackage 基础包
+     * @return 返回列表
+     */
     @SuppressWarnings("rawtypes")
-    public static List<Permission> listPermission(ApplicationContext context, String basicPackage) {
+    public static List<Permission> permissionList(ApplicationContext context, String basicPackage) {
         Map<String, Object> map = context.getBeansWithAnnotation(Controller.class);
         List<Permission> permissions = new ArrayList<>();
         for (Map.Entry<String, Object> entry : map.entrySet()) {
@@ -151,11 +170,17 @@ public class ConsolePermissionUtil {
         return permissions;
     }
 
-    public static Set<String> listPermissionString(List<Permission> permissions) {
-        Set<String> permissionsString = new HashSet<>();
+    /**
+     * 系统权限集合
+     *
+     * @param permissions 权限列表
+     * @return 返回值
+     */
+    public static Set<String> permissionSet(List<Permission> permissions) {
+        Set<String> permissionsSet = Sets.newConcurrentHashSet();
         for (Permission permission : permissions) {
-            permissionsString.add(permission.getRequiresPermissions().value()[0]);
+            permissionsSet.add(permission.getRequiresPermissions().value()[0]);
         }
-        return permissionsString;
+        return permissionsSet;
     }
 }

@@ -40,7 +40,6 @@ public class ConsoleProfileController extends BaseController {
     @PostMapping(value = "password")
     public Object create(@RequestBody String body) {
         logger.info("【请求开始】系统管理->修改密码,请求参数,body:{}", body);
-
         String oldPassword = JacksonUtil.parseString(body, "oldPassword");
         String newPassword = JacksonUtil.parseString(body, "newPassword");
         if (StringUtils.isEmpty(oldPassword)) {
@@ -61,7 +60,7 @@ public class ConsoleProfileController extends BaseController {
 
         String encodedNewPassword = encoder.encode(newPassword);
         admin.setPassword(encodedNewPassword);
-
+        admin.setUpdateBy(admin.getId().toString());
         adminUserService.updateById(admin);
 
         logger.info("【请求结束】系统管理->修改密码,响应结果:{}", "成功!");

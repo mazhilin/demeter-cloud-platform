@@ -89,8 +89,8 @@ public class ConsoleAuthorityController extends BaseController {
         return ResponseUtil.ok(currentUser.getSession().getId());
     }
 
-
-    @PostMapping("/logout")
+    @RequiresAuthentication
+    @PostMapping(value = "logout")
     public Object logout() {
         Subject currentUser = SecurityUtils.getSubject();
         currentUser.logout();
@@ -100,7 +100,7 @@ public class ConsoleAuthorityController extends BaseController {
 
 
     @RequiresAuthentication
-    @GetMapping("/info")
+    @GetMapping(value = "info")
     public Object info() {
         Subject currentUser = SecurityUtils.getSubject();
         AdminUser admin = (AdminUser) currentUser.getPrincipal();
@@ -125,7 +125,7 @@ public class ConsoleAuthorityController extends BaseController {
         if (permissionsMap == null) {
             permissionsMap = new HashMap<>();
             final String basicPackage = "com.demeter.cloud.console";
-            List<Permission> systemPermissions = ConsolePermissionUtil.listPermission(context, basicPackage);
+            List<Permission> systemPermissions = ConsolePermissionUtil.permissionList(context, basicPackage);
             for (Permission permission : systemPermissions) {
                 String perm = permission.getRequiresPermissions().value()[0];
                 String api = permission.getApi();

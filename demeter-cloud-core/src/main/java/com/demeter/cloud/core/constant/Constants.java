@@ -49,6 +49,17 @@ public final class Constants {
     public static final String IP_SEPARATOR = ",";
     public static final String UNKNOWN = "unknown";
     public static final String OS_NAME = "os.name";
+
+    /**
+     * 系统统一密码- DEFAULT_PASSWORD[123456@Abc]
+     */
+    public static final String DEFAULT_PASSWORD = "123456@Abc";
+
+    /**
+     * 系统统一邮箱- DEFAULT_EMAIL[123456@Abc]
+     */
+    public static final String DEFAULT_EMAIL = "@dcloud.com";
+
     /**
      * 系统密码参数- password
      */
