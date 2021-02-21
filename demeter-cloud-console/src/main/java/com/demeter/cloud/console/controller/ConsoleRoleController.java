@@ -32,7 +32,7 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/api/console/role/")
+@RequestMapping(value = "/admin/role/")
 @Validated
 public class ConsoleRoleController extends BaseController {
 
@@ -40,7 +40,7 @@ public class ConsoleRoleController extends BaseController {
     private RoleInfoService roleService;
 
     @RequiresPermissions("admin:role:list")
-    @RequiresPermissionsDesc(menu = {"系统中心", "角色管理"}, button = "角色查询")
+    @RequiresPermissionsDesc(menu = {"系统中心", "角色管理"}, button = "列表")
     @GetMapping(value = "list")
     public Object list(
             @RequestParam(name = "code",required = false) String code,
@@ -49,13 +49,13 @@ public class ConsoleRoleController extends BaseController {
             @RequestParam(defaultValue = "10") Integer limit,
             @Sort @RequestParam(defaultValue = "create_time") String sort,
             @Order @RequestParam(defaultValue = "desc") String order) {
-        logger.info("【请求开始】系统中心->角色管理->角色查询,请求参数,name:{},page:{}", name, page);
+        logger.info("【请求开始】系统中心->角色管理->列表,请求参数,name:{},page:{}", name, page);
         List<RoleInfo> roleList = roleService.queryRoleList(code, name, page, limit, sort, order);
         long total = PageInfo.of(roleList).getTotal();
         Map<String, Object> data = new HashMap<>();
         data.put("total", total);
         data.put("items", roleList);
-        logger.info("【请求结束】系统中心->角色管理->角色查询,响应结果:{}", JSONObject.toJSONString(data));
+        logger.info("【请求结束】系统中心->角色管理->列表,响应结果:{}", JSONObject.toJSONString(data));
         return ResponseUtil.ok(data);
     }
 
@@ -77,7 +77,7 @@ public class ConsoleRoleController extends BaseController {
     }
 
     @RequiresPermissions("admin:role:edit")
-    @RequiresPermissionsDesc(menu = {"系统中心", "角色管理"}, button = "角色编辑")
+    @RequiresPermissionsDesc(menu = {"系统中心", "角色管理"}, button = "编辑")
     @GetMapping(value = "edit")
     public Object edit(@RequestBody RoleInfo role) {
         logger.info("【请求开始】系统中心->角色管理->角色编辑,请求参数,role:{}", JSONObject.toJSONString(role));
@@ -91,12 +91,12 @@ public class ConsoleRoleController extends BaseController {
     }
 
     @RequiresPermissions("admin:role:show")
-    @RequiresPermissionsDesc(menu = {"系统中心", "角色管理"}, button = "角色详情")
+    @RequiresPermissionsDesc(menu = {"系统中心", "角色管理"}, button = "详情")
     @GetMapping(value = "show")
     public Object show(@NotNull Integer id) {
-        logger.info("【请求开始】系统中心->角色管理->角色详情,请求参数,id:{}", id);
+        logger.info("【请求开始】系统中心->角色管理->详情,请求参数,id:{}", id);
         RoleInfo role = roleService.queryById(id);
-        logger.info("【请求结束】系统中心->角色管理->角色详情,响应结果:{}", JSONObject.toJSONString(role));
+        logger.info("【请求结束】系统中心->角色管理->详情,响应结果:{}", JSONObject.toJSONString(role));
         return ResponseUtil.ok(role);
     }
 
@@ -110,10 +110,10 @@ public class ConsoleRoleController extends BaseController {
     }
 
     @RequiresPermissions("admin:role:create")
-    @RequiresPermissionsDesc(menu = {"系统中心", "角色管理"}, button = "角色添加")
+    @RequiresPermissionsDesc(menu = {"系统中心", "角色管理"}, button = "新增")
     @PostMapping(value = "create")
     public Object create(@RequestBody RoleInfo role) {
-        logger.info("【请求开始】系统中心->角色管理->角色添加,请求参数:{}", JSONObject.toJSONString(role));
+        logger.info("【请求开始】系统中心->角色管理->新增,请求参数:{}", JSONObject.toJSONString(role));
 
         Object error = validate(role);
         if (error != null) {
@@ -121,35 +121,35 @@ public class ConsoleRoleController extends BaseController {
         }
 
         if (roleService.checkExist(role.getName())) {
-            logger.info("系统中心->角色管理->角色添加错误:{}", ConsoleWebResponse.ROLE_NAME_EXIST.message());
+            logger.info("系统中心->角色管理->新增 错误:{}", ConsoleWebResponse.ROLE_NAME_EXIST.message());
             return ConsoleWebResponseUtil.fail(ConsoleWebResponse.ROLE_NAME_EXIST);
         }
 
         roleService.add(role);
 
-        logger.info("【请求结束】系统中心->角色管理->角色添加,响应结果:{}", JSONObject.toJSONString(role));
+        logger.info("【请求结束】系统中心->角色管理->新增,响应结果:{}", JSONObject.toJSONString(role));
         return ResponseUtil.ok(role);
     }
 
     @RequiresPermissions("admin:role:update")
-    @RequiresPermissionsDesc(menu = {"系统中心", "角色管理"}, button = "角色更新")
+    @RequiresPermissionsDesc(menu = {"系统中心", "角色管理"}, button = "更新")
     @PostMapping(value = "update")
     public Object update(@RequestBody RoleInfo role) {
-        logger.info("【请求开始】系统中心->角色管理->角色更新,请求参数:{}", JSONObject.toJSONString(role));
+        logger.info("【请求开始】系统中心->角色管理->更新,请求参数:{}", JSONObject.toJSONString(role));
         Object error = validate(role);
         if (error != null) {
             return error;
         }
         roleService.updateById(role);
-        logger.info("【请求结束】系统中心->角色管理->角色更新,响应结果:{}", "成功!");
+        logger.info("【请求结束】系统中心->角色管理->更新,响应结果:{}", "成功!");
         return ResponseUtil.ok();
     }
 
     @RequiresPermissions("admin:role:delete")
-    @RequiresPermissionsDesc(menu = {"系统中心", "角色管理"}, button = "角色删除")
+    @RequiresPermissionsDesc(menu = {"系统中心", "角色管理"}, button = "删除")
     @PostMapping(value = "delete")
     public Object delete(@RequestBody RoleInfo role) {
-        logger.info("【请求开始】系统中心->角色管理->角色删除,请求参数,id:{}", JSONObject.toJSONString(role));
+        logger.info("【请求开始】系统中心->角色管理->删除,请求参数,id:{}", JSONObject.toJSONString(role));
 
         Integer id = role.getId();
         if (id == null) {
@@ -157,7 +157,7 @@ public class ConsoleRoleController extends BaseController {
         }
         roleService.deleteById(id);
 
-        logger.info("【请求结束】系统中心->角色管理->角色删除,响应结果:{}", "成功!");
+        logger.info("【请求结束】系统中心->角色管理->删除,响应结果:{}", "成功!");
         return ResponseUtil.ok();
     }
 

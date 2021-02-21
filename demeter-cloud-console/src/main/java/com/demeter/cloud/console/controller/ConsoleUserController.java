@@ -36,7 +36,7 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/api/console/user/")
+@RequestMapping(value = "/admin/user/")
 @Validated
 public class ConsoleUserController extends BaseController {
 
@@ -44,20 +44,20 @@ public class ConsoleUserController extends BaseController {
     private AdminUserService adminUserService;
 
     @RequiresPermissions("admin:user:list")
-    @RequiresPermissionsDesc(menu = {"系统中心", "用户管理"}, button = "查询")
+    @RequiresPermissionsDesc(menu = {"系统中心", "用户管理"}, button = "列表")
     @GetMapping(value = "list")
     public Object list(String username, @RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer limit,
                        @Sort @RequestParam(defaultValue = "create_time") String sort,
                        @Order @RequestParam(defaultValue = "desc") String order) {
-        logger.info("【请求开始】系统中心->用户管理->查询,请求参数:username:{},page:{}", username, page);
+        logger.info("【请求开始】系统中心->用户管理->列表,请求参数:username:{},page:{}", username, page);
 
         List<AdminUser> adminList = adminUserService.queryAdminUserList(username, page, limit, sort, order);
         long total = PageInfo.of(adminList).getTotal();
         Map<String, Object> data = new HashMap<>();
         data.put("total", total);
         data.put("items", adminList);
-        logger.info("【请求结束】系统中心->用户管理->查询,响应结果:{}", JSONObject.toJSONString(data));
+        logger.info("【请求结束】系统中心->用户管理->列表,响应结果:{}", JSONObject.toJSONString(data));
         return ResponseUtil.ok(data);
     }
 
@@ -88,10 +88,10 @@ public class ConsoleUserController extends BaseController {
     }
 
     @RequiresPermissions("admin:user:create")
-    @RequiresPermissionsDesc(menu = {"系统中心", "用户管理"}, button = "添加")
+    @RequiresPermissionsDesc(menu = {"系统中心", "用户管理"}, button = "新增")
     @PostMapping(value = "create")
     public Object create(@RequestBody AdminUser admin) {
-        logger.info("【请求开始】系统中心->用户管理->添加,请求参数:{}", JSONObject.toJSONString(admin));
+        logger.info("【请求开始】系统中心->用户管理->新增,请求参数:{}", JSONObject.toJSONString(admin));
 
         Object error = validate(admin);
         if (error != null) {
@@ -100,14 +100,14 @@ public class ConsoleUserController extends BaseController {
         String account = admin.getAccount();
         List<AdminUser> adminList = adminUserService.queryAdminUserByAccount(account);
         if (adminList.size() > 0) {
-            logger.error("系统中心->用户管理->添加 ,错误：{}", ConsoleWebResponse.ADMIN_NAME_EXIST.message());
+            logger.error("系统中心->用户管理->新增 ,错误：{}", ConsoleWebResponse.ADMIN_NAME_EXIST.message());
             return ConsoleWebResponseUtil.fail(ConsoleWebResponse.ADMIN_NAME_EXIST);
         }
         String username = admin.getName();
         if (CheckEmptyUtil.isNotEmpty(username)) {
             adminList = adminUserService.queryAdminUserByUsername(username);
             if (adminList.size() > 0) {
-                logger.error("系统中心->用户管理->添加 ,错误：{}", ConsoleWebResponse.ADMIN_NAME_EXIST.message());
+                logger.error("系统中心->用户管理->新增 ,错误：{}", ConsoleWebResponse.ADMIN_NAME_EXIST.message());
                 return ConsoleWebResponseUtil.fail(ConsoleWebResponse.ADMIN_NAME_EXIST);
             }
         }
@@ -124,14 +124,14 @@ public class ConsoleUserController extends BaseController {
         admin.setUpdateBy(adminUser.getId().toString());
         adminUserService.add(admin);
 
-        logger.info("【请求结束】系统中心->用户管理->添加,响应结果:{}", JSONObject.toJSONString(admin));
+        logger.info("【请求结束】系统中心->用户管理->新增,响应结果:{}", JSONObject.toJSONString(admin));
         return ResponseUtil.ok(admin);
     }
 
-    @RequiresPermissions("admin:user:edit")
+    @RequiresPermissions("admin:user:show")
     @RequiresPermissionsDesc(menu = {"系统中心", "用户管理"}, button = "详情")
-    @GetMapping(value = "edit")
-    public Object edit(@NotNull Integer id) {
+    @GetMapping(value = "show")
+    public Object show(@NotNull Integer id) {
         logger.info("【请求开始】系统中心->用户管理->详情,请求参数,id:{}", id);
 
         AdminUser admin = adminUserService.findById(id);
@@ -140,10 +140,10 @@ public class ConsoleUserController extends BaseController {
         return ResponseUtil.ok(admin);
     }
 
-    @RequiresPermissions("admin:user:update")
+    @RequiresPermissions("admin:user:edit")
     @RequiresPermissionsDesc(menu = {"系统中心", "用户管理"}, button = "编辑")
-    @PostMapping(value = "update")
-    public Object update(@RequestBody AdminUser admin) {
+    @PostMapping(value = "edit")
+    public Object edit(@RequestBody AdminUser admin) {
         logger.info("【请求开始】系统中心->用户管理->编辑,请求参数:{}", JSONObject.toJSONString(admin));
 
         Object error = validate(admin);
@@ -170,6 +170,36 @@ public class ConsoleUserController extends BaseController {
         return ResponseUtil.ok(admin);
     }
 
+    @RequiresPermissions("admin:user:update")
+    @RequiresPermissionsDesc(menu = {"系统中心", "用户管理"}, button = "更新")
+    @PostMapping(value = "update")
+    public Object update(@RequestBody AdminUser admin) {
+        logger.info("【请求开始】系统中心->用户管理->更新,请求参数:{}", JSONObject.toJSONString(admin));
+
+        Object error = validate(admin);
+        if (error != null) {
+            return error;
+        }
+
+        Integer anotherAdminId = admin.getId();
+        if (anotherAdminId == null) {
+            return ResponseUtil.badArgument();
+        }
+
+        String rawPassword = admin.getPassword();
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodedPassword = encoder.encode(rawPassword);
+        admin.setPassword(encodedPassword);
+
+        if (adminUserService.updateById(admin) == 0) {
+            logger.error("系统中心->用户管理-更新 ,错误：{}", "更新数据失败！");
+            return ResponseUtil.updatedDataFailed();
+        }
+
+        logger.info("【请求结束】系统中心->用户管理->更新,响应结果:{}", JSONObject.toJSONString(admin));
+        return ResponseUtil.ok(admin);
+    }
+
     @RequiresPermissions("admin:user:delete")
     @RequiresPermissionsDesc(menu = {"系统中心", "用户管理"}, button = "删除")
     @PostMapping(value = "delete")
@@ -183,7 +213,7 @@ public class ConsoleUserController extends BaseController {
 
         adminUserService.deleteById(anotherAdminId);
 
-        logger.info("【请求结束】系统中心->用户管理->删除 成功！");
+        logger.info("【请求结束】系统中心->用户管理->删除 响应结果:{}", ResponseUtil.ok());
         return ResponseUtil.ok();
     }
 

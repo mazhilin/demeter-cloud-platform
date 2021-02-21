@@ -29,9 +29,9 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/api/console/dispose/")
+@RequestMapping(value = "/admin/config/")
 @Validated
-public class ConsoleDisposeController extends BaseController {
+public class ConsoleConfigController extends BaseController {
 
     @Autowired
     private ConfigParameterService configParameterService;
@@ -40,7 +40,7 @@ public class ConsoleDisposeController extends BaseController {
     @RequiresPermissions("admin:config:list")
     @RequiresPermissionsDesc(
             menu = {"配置中心", "配置管理"},
-            button = "查询")
+            button = "列表")
     @GetMapping(value = "list")
     public Object list(
             String name,
@@ -49,14 +49,14 @@ public class ConsoleDisposeController extends BaseController {
             @RequestParam(defaultValue = "10") Integer limit,
             @Sort @RequestParam(defaultValue = "create_time") String sort,
             @Order @RequestParam(defaultValue = "desc") String order) {
-        logger.info("【请求开始】配置中心->配置管理->查询,请求参数,name:{},code:{},page:{}", name, code, page);
+        logger.info("【请求开始】配置中心->配置管理->列表,请求参数,name:{},code:{},page:{}", name, code, page);
         List<ConfigParameter> parameterList =
                 configParameterService.queryList(name, code, page, limit, sort, order);
         long total = PageInfo.of(parameterList).getTotal();
         Map<String, Object> data = new HashMap<>();
         data.put("total", total);
         data.put("items", parameterList);
-        logger.info("【请求结束】【请求开始】配置中心->配置管理->查询:响应结果:{}", JSONObject.toJSONString(data));
+        logger.info("【请求结束】【请求开始】配置中心->配置管理->列表:响应结果:{}", JSONObject.toJSONString(data));
         return ResponseUtil.ok(data);
     }
 
@@ -87,10 +87,10 @@ public class ConsoleDisposeController extends BaseController {
     @RequiresPermissions("admin:config:create")
     @RequiresPermissionsDesc(
             menu = {"配置中心", "配置管理"},
-            button = "添加")
+            button = "新增")
     @PostMapping(value = "create")
     public Object create(@RequestBody ConfigParameter parameter) {
-        logger.info("【请求开始】配置中心->配置管理->添加,请求参数:{}", JSONObject.toJSONString(parameter));
+        logger.info("【请求开始】配置中心->配置管理->新增,请求参数:{}", JSONObject.toJSONString(parameter));
 
         Object error = validate(parameter);
         if (error != null) {
@@ -98,7 +98,7 @@ public class ConsoleDisposeController extends BaseController {
         }
         configParameterService.add(parameter);
 
-        logger.info("【请求结束】配置中心->配置管理->添加,响应结果:{}", JSONObject.toJSONString(parameter));
+        logger.info("【请求结束】配置中心->配置管理->新增,响应结果:{}", JSONObject.toJSONString(parameter));
         return ResponseUtil.ok(parameter);
     }
 

@@ -1,33 +1,39 @@
 demeter:
   cloud:
-   # 对象存储配置
-   storage:
-    # 当前工作的对象存储模式，分别是local、aliyun、tencent、qiniu
-    active: aliyun
-    # 本地对象存储配置信息
-    local:
-      storagePath: app/fileupload
-      # 这个地方应该是wx模块的WxStorageController的fetch方法对应的地址
-      address: http://localhost:8080/demo/storage/
-    # 阿里云对象存储配置信息
-    aliyun:
-      endpoint: oss-cn-beijing.aliyuncs.com
-      accessKeyId: LTAI4G2Pn5ztxA2rRgFMJsoh
-      accessKeySecret: LFybagHCTfujIH47Rl0PemfF2xGzaD
-      bucketName: develop-platform
-    # 腾讯对象存储配置信息
-    # 请参考 https://cloud.tencent.com/document/product/436/6249
-    tencent:
-      secretId: 111111
-      secretKey: xxxxxx
-      region: xxxxxx
-      bucketName: dts
-    # 七牛云对象存储配置信息
-    qiniu:
-      endpoint: http://dtsshop.wx.clouddn.com
-      accessKey: 111111
-      secretKey: xxxxxx
-      bucketName: dts
+    # 对象存储配置
+    storage:
+      # 当前工作的对象存储模式，分别是local、aliyun、tencent、qiniu,minio
+      active: minio
+      # 本地对象存储配置信息
+      local:
+        # 这个地方应该是wx模块的WxStorageController的fetch方法对应的地址
+        address: http://localhost:8080/demo/storage/
+        storage-path: app/fileupload
+        # 阿里云对象存储配置信息
+      aliyun:
+        access-key-id: LTAI4G2Pn5ztxA2rRgFMJsoh
+        access-key-secret: LFybagHCTfujIH47Rl0PemfF2xGzaD
+        endpoint: oss-cn-beijing.aliyuncs.com
+        bucket-name: develop-platform
+        # 腾讯对象存储配置信息
+        # 请参考 https://cloud.tencent.com/document/product/436/6249
+      tencent:
+        access-key-id: 111111
+        access-key-secret: xxxxxx
+        endpoint: xxxxxx
+        bucket-name: dcloud
+        # 七牛云对象存储配置信息
+      qiniu:
+        access-key-id: 111111
+        access-key-secret: xxxxxx
+        bucket-name: dcloud
+        endpoint: http://dcloud.clouddn.com
+      minio:
+        access-key-id: root
+        access-key-secret: PandoraCloud@2020
+        bucket-name: developer-cloud
+        endpoint: http://139.9.40.63:9999/
+
 
 pagehelper:
   helperDialect:  mysql

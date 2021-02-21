@@ -31,7 +31,7 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/console/dictionary/")
+@RequestMapping(value = "/admin/dictionary/")
 @Validated
 public class ConsoleDictionaryController extends BaseController {
     @Autowired
@@ -43,7 +43,7 @@ public class ConsoleDictionaryController extends BaseController {
     @RequiresPermissions("admin:dictionary:list")
     @RequiresPermissionsDesc(
             menu = {"配置中心", "数据字典"},
-            button = "查询")
+            button = "列表")
     @GetMapping("/list")
     public Object list(
             String name,
@@ -52,13 +52,13 @@ public class ConsoleDictionaryController extends BaseController {
             @RequestParam(defaultValue = "10") Integer limit,
             @Sort @RequestParam(defaultValue = "create_time") String sort,
             @Order @RequestParam(defaultValue = "desc") String order) {
-        logger.info("【请求开始】配置中心->数据字典->查询,请求参数,name:{},code:{},page:{}", name, code, page);
+        logger.info("【请求开始】配置中心->数据字典->列表,请求参数,name:{},code:{},page:{}", name, code, page);
         List<Dictionary> dictionaryList = dictionaryService.queryList(name, code, page, limit, sort, order);
         long total = PageInfo.of(dictionaryList).getTotal();
         Map<String, Object> data = new HashMap<>();
         data.put("total", total);
         data.put("items", dictionaryList);
-        logger.info("【请求结束】【请求开始】配置中心->数据字典->查询:响应结果:{}", JSONObject.toJSONString(data));
+        logger.info("【请求结束】【请求开始】配置中心->数据字典->列表:响应结果:{}", JSONObject.toJSONString(data));
         return ResponseUtil.ok(data);
     }
 
@@ -117,17 +117,17 @@ public class ConsoleDictionaryController extends BaseController {
     @RequiresPermissions("admin:dictionary:create")
     @RequiresPermissionsDesc(
             menu = {"配置中心", "数据字典"},
-            button = "添加")
+            button = "新增")
     @PostMapping("/create")
     public Object create(@RequestBody Dictionary dictionary) {
-        logger.info("【请求开始】配置中心->数字字典->添加,请求参数:{}", JSONObject.toJSONString(dictionary));
+        logger.info("【请求开始】配置中心->数字字典->新增,请求参数:{}", JSONObject.toJSONString(dictionary));
 
         Object error = validate(dictionary);
         if (error != null) {
             return error;
         }
         dictionaryService.add(dictionary);
-        logger.info("【请求结束】配置中心->数字字典->添加,响应结果:{}", JSONObject.toJSONString(dictionary));
+        logger.info("【请求结束】配置中心->数字字典->新增,响应结果:{}", JSONObject.toJSONString(dictionary));
         return ResponseUtil.ok(dictionary);
     }
 

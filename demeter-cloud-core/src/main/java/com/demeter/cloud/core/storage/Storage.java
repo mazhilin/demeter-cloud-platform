@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 /**
  * <p>封装Dcloud项目Storage类.<br></p>
- * <p>//TODO...<br></p>
+ * <p>封装系统存储Storage接口<br></p>
  *
  * @author Powered by marklin 2021-02-17 00:58
  * @version 1.0.0

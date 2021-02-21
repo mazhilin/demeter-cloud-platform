@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 public class ConsoleWebSessionManager extends DefaultWebSessionManager {
 
-	public static final String LOGIN_TOKEN_KEY = "X-Console-Web-Token";
+	public static final String LOGIN_TOKEN_KEY = "X-ConsoleMaterialController-Web-Token";
 	private static final String REFERENCED_SESSION_ID_SOURCE = "Stateless request";
 
 	@Override

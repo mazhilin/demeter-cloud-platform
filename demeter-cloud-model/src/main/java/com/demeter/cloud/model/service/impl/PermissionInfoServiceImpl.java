@@ -6,6 +6,7 @@ import com.demeter.cloud.model.exception.BusinessException;
 import com.demeter.cloud.model.mapper.PermissionInfoMapper;
 import com.demeter.cloud.model.persistence.service.BaseService;
 import com.demeter.cloud.model.service.PermissionInfoService;
+import com.google.common.collect.Sets;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,7 +39,7 @@ public class PermissionInfoServiceImpl extends BaseService implements Permission
      */
     @Override
     public Set<String> queryByRoleIds(Integer[] roleIds) {
-        Set<String> permissions = new HashSet<String>();
+        Set<String> permissions = Sets.newConcurrentHashSet();
         if (roleIds.length == 0) {
             return permissions;
         }

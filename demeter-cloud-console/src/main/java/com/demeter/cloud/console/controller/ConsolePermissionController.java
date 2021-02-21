@@ -7,6 +7,7 @@ import com.demeter.cloud.console.utils.ConsoleWebResponseUtil;
 import com.demeter.cloud.console.web.ConsoleWebResponse;
 import com.demeter.cloud.console.web.Permission;
 import com.demeter.cloud.console.web.PermissionData;
+import com.demeter.cloud.core.util.CheckEmptyUtil;
 import com.demeter.cloud.core.util.JacksonUtil;
 import com.demeter.cloud.core.util.ResponseUtil;
 import com.demeter.cloud.model.entity.PermissionInfo;
@@ -32,7 +33,7 @@ import java.util.Set;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/api/console/permission")
+@RequestMapping(value = "/admin/permission/")
 @Validated
 public class ConsolePermissionController extends BaseController {
     @Autowired
@@ -43,7 +44,7 @@ public class ConsolePermissionController extends BaseController {
     private Set<String> permissionSet = null;
 
     private List<PermissionData> getSystemPermissions() {
-        final String basicPackage = "com.mall.cloud.console";
+        final String basicPackage = "com.demeter.cloud.console";
         if (permissionData == null) {
             List<Permission> permissions = ConsolePermissionUtil.permissionList(context, basicPackage);
             permissionData = ConsolePermissionUtil.permissionDataList(permissions);
@@ -71,10 +72,10 @@ public class ConsolePermissionController extends BaseController {
      * @return 系统所有权限列表和管理员已分配权限
      */
     @RequiresPermissions("admin:permission:list")
-    @RequiresPermissionsDesc(menu = {"系统中心", "权限管理"}, button = "权限详情")
+    @RequiresPermissionsDesc(menu = {"系统中心", "权限管理"}, button = "列表")
     @GetMapping(value = "list")
     public Object list(Integer roleId) {
-        logger.info("【请求开始】系统中心->权限管理->权限详情,请求参数,roleId:{}", roleId);
+        logger.info("【请求开始】系统中心->权限管理->列表,请求参数,roleId:{}", roleId);
 
         List<PermissionData> systemPermissions = getSystemPermissions();
         Set<String> assignedPermissions = getAssignedPermissions(roleId);
@@ -83,7 +84,7 @@ public class ConsolePermissionController extends BaseController {
         data.put("systemPermissions", systemPermissions);
         data.put("assignedPermissions", assignedPermissions);
 
-        logger.info("【请求结束】系统中心->权限管理->权限详情,响应结果:{}", JSONObject.toJSONString(data));
+        logger.info("【请求结束】系统中心->权限管理->列表,响应结果:{}", JSONObject.toJSONString(data));
         return ResponseUtil.ok(data);
     }
 
@@ -94,10 +95,10 @@ public class ConsolePermissionController extends BaseController {
      * @return
      */
     @RequiresPermissions("admin:permission:update")
-    @RequiresPermissionsDesc(menu = {"系统中心", "权限管理"}, button = "权限变更")
+    @RequiresPermissionsDesc(menu = {"系统中心", "权限管理"}, button = "更新")
     @PostMapping(value = "update")
     public Object update(@RequestBody String body) {
-        logger.info("【请求开始】系统中心->权限管理->权限变更,请求参数,body:{}", body);
+        logger.info("【请求开始】系统中心->权限管理->更新,请求参数,body:{}", body);
 
         Integer roleId = JacksonUtil.parseInteger(body, "roleId");
         List<String> permissions = JacksonUtil.parseStringList(body, "permissions");
@@ -107,20 +108,23 @@ public class ConsolePermissionController extends BaseController {
 
         // 如果修改的角色是超级权限，则拒绝修改。
         if (permissionService.checkSuperPermission(roleId)) {
-            logger.error("系统中心->权限管理->权限变更 错误:{}", ConsoleWebResponse.ROLE_SUPER_SUPERMISSION.message());
+            logger.error("系统中心->权限管理->更新 错误:{}", ConsoleWebResponse.ROLE_SUPER_SUPERMISSION.message());
             return ConsoleWebResponseUtil.fail(ConsoleWebResponse.ROLE_SUPER_SUPERMISSION);
         }
 
         // 先删除旧的权限，再更新新的权限
         permissionService.deleteByRoleId(roleId);
-        for (String permission : permissions) {
-            PermissionInfo item = new PermissionInfo();
-            item.setRoleId(roleId);
-            item.setPermission(permission);
-            permissionService.add(item);
+
+        if (CheckEmptyUtil.isNotEmpty(permissions)) {
+            permissions.parallelStream().forEachOrdered(item -> {
+                PermissionInfo permission = new PermissionInfo();
+                permission.setRoleId(roleId);
+                permission.setPermission(item);
+                permissionService.add(permission);
+            });
         }
 
-        logger.info("【请求结束】系统中心->权限管理->权限变更,响应结果:{}", "成功!");
+        logger.info("【请求结束】系统中心->权限管理->更新,响应结果:{}", "成功!");
         return ResponseUtil.ok();
     }
 }

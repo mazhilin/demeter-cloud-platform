@@ -26,7 +26,7 @@ import java.util.Objects;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/api/console/component/")
+@RequestMapping(value = "/admin/component/")
 @Validated
 public class ConsoleComponentController extends BaseController {
 

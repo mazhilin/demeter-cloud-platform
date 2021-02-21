@@ -11,12 +11,27 @@ import com.demeter.cloud.core.BaseHandler;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 public enum UserType implements BaseHandler {
+    /**
+     * 系统用户-0
+     */
     SYSTEM_USER(0, "系统用户"),
+    /**
+     * 管理用户-1
+     */
     ADMIN_USER(1, "管理用户"),
+    /**
+     * 员工用户-2
+     */
     EMPLOYEE_USER(2, "员工用户");
 
-    private Integer code;
-    private String message;
+    /**
+     * 编码-code
+     */
+    private final Integer code;
+    /**
+     * 描述-message
+     */
+    private final String message;
 
     UserType(Integer code, String message) {
         this.code = code;
@@ -31,7 +46,7 @@ public enum UserType implements BaseHandler {
                 }
             }
         }
-        return null;
+        return SYSTEM_USER;
     }
 
     /**

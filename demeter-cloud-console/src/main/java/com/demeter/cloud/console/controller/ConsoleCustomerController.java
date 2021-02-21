@@ -29,7 +29,7 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/api/console/customer/")
+@RequestMapping(value = "/admin/customer/")
 @Validated
 public class ConsoleCustomerController extends BaseController {
 
@@ -39,7 +39,7 @@ public class ConsoleCustomerController extends BaseController {
     @RequiresPermissions("admin:customer:list")
     @RequiresPermissionsDesc(
             menu = {"作品中心", "作者管理"},
-            button = "查询")
+            button = "列表")
     @GetMapping("/list")
     public Object list(
             String name,
@@ -48,14 +48,14 @@ public class ConsoleCustomerController extends BaseController {
             @RequestParam(defaultValue = "10") Integer limit,
             @Sort @RequestParam(defaultValue = "create_time") String sort,
             @Order @RequestParam(defaultValue = "desc") String order) {
-        logger.info("【请求开始】作品中心->作者管理->查询,请求参数,name:{},code:{},page:{}", name, code, page);
+        logger.info("【请求开始】作品中心->作者管理->作者列表,请求参数,name:{},code:{},page:{}", name, code, page);
         List<CustomerUser> customerUserList =
                 customerUserService.queryList(name, code, page, limit, sort, order);
         long total = PageInfo.of(customerUserList).getTotal();
         Map<String, Object> data = new HashMap<>();
         data.put("total", total);
         data.put("items", customerUserList);
-        logger.info("【请求结束】【请求开始】作品中心->作者管理->查询:响应结果:{}", JSONObject.toJSONString(data));
+        logger.info("【请求结束】【请求开始】作品中心->作者管理->列表:响应结果:{}", JSONObject.toJSONString(data));
         return ResponseUtil.ok(data);
     }
 
@@ -74,10 +74,10 @@ public class ConsoleCustomerController extends BaseController {
     @RequiresPermissions("admin:customer:create")
     @RequiresPermissionsDesc(
             menu = {"作品中心", "作者管理"},
-            button = "添加")
+            button = "新增")
     @PostMapping("/create")
     public Object create(@RequestBody CustomerUser customer) {
-        logger.info("【请求开始】作品中心->作者管理->添加,请求参数:{}", JSONObject.toJSONString(customer));
+        logger.info("【请求开始】作品中心->作者管理->新增,请求参数:{}", JSONObject.toJSONString(customer));
 
         Object error = validate(customer);
         if (error != null) {
@@ -85,7 +85,7 @@ public class ConsoleCustomerController extends BaseController {
         }
         customerUserService.add(customer);
 
-        logger.info("【请求结束】作品中心->作者管理->添加,响应结果:{}", JSONObject.toJSONString(customer));
+        logger.info("【请求结束】作品中心->作者管理->新增,响应结果:{}", JSONObject.toJSONString(customer));
         return ResponseUtil.ok(customer);
     }
 
@@ -97,7 +97,7 @@ public class ConsoleCustomerController extends BaseController {
     @RequiresPermissions("admin:customer:edit")
     @RequiresPermissionsDesc(
             menu = {"作品中心", "作者管理"},
-            button = "编辑")
+            button = "作者编辑")
     @PostMapping("/edit")
     public Object edit(@RequestBody CustomerUser customer) {
         logger.info("【请求开始】作品中心->作者管理->编辑,请求参数:{}", JSONObject.toJSONString(customer));
@@ -114,7 +114,7 @@ public class ConsoleCustomerController extends BaseController {
             logger.error("作品中心->作者管理-编辑 ,错误：{}", "编辑数据失败！");
             return ResponseUtil.updatedDataFailed();
         }
-        logger.info("【请求结束】作品中心->作者管理->编辑,响应结果:{}", JSONObject.toJSONString(customer));
+        logger.info("【请求结束】作品中心->管理->作者编辑,响应结果:{}", JSONObject.toJSONString(customer));
         return ResponseUtil.ok(customer);
     }
 
@@ -128,7 +128,7 @@ public class ConsoleCustomerController extends BaseController {
             button = "更新")
     @PostMapping("/update")
     public Object update(@RequestBody CustomerUser customer) {
-        logger.info("【请求开始】作品中心->作者管理->更新,请求参数:{}", JSONObject.toJSONString(customer));
+        logger.info("【请求开始】作品中心->作者管理->作者更新,请求参数:{}", JSONObject.toJSONString(customer));
 
         Object error = validate(customer);
         if (error != null) {

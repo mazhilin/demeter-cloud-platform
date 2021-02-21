@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * <p>封装Dcloud项目PermissionData类.<br></p>
- * <p>//TODO...<br></p>
+ * <p>系统权限数据对象.<br></p>
  *
  * @author Powered by marklin 2021-02-17 16:03
  * @version 1.0.0

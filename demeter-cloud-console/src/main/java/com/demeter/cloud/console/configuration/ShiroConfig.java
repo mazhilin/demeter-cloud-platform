@@ -33,19 +33,17 @@ public class ShiroConfig {
 	public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
-		// 统一权限配置
-		shiroFilterFactoryBean.setLoginUrl("/console/authority/401");
-		shiroFilterFactoryBean.setSuccessUrl("/console/authority/index");
-		shiroFilterFactoryBean.setUnauthorizedUrl("/console/authority/403");
 		Map<String, String> filterChainDefinitionMap = Maps.newConcurrentMap();
-		filterChainDefinitionMap.put("/console/authority/login", "anon");
-		filterChainDefinitionMap.put("/console/authority/logout", "logout");
-		filterChainDefinitionMap.put("/console/authority/401", "anon");
-		filterChainDefinitionMap.put("/console/authority/index", "anon");
-		filterChainDefinitionMap.put("/console/authority/403", "anon");
-		filterChainDefinitionMap.put("/console/authority/503", "anon");
-		filterChainDefinitionMap.put("/console/**", "authc");
+
+		filterChainDefinitionMap.put("/admin/authority/login", "anon");
+		filterChainDefinitionMap.put("/admin/authority/401", "anon");
+		filterChainDefinitionMap.put("/admin/authority/index", "anon");
+		filterChainDefinitionMap.put("/admin/authority/403", "anon");
 		filterChainDefinitionMap.put("/admin/**", "authc");
+		// 统一权限配置
+		shiroFilterFactoryBean.setLoginUrl("/admin/authority/401");
+		shiroFilterFactoryBean.setSuccessUrl("/admin/authority/index");
+		shiroFilterFactoryBean.setUnauthorizedUrl("/admin/authority/403");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
 	}
@@ -53,8 +51,6 @@ public class ShiroConfig {
 	@Bean
 	public SessionManager sessionManager() {
 		ConsoleWebSessionManager webSession = new ConsoleWebSessionManager();
-		webSession.setSessionIdCookieEnabled(true);
-		webSession.setSessionIdUrlRewritingEnabled(true);
 		return webSession;
 	}
 

@@ -5,7 +5,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 
 /**
  * <p>封装Dcloud项目Permission类.<br></p>
- * <p>//TODO...<br></p>
+ * <p>权限对象实体<br></p>
  *
  * @author Powered by marklin 2021-02-17 16:01
  * @version 1.0.0

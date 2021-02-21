@@ -28,7 +28,7 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/api/console/works/")
+@RequestMapping(value = "/admin/works/")
 @Validated
 public class ConsoleWorksController extends BaseController {
 
@@ -36,10 +36,10 @@ public class ConsoleWorksController extends BaseController {
     private WorksInfoService worksInfoService;
 
 
-    @RequiresPermissions("admin:worksinfo:list")
+    @RequiresPermissions("admin:works:list")
     @RequiresPermissionsDesc(
             menu = {"作品中心", "作品管理"},
-            button = "查询")
+            button = "列表")
     @GetMapping("/list")
     public Object list(
             String name,
@@ -48,14 +48,14 @@ public class ConsoleWorksController extends BaseController {
             @RequestParam(defaultValue = "10") Integer limit,
             @Sort @RequestParam(defaultValue = "create_time") String sort,
             @Order @RequestParam(defaultValue = "desc") String order) {
-        logger.info("【请求开始】作品中心->作品管理->查询,请求参数,name:{},code:{},page:{}", name, code, page);
+        logger.info("【请求开始】作品中心->作品管理->列表,请求参数,name:{},code:{},page:{}", name, code, page);
         List<WorksInfo> worksInfoList =
                 worksInfoService.queryList(name, code, page, limit, sort, order);
         long total = PageInfo.of(worksInfoList).getTotal();
         Map<String, Object> data = new HashMap<>();
         data.put("total", total);
         data.put("items", worksInfoList);
-        logger.info("【请求结束】【请求开始】作品中心->作品管理->查询:响应结果:{}", JSONObject.toJSONString(data));
+        logger.info("【请求结束】【请求开始】作品中心->作品管理->列表:响应结果:{}", JSONObject.toJSONString(data));
         return ResponseUtil.ok(data);
     }
 
@@ -71,13 +71,13 @@ public class ConsoleWorksController extends BaseController {
         return null;
     }
 
-    @RequiresPermissions("admin:worksinfo:create")
+    @RequiresPermissions("admin:works:create")
     @RequiresPermissionsDesc(
             menu = {"作品中心", "作品管理"},
-            button = "添加")
+            button = "新增")
     @PostMapping("/create")
     public Object create(@RequestBody WorksInfo worksInfo) {
-        logger.info("【请求开始】作品中心->作品管理->添加,请求参数:{}", JSONObject.toJSONString(worksInfo));
+        logger.info("【请求开始】作品中心->作品管理->新增,请求参数:{}", JSONObject.toJSONString(worksInfo));
 
         Object error = validate(worksInfo);
         if (error != null) {
@@ -85,7 +85,7 @@ public class ConsoleWorksController extends BaseController {
         }
         worksInfoService.add(worksInfo);
 
-        logger.info("【请求结束】作品中心->作品管理->添加,响应结果:{}", JSONObject.toJSONString(worksInfo));
+        logger.info("【请求结束】作品中心->作品管理->新增,响应结果:{}", JSONObject.toJSONString(worksInfo));
         return ResponseUtil.ok(worksInfo);
     }
 
@@ -94,7 +94,7 @@ public class ConsoleWorksController extends BaseController {
      * @param worksInfo 参数对象
      * @return
      */
-    @RequiresPermissions("admin:worksinfo:edit")
+    @RequiresPermissions("admin:works:edit")
     @RequiresPermissionsDesc(
             menu = {"作品中心", "作品管理"},
             button = "编辑")
@@ -122,7 +122,7 @@ public class ConsoleWorksController extends BaseController {
      * @param worksInfo 参数对象
      * @return
      */
-    @RequiresPermissions("admin:worksinfo:update")
+    @RequiresPermissions("admin:works:update")
     @RequiresPermissionsDesc(
             menu = {"作品中心", "作品管理"},
             button = "更新")
@@ -146,7 +146,7 @@ public class ConsoleWorksController extends BaseController {
         return ResponseUtil.ok(worksInfo);
     }
 
-    @RequiresPermissions("admin:worksinfo:delete")
+    @RequiresPermissions("admin:works:delete")
     @RequiresPermissionsDesc(
             menu = {"作品中心", "作品管理"},
             button = "删除")

@@ -3,6 +3,7 @@ package com.demeter.cloud.console.utils;
 import com.demeter.cloud.console.annotation.RequiresPermissionsDesc;
 import com.demeter.cloud.console.web.Permission;
 import com.demeter.cloud.console.web.PermissionData;
+import com.demeter.cloud.model.exception.BusinessException;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
@@ -47,58 +48,57 @@ public class ConsolePermissionUtil {
 
             String[] menus = requiresPermissionsDesc.menu();
             if (menus.length != 2) {
-                throw new RuntimeException("目前只支持两级菜单");
+                throw new BusinessException("目前只支持两级菜单!");
             }
-            String menu1 = menus[0];
-            PermissionData perm1 = null;
-            for (PermissionData permVo : root) {
-                if (permVo.getLabel().equals(menu1)) {
-                    perm1 = permVo;
+            String rootMenu = menus[0];
+            PermissionData rootData = null;
+            for (PermissionData permissionData : root) {
+                if (permissionData.getLabel().equals(rootMenu)) {
+                    rootData = permissionData;
                     break;
                 }
             }
-            if (perm1 == null) {
-                perm1 = new PermissionData();
-                perm1.setId(menu1);
-                perm1.setLabel(menu1);
-                perm1.setChildren(new ArrayList<>());
-                root.add(perm1);
+            if (rootData == null) {
+                rootData = new PermissionData();
+                rootData.setId(rootMenu);
+                rootData.setLabel(rootMenu);
+                rootData.setChildren(new ArrayList<>());
+                root.add(rootData);
             }
-            String menu2 = menus[1];
-            PermissionData perm2 = null;
-            for (PermissionData permVo : perm1.getChildren()) {
-                if (permVo.getLabel().equals(menu2)) {
-                    perm2 = permVo;
+            String itemMenu = menus[1];
+            PermissionData itemData = null;
+            for (PermissionData permissionData : rootData.getChildren()) {
+                if (permissionData.getLabel().equals(itemMenu)) {
+                    itemData = permissionData;
                     break;
                 }
             }
-            if (perm2 == null) {
-                perm2 = new PermissionData();
-                perm2.setId(menu2);
-                perm2.setLabel(menu2);
-                perm2.setChildren(new ArrayList<>());
-                perm1.getChildren().add(perm2);
+            if (itemData == null) {
+                itemData = new PermissionData();
+                itemData.setId(itemMenu);
+                itemData.setLabel(itemMenu);
+                itemData.setChildren(new ArrayList<>());
+                rootData.getChildren().add(itemData);
             }
 
             String button = requiresPermissionsDesc.button();
-            PermissionData leftPerm = null;
-            for (PermissionData permVo : perm2.getChildren()) {
-                if (permVo.getLabel().equals(button)) {
-                    leftPerm = permVo;
+            PermissionData buttonData = null;
+            for (PermissionData permissionData : itemData.getChildren()) {
+                if (permissionData.getLabel().equals(button)) {
+                    buttonData = permissionData;
                     break;
                 }
             }
-            if (leftPerm == null) {
-                leftPerm = new PermissionData();
-                leftPerm.setId(requiresPermissions.value()[0]);
-                leftPerm.setLabel(requiresPermissionsDesc.button());
-                leftPerm.setApi(api);
-                perm2.getChildren().add(leftPerm);
+            if (buttonData == null) {
+                buttonData = new PermissionData();
+                buttonData.setId(requiresPermissions.value()[0]);
+                buttonData.setLabel(requiresPermissionsDesc.button());
+                buttonData.setApi(api);
+                itemData.getChildren().add(buttonData);
             } else {
-                // TODO
                 // 目前限制Controller里面每个方法的RequiresPermissionsDesc注解是唯一的
                 // 如果允许相同，可能会造成内部权限不一致。
-                throw new RuntimeException("权限已经存在，不能添加新权限");
+                throw new BusinessException("权限已经存在，不能添加新权限!");
             }
 
         }

@@ -54,13 +54,14 @@ public class StorageServerService {
         storage.store(inputStream, contentLength, contentType, key);
 
         String url = generateUrl(key);
-        StorageFile storageFileInfo = new StorageFile();
-        storageFileInfo.setName(fileName);
-        storageFileInfo.setSize((int) contentLength);
-        storageFileInfo.setContentType(contentType);
-        storageFileInfo.setKey(key);
-        storageFileInfo.setUrl(url);
-        storageService.add(storageFileInfo);
+        StorageFile storageFile = new StorageFile();
+        storageFile.setStorageMode(active);
+        storageFile.setName(fileName);
+        storageFile.setSize((int) contentLength);
+        storageFile.setContentType(contentType);
+        storageFile.setKey(key);
+        storageFile.setUrl(url);
+        storageService.add(storageFile);
 
         return url;
     }

@@ -32,7 +32,7 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/api/console/storage")
+@RequestMapping(value = "/admin/storage/")
 @Validated
 public class ConsoleStorageController extends BaseController {
     @Autowired
@@ -40,11 +40,20 @@ public class ConsoleStorageController extends BaseController {
     @Autowired
     private StorageFileService fileService;
 
+    /**
+     * 资源管理
+     *
+     * @param key   文件key
+     * @param name  文件名称
+     * @param page  页码
+     * @param limit 条目数
+     * @param sort  排序字段
+     * @param order 排序
+     * @return 返回列表
+     */
     @RequiresPermissions("admin:storage:list")
-    @RequiresPermissionsDesc(
-            menu = {"系统中心", "文件管理"},
-            button = "查询")
-    @GetMapping("/list")
+    @RequiresPermissionsDesc(menu = {"系统中心", "资源管理"}, button = "列表")
+    @GetMapping(value = "list")
     public Object list(
             String key,
             String name,
@@ -52,7 +61,7 @@ public class ConsoleStorageController extends BaseController {
             @RequestParam(defaultValue = "10") Integer limit,
             @Sort @RequestParam(defaultValue = "create_time") String sort,
             @Order @RequestParam(defaultValue = "desc") String order) {
-        logger.info("【请求开始】系统中心->文件管理->查询,请求参数,name:{},key:{},page:{}", name, key, page);
+        logger.info("【请求开始】系统中心->资源管理->列表,请求参数,name:{},key:{},page:{}", name, key, page);
 
         List<StorageFile> storageFileList =
                 fileService.queryFileList(key, name, page, limit, sort, order);
@@ -61,17 +70,23 @@ public class ConsoleStorageController extends BaseController {
         data.put("total", total);
         data.put("items", storageFileList);
 
-        logger.info("【请求结束】系统中心->文件管理->查询:响应结果:{}", JSONObject.toJSONString(data));
+        logger.info("【请求结束】系统中心->资源管理->列表:响应结果:{}", JSONObject.toJSONString(data));
         return ResponseUtil.ok(data);
     }
 
+    /**
+     * 新增
+     * @param file
+     * @return
+     * @throws IOException
+     */
     @RequiresPermissions("admin:storage:create")
     @RequiresPermissionsDesc(
-            menu = {"系统中心", "文件管理"},
-            button = "上传")
-    @PostMapping("/create")
+            menu = {"系统中心", "资源管理"},
+            button = "新增")
+    @PostMapping(value = "create")
     public Object create(@RequestParam("file") MultipartFile file) throws IOException {
-        logger.info("【请求开始】系统中心->文件管理->上传,请求参数,file:{}", file.getOriginalFilename());
+        logger.info("【请求开始】系统中心->资源管理->新增,请求参数,file:{}", file.getOriginalFilename());
 
         String originalFilename = file.getOriginalFilename();
         String url =
@@ -79,51 +94,69 @@ public class ConsoleStorageController extends BaseController {
                         file.getInputStream(), file.getSize(), file.getContentType(), originalFilename);
         Map<String, Object> data = new HashMap<>();
         data.put("url", url);
-        logger.info("【请求结束】系统中心->文件管理->查询:响应结果:{}", JSONObject.toJSONString(data));
+        logger.info("【请求结束】系统中心->资源管理->新增:响应结果:{}", JSONObject.toJSONString(data));
         return ResponseUtil.ok(data);
     }
 
     @RequiresPermissions("admin:storage:show")
     @RequiresPermissionsDesc(
-            menu = {"系统中心", "文件管理"},
+            menu = {"系统中心", "资源管理"},
             button = "详情")
-    @PostMapping("/show")
+    @PostMapping(value = "show")
     public Object show(@NotNull Integer id) {
-        logger.info("【请求开始】系统中心->文件管理->详情,请求参数,id:{}", id);
+        logger.info("【请求开始】系统中心->资源管理->详情,请求参数,id:{}", id);
 
         StorageFile storageFileInfo = fileService.queryFileById(id);
         if (storageFileInfo == null) {
             return ResponseUtil.badArgumentValue();
         }
 
-        logger.info("【请求结束】系统中心->文件管理->详情:响应结果:{}", JSONObject.toJSONString(storageFileInfo));
+        logger.info("【请求结束】系统中心->资源管理->详情:响应结果:{}", JSONObject.toJSONString(storageFileInfo));
         return ResponseUtil.ok(storageFileInfo);
     }
 
-    @RequiresPermissions("admin:storageFile:update")
+
+    @RequiresPermissions("admin:storage:edit")
     @RequiresPermissionsDesc(
-            menu = {"系统中心", "文件管理"},
+            menu = {"系统中心", "资源管理"},
             button = "编辑")
-    @PostMapping("/update")
-    public Object update(@RequestBody StorageFile storageFile) {
-        logger.info("【请求开始】系统中心->文件管理->编辑,请求参数:{}", JSONObject.toJSONString(storageFile));
+    @PostMapping(value = "edit")
+    public Object edit(@RequestBody StorageFile storageFile) {
+        logger.info("【请求开始】系统中心->资源管理->编辑,请求参数:{}", JSONObject.toJSONString(storageFile));
 
         if (fileService.update(storageFile) == 0) {
-            logger.error("系统中心->文件管理->编辑 错误:{}", "更新数据失败!");
+            logger.error("系统中心->资源管理->编辑 错误:{}", "更新数据失败!");
             return ResponseUtil.updatedDataFailed();
         }
 
-        logger.info("【请求结束】系统中心->文件管理->编辑:响应结果:{}", JSONObject.toJSONString(storageFile));
+        logger.info("【请求结束】系统中心->资源管理->编辑 响应结果:{}", JSONObject.toJSONString(storageFile));
+        return ResponseUtil.ok(storageFile);
+    }
+
+    @RequiresPermissions("admin:storage:update")
+    @RequiresPermissionsDesc(
+            menu = {"系统中心", "资源管理"},
+            button = "更新")
+    @PostMapping(value = "update")
+    public Object update(@RequestBody StorageFile storageFile) {
+        logger.info("【请求开始】系统中心->资源管理->更新,请求参数:{}", JSONObject.toJSONString(storageFile));
+
+        if (fileService.update(storageFile) == 0) {
+            logger.error("系统中心->资源管理->更新 错误:{}", "更新数据失败!");
+            return ResponseUtil.updatedDataFailed();
+        }
+
+        logger.info("【请求结束】系统中心->资源管理->更新 响应结果:{}", JSONObject.toJSONString(storageFile));
         return ResponseUtil.ok(storageFile);
     }
 
     @RequiresPermissions("admin:storage:delete")
     @RequiresPermissionsDesc(
-            menu = {"系统中心", "文件管理"},
+            menu = {"系统中心", "资源管理"},
             button = "删除")
-    @PostMapping("/delete")
+    @PostMapping(value = "delete")
     public Object delete(@RequestBody StorageFile StorageFile) {
-        logger.info("【请求开始】系统中心->文件管理->删除,请求参数:{}", JSONObject.toJSONString(StorageFile));
+        logger.info("【请求开始】系统中心->资源管理->删除,请求参数:{}", JSONObject.toJSONString(StorageFile));
 
         String key = StorageFile.getKey();
         if (StringUtils.isEmpty(key)) {
@@ -132,7 +165,7 @@ public class ConsoleStorageController extends BaseController {
         fileService.deleteByKey(key);
         storageService.delete(key);
 
-        logger.info("【请求结束】系统中心->文件管理->删除:响应结果:{}", "成功!");
+        logger.info("【请求结束】系统中心->资源管理->删除:响应结果:{}", "成功!");
         return ResponseUtil.ok();
     }
 }

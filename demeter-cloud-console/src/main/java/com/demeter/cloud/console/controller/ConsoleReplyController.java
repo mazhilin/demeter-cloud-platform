@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/console/reply/")
+@RequestMapping(value = "/admin/reply/")
 @Validated
 public class ConsoleReplyController {
 }

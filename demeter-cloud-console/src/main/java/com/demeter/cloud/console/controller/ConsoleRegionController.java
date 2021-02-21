@@ -32,7 +32,7 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/api/console/region/")
+@RequestMapping(value = "/admin/region/")
 @Validated
 public class ConsoleRegionController extends BaseController {
 
@@ -52,7 +52,7 @@ public class ConsoleRegionController extends BaseController {
      * @return 返回列表
      */
     @RequiresPermissions("admin:region:list")
-    @RequiresPermissionsDesc(menu = {"系统中心", "区域管理"}, button = "查询")
+    @RequiresPermissionsDesc(menu = {"系统中心", "区域管理"}, button = "列表")
     @GetMapping(value = "list")
     public Object list(@RequestParam(value = "name", required = false) String name,
                        @RequestParam(value = "code", required = false) Integer code,
@@ -61,7 +61,7 @@ public class ConsoleRegionController extends BaseController {
                        @Sort @RequestParam(defaultValue = "create_time") String sort,
                        @Order @RequestParam(defaultValue = "desc") String order) {
 
-        logger.info("【请求开始】系统中心->区域管理->查询,请求参数:\n[{name:{},code:{},page:{},limit{},sort{},order{}}]",
+        logger.info("【请求开始】系统中心->区域管理->列表,请求参数:\n[{name:{},code:{},page:{},limit{},sort{},order{}}]",
                 name, code, page, limit, sort, order);
 
         List<RegionInfo> regionInfoList = regionInfoService.queryList(name, code, page, limit, sort, order);
@@ -70,7 +70,7 @@ public class ConsoleRegionController extends BaseController {
         data.put("total", total);
         data.put("items", regionInfoList);
 
-        logger.info("【请求结束】系统中心->区域管理->查询,响应结果:\n{}", JSONObject.toJSONString(data));
+        logger.info("【请求结束】系统中心->区域管理->列表,响应结果:\n{}", JSONObject.toJSONString(data));
         return ResponseUtil.ok(data);
     }
 
@@ -100,10 +100,10 @@ public class ConsoleRegionController extends BaseController {
      * @return 返回结果
      */
     @RequiresPermissions("admin:region:create")
-    @RequiresPermissionsDesc(menu = {"系统中心", "区域管理"}, button = "添加")
+    @RequiresPermissionsDesc(menu = {"系统中心", "区域管理"}, button = "新增")
     @PostMapping(value = "create")
     public Object create(@RequestBody RegionInfo region) {
-        logger.info("【请求开始】系统中心->区域管理->添加,请求参数:{}", JSONObject.toJSONString(region));
+        logger.info("【请求开始】系统中心->区域管理->新增,请求参数:{}", JSONObject.toJSONString(region));
 
         Object error = validate(region);
         if (error != null) {
@@ -114,7 +114,7 @@ public class ConsoleRegionController extends BaseController {
         region.setCreateBy(admin.getId().toString());
         region.setUpdateBy(admin.getId().toString());
         regionInfoService.add(region);
-        logger.info("【请求结束】系统中心->区域管理->添加,响应结果:{}", JSONObject.toJSONString(region));
+        logger.info("【请求结束】系统中心->区域管理->新增,响应结果:{}", JSONObject.toJSONString(region));
         return ResponseUtil.ok(region);
     }
 

@@ -28,7 +28,7 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/console/parameter/")
+@RequestMapping(value = "/admin/parameter/")
 @Validated
 public class ConsoleParameterController extends BaseController {
     @Autowired
@@ -38,7 +38,7 @@ public class ConsoleParameterController extends BaseController {
     @RequiresPermissions("admin:parameter:list")
     @RequiresPermissionsDesc(
             menu = {"配置中心", "参数管理"},
-            button = "查询")
+            button = "列表")
     @GetMapping("/list")
     public Object list(
             String name,
@@ -47,14 +47,14 @@ public class ConsoleParameterController extends BaseController {
             @RequestParam(defaultValue = "10") Integer limit,
             @Sort @RequestParam(defaultValue = "add_time") String sort,
             @Order @RequestParam(defaultValue = "desc") String order) {
-        logger.info("【请求开始】配置中心->参数管理->查询,请求参数,name:{},code:{},page:{}", name, code, page);
+        logger.info("【请求开始】配置中心->参数管理->列表,请求参数,name:{},code:{},page:{}", name, code, page);
         List<PublicParameter> parameterList =
                 publicParameterService.queryList(name, code, page, limit, sort, order);
         long total = PageInfo.of(parameterList).getTotal();
         Map<String, Object> data = new HashMap<>();
         data.put("total", total);
         data.put("items", parameterList);
-        logger.info("【请求结束】【请求开始】配置中心->参数管理->查询:响应结果:{}", JSONObject.toJSONString(data));
+        logger.info("【请求结束】【请求开始】配置中心->参数管理->列表:响应结果:{}", JSONObject.toJSONString(data));
         return ResponseUtil.ok(data);
     }
 
@@ -73,10 +73,10 @@ public class ConsoleParameterController extends BaseController {
     @RequiresPermissions("admin:parameter:create")
     @RequiresPermissionsDesc(
             menu = {"配置中心", "参数管理"},
-            button = "添加")
+            button = "新增")
     @PostMapping("/create")
     public Object create(@RequestBody PublicParameter parameter) {
-        logger.info("【请求开始】配置中心->参数管理->添加,请求参数:{}", JSONObject.toJSONString(parameter));
+        logger.info("【请求开始】配置中心->参数管理->新增,请求参数:{}", JSONObject.toJSONString(parameter));
 
         Object error = validate(parameter);
         if (error != null) {
@@ -84,7 +84,7 @@ public class ConsoleParameterController extends BaseController {
         }
         publicParameterService.add(parameter);
 
-        logger.info("【请求结束】配置中心->参数管理->添加,响应结果:{}", JSONObject.toJSONString(parameter));
+        logger.info("【请求结束】配置中心->参数管理->新增,响应结果:{}", JSONObject.toJSONString(parameter));
         return ResponseUtil.ok(parameter);
     }
 

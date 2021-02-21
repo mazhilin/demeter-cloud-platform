@@ -28,7 +28,7 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/api/console/company/")
+@RequestMapping(value = "/admin/company/")
 @Validated
 public class ConsoleCompanyController extends BaseController {
     
@@ -38,7 +38,7 @@ public class ConsoleCompanyController extends BaseController {
     @RequiresPermissions("admin:company:list")
     @RequiresPermissionsDesc(
             menu = {"企业中心", "企业管理"},
-            button = "查询")
+            button = "列表")
     @GetMapping("/list")
     public Object list(
             String name,
@@ -47,14 +47,14 @@ public class ConsoleCompanyController extends BaseController {
             @RequestParam(defaultValue = "10") Integer limit,
             @Sort @RequestParam(defaultValue = "create_time") String sort,
             @Order @RequestParam(defaultValue = "desc") String order) {
-        logger.info("【请求开始】企业中心->企业管理->查询,请求参数,name:{},code:{},page:{}", name, code, page);
+        logger.info("【请求开始】企业中心->企业管理->列表,请求参数,name:{},code:{},page:{}", name, code, page);
         List<Company> companyList =
                 companyService.queryList(name, code, page, limit, sort, order);
         long total = PageInfo.of(companyList).getTotal();
         Map<String, Object> data = new HashMap<>();
         data.put("total", total);
         data.put("items", companyList);
-        logger.info("【请求结束】【请求开始】企业中心->企业管理->查询:响应结果:{}", JSONObject.toJSONString(data));
+        logger.info("【请求结束】【请求开始】企业中心->企业管理->列表:响应结果:{}", JSONObject.toJSONString(data));
         return ResponseUtil.ok(data);
     }
 
@@ -73,10 +73,10 @@ public class ConsoleCompanyController extends BaseController {
     @RequiresPermissions("admin:company:create")
     @RequiresPermissionsDesc(
             menu = {"企业中心", "企业管理"},
-            button = "添加")
+            button = "新增")
     @PostMapping("/create")
     public Object create(@RequestBody Company company) {
-        logger.info("【请求开始】企业中心->企业管理->添加,请求参数:{}", JSONObject.toJSONString(company));
+        logger.info("【请求开始】企业中心->企业管理->新增,请求参数:{}", JSONObject.toJSONString(company));
 
         Object error = validate(company);
         if (error != null) {
@@ -84,7 +84,7 @@ public class ConsoleCompanyController extends BaseController {
         }
         companyService.add(company);
 
-        logger.info("【请求结束】企业中心->企业管理->添加,响应结果:{}", JSONObject.toJSONString(company));
+        logger.info("【请求结束】企业中心->企业管理->新增,响应结果:{}", JSONObject.toJSONString(company));
         return ResponseUtil.ok(company);
     }
 

@@ -1,190 +1,151 @@
 package com.demeter.cloud.core.storage.config;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * @author marklin
+ */
 @ConfigurationProperties(prefix = "demeter.cloud.storage")
+@Getter
+@Setter
 public class StorageProperties {
+	/**
+	 * 定义启用标识
+	 */
 	private String active;
+	/**
+	 * 本地存储
+	 */
 	private Local local;
+	/**
+	 * 阿里云-oss
+	 */
 	private Aliyun aliyun;
+	/**
+	 * 腾讯云-oss
+	 */
 	private Tencent tencent;
+	/**
+	 * 七牛云-oss
+	 */
 	private Qiniu qiniu;
+	/**
+	 * 私有云-oss
+	 */
+	private Minio minio;
 
-	public String getActive() {
-		return active;
-	}
 
-	public void setActive(String active) {
-		this.active = active;
-	}
-
-	public Local getLocal() {
-		return local;
-	}
-
-	public void setLocal(Local local) {
-		this.local = local;
-	}
-
-	public Aliyun getAliyun() {
-		return aliyun;
-	}
-
-	public void setAliyun(Aliyun aliyun) {
-		this.aliyun = aliyun;
-	}
-
-	public Tencent getTencent() {
-		return tencent;
-	}
-
-	public void setTencent(Tencent tencent) {
-		this.tencent = tencent;
-	}
-
-	public Qiniu getQiniu() {
-		return qiniu;
-	}
-
-	public void setQiniu(Qiniu qiniu) {
-		this.qiniu = qiniu;
-	}
-
+	/**
+	 * 本地存储
+	 */
+	@Getter
+	@Setter
 	public static class Local {
+		/**
+		 * 访问地址-address
+		 */
 		private String address;
+		/**
+		 * 存储路径-storagePath
+		 */
 		private String storagePath;
-
-		public String getAddress() {
-			return address;
-		}
-
-		public void setAddress(String address) {
-			this.address = address;
-		}
-
-		public String getStoragePath() {
-			return storagePath;
-		}
-
-		public void setStoragePath(String storagePath) {
-			this.storagePath = storagePath;
-		}
 	}
 
+	/**
+	 * 腾讯云-oss
+	 */
+	@Getter
+	@Setter
 	public static class Tencent {
-		private String secretId;
-		private String secretKey;
-		private String region;
-		private String bucketName;
-
-		public String getSecretId() {
-			return secretId;
-		}
-
-		public void setSecretId(String secretId) {
-			this.secretId = secretId;
-		}
-
-		public String getSecretKey() {
-			return secretKey;
-		}
-
-		public void setSecretKey(String secretKey) {
-			this.secretKey = secretKey;
-		}
-
-		public String getRegion() {
-			return region;
-		}
-
-		public void setRegion(String region) {
-			this.region = region;
-		}
-
-		public String getBucketName() {
-			return bucketName;
-		}
-
-		public void setBucketName(String bucketName) {
-			this.bucketName = bucketName;
-		}
-	}
-
-	public static class Aliyun {
-		private String endpoint;
+		/**
+		 * 腾讯云-oss-accessKeyId
+		 */
 		private String accessKeyId;
+		/**
+		 * 腾讯云-oss-accessKeySecret
+		 */
 		private String accessKeySecret;
+		/**
+		 * 腾讯云-oss-bucketName
+		 */
 		private String bucketName;
-
-		public String getEndpoint() {
-			return endpoint;
-		}
-
-		public void setEndpoint(String endpoint) {
-			this.endpoint = endpoint;
-		}
-
-		public String getAccessKeyId() {
-			return accessKeyId;
-		}
-
-		public void setAccessKeyId(String accessKeyId) {
-			this.accessKeyId = accessKeyId;
-		}
-
-		public String getAccessKeySecret() {
-			return accessKeySecret;
-		}
-
-		public void setAccessKeySecret(String accessKeySecret) {
-			this.accessKeySecret = accessKeySecret;
-		}
-
-		public String getBucketName() {
-			return bucketName;
-		}
-
-		public void setBucketName(String bucketName) {
-			this.bucketName = bucketName;
-		}
+		/**
+		 * 腾讯云-oss-endpoint
+		 */
+		private String endpoint;
 	}
 
-	public static class Qiniu {
-		private String endpoint;
-		private String accessKey;
-		private String secretKey;
+	/**
+	 * 阿里云-oss
+	 */
+	@Getter
+	@Setter
+	public static class Aliyun {
+		/**
+		 * 阿里云-oss-accessKeyId
+		 */
+		private String accessKeyId;
+		/**
+		 * 阿里云-oss-accessKeySecret
+		 */
+		private String accessKeySecret;
+		/**
+		 * 阿里云-oss-bucketName
+		 */
 		private String bucketName;
+		/**
+		 * 阿里云-oss-endpoint
+		 */
+		private String endpoint;
+	}
 
-		public String getEndpoint() {
-			return endpoint;
-		}
+	/**
+	 * 七牛云-oss
+	 */
+	@Getter
+	@Setter
+	public static class Qiniu {
+		/**
+		 * 七牛云-oss-accessKeyId
+		 */
+		private String accessKeyId;
+		/**
+		 * 七牛云-oss-accessKeySecret
+		 */
+		private String accessKeySecret;
+		/**
+		 * 七牛云-oss-bucketName
+		 */
+		private String bucketName;
+		/**
+		 * 七牛云-oss-endpoint
+		 */
+		private String endpoint;
+	}
 
-		public void setEndpoint(String endpoint) {
-			this.endpoint = endpoint;
-		}
-
-		public String getAccessKey() {
-			return accessKey;
-		}
-
-		public void setAccessKey(String accessKey) {
-			this.accessKey = accessKey;
-		}
-
-		public String getSecretKey() {
-			return secretKey;
-		}
-
-		public void setSecretKey(String secretKey) {
-			this.secretKey = secretKey;
-		}
-
-		public String getBucketName() {
-			return bucketName;
-		}
-
-		public void setBucketName(String bucketName) {
-			this.bucketName = bucketName;
-		}
+	/**
+	 * 私有云-oss
+	 */
+	@Getter
+	@Setter
+	public static class Minio {
+		/**
+		 * 私有云-oss-accessKeyId
+		 */
+		private String accessKeyId;
+		/**
+		 * 私有云-oss-accessKeySecret
+		 */
+		private String accessKeySecret;
+		/**
+		 * 私有云-oss-bucketName
+		 */
+		private String bucketName;
+		/**
+		 * 私有云-oss-endpoint
+		 */
+		private String endpoint;
 	}
 }
