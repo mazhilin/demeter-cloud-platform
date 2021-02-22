@@ -34,7 +34,7 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/console/admin/employee/")
+@RequestMapping(value = "/admin/employee/")
 @Validated
 public class ConsoleEmployeeController extends BaseController {
     @Autowired
@@ -45,7 +45,7 @@ public class ConsoleEmployeeController extends BaseController {
     @GetMapping(value = "list")
     public Object list(String username, @RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer limit,
-                       @Sort @RequestParam(defaultValue = "add_time") String sort,
+                       @Sort @RequestParam(defaultValue = "create_time") String sort,
                        @Order @RequestParam(defaultValue = "desc") String order) {
         logger.info("【请求开始】企业中心->员工管理->列表,请求参数:username:{},page:{}", username, page);
 

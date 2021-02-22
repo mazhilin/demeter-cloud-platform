@@ -2,7 +2,7 @@ package com.demeter.cloud.core.constant;
 
 /**
  * <p>封装Dcloud项目Formats类.<br></p>
- * <p>//TODO...<br></p>
+ * <p>封装时间格式常量类<br></p>
  *
  * @author Powered by marklin 2020-12-09 22:14
  * @version 1.0.0

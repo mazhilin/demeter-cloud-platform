@@ -17,6 +17,8 @@ spring:
 
 server:
   port: 9001
+  servlet:
+    context-path: /console
   compression:
     min-response-size: 1024
   tomcat:

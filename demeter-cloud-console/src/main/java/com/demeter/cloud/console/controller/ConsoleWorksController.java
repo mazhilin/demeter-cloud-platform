@@ -28,7 +28,7 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/console/admin/works/")
+@RequestMapping(value = "/admin/works/")
 @Validated
 public class ConsoleWorksController extends BaseController {
 

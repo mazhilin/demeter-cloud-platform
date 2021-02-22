@@ -1,5 +1,6 @@
 package com.demeter.cloud.gateway.web;
 
+import com.demeter.cloud.core.constant.Tokens;
 import com.demeter.cloud.gateway.annotation.GatewayApiToken;
 import com.demeter.cloud.gateway.manager.GatewayApiTokenManager;
 import org.springframework.core.MethodParameter;
@@ -17,7 +18,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 public class GatewayMethodArgumentResolver implements HandlerMethodArgumentResolver {
-    public static final String LOGIN_TOKEN_KEY = "X-Program-Token";
+
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -28,7 +29,7 @@ public class GatewayMethodArgumentResolver implements HandlerMethodArgumentResol
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer container, NativeWebRequest request,
                                   WebDataBinderFactory factory) throws Exception {
-        String token = request.getHeader(LOGIN_TOKEN_KEY);
+        String token = request.getHeader(Tokens.GATEWAY_LOGIN_TOKEN);
         if (token == null || token.isEmpty()) {
             return null;
         }

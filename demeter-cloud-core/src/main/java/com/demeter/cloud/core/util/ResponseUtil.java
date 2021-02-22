@@ -34,6 +34,7 @@ import java.util.Map;
  * <li>6xx，小商城后端业务错误码， 具体见Dts-admin-api模块的AdminResponseCode。
  * <li>7xx，管理后台后端业务错误码， 具体见Dts-wx-api模块的WxResponseCode。
  * </ul>
+ * @author marklin
  */
 public class ResponseUtil {
 	public static Object ok() {

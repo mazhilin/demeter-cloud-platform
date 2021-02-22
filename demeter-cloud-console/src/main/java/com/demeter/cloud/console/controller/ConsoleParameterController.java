@@ -28,7 +28,7 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/console/admin/parameter/")
+@RequestMapping(value = "/admin/parameter/")
 @Validated
 public class ConsoleParameterController extends BaseController {
     @Autowired
@@ -45,7 +45,7 @@ public class ConsoleParameterController extends BaseController {
             String code,
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "10") Integer limit,
-            @Sort @RequestParam(defaultValue = "add_time") String sort,
+            @Sort @RequestParam(defaultValue = "create_time") String sort,
             @Order @RequestParam(defaultValue = "desc") String order) {
         logger.info("【请求开始】配置中心->参数管理->列表,请求参数,name:{},code:{},page:{}", name, code, page);
         List<PublicParameter> parameterList =

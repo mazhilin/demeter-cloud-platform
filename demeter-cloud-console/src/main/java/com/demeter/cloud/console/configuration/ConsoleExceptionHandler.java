@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * @author marklin
+ */
 @ControllerAdvice
 @Order(value = Ordered.HIGHEST_PRECEDENCE)
-public class ShiroExceptionHandler {
+public class ConsoleExceptionHandler {
 
 	@ExceptionHandler(AuthenticationException.class)
 	@ResponseBody

@@ -32,7 +32,7 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/console/admin/dictionary/item/")
+@RequestMapping(value = "/admin/dictionary/item/")
 @Validated
 public class ConsoleDictionaryItemController extends BaseController {
 
@@ -47,7 +47,7 @@ public class ConsoleDictionaryItemController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"配置中心", "字典项管理"},
             button = "列表")
-    @GetMapping("/list")
+    @GetMapping(value = "list")
     public Object list(
             String name,
             String label,
@@ -79,7 +79,7 @@ public class ConsoleDictionaryItemController extends BaseController {
 
     @RequiresPermissions("admin:dictionary:item:show")
     @RequiresPermissionsDesc(menu = {"配置中心", "字典项管理"}, button = "详情")
-    @GetMapping("/show")
+    @GetMapping(value = "show")
     public Object show(@NotNull Integer id) {
         logger.info("【请求开始】配置中心->字典项管理->详情,请求参数,id:{}", id);
 
@@ -93,7 +93,7 @@ public class ConsoleDictionaryItemController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"配置中心", "字典项管理"},
             button = "新增")
-    @PostMapping("/create")
+    @PostMapping(value = "create")
     public Object create(@RequestBody DictionaryItem dictionary) {
         logger.info("【请求开始】配置中心->字典项管理->新增,请求参数:{}", JSONObject.toJSONString(dictionary));
         Object error = validate(dictionary);
@@ -149,7 +149,7 @@ public class ConsoleDictionaryItemController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"配置中心", "字典项管理"},
             button = "更新")
-    @PostMapping("/update")
+    @PostMapping(value = "update")
     public Object update(@RequestBody DictionaryItem dictionary) {
         logger.info("【请求开始】配置中心->字典项管理->更新,请求参数:{}", JSONObject.toJSONString(dictionary));
 
@@ -177,7 +177,7 @@ public class ConsoleDictionaryItemController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"配置中心", "字典项管理"},
             button = "删除")
-    @PostMapping("/delete")
+    @PostMapping(value = "delete")
     public Object delete(@RequestBody DictionaryItem dictionary) {
         logger.info("【请求开始】配置中心->字典项管理->删除,请求参数:{}", JSONObject.toJSONString(dictionary));
         dictionaryItemService.deleteById(dictionary.getId());

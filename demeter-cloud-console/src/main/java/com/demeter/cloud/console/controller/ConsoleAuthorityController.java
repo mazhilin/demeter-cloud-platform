@@ -40,7 +40,7 @@ import java.util.*;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/console/admin/authority/")
+@RequestMapping(value = "/admin/authority/")
 @Validated
 public class ConsoleAuthorityController extends BaseController {
 
@@ -121,6 +121,12 @@ public class ConsoleAuthorityController extends BaseController {
         return ResponseUtil.ok(data);
     }
 
+    /**
+     * 权限标识转换API格式
+     *
+     * @param permissions 权限列表
+     * @return 返回
+     */
     private Collection<String> toAPI(Set<String> permissions) {
         if (permissionsMap == null) {
             permissionsMap = new HashMap<>();
@@ -137,7 +143,6 @@ public class ConsoleAuthorityController extends BaseController {
         for (String permission : permissions) {
             String api = permissionsMap.get(permission);
             apis.add(api);
-
             if (permission.equals("*")) {
                 apis.clear();
                 apis.add("*");
@@ -146,27 +151,20 @@ public class ConsoleAuthorityController extends BaseController {
         }
         return apis;
     }
-    @GetMapping("/401")
+
+    @GetMapping(value = "401")
     public Object page401() {
         return ResponseUtil.unlogin();
     }
 
-    @GetMapping("/501")
-    public Object page501() {
-        return ResponseUtil.unlogin();
-    }
 
-    @GetMapping("/index")
+    @GetMapping(value = "index")
     public Object pageIndex() {
         return ResponseUtil.ok();
     }
 
-    @GetMapping("/503")
-    public Object page503() {
-        return ResponseUtil.unsupport();
-    }
 
-    @GetMapping("/403")
+    @GetMapping(value = "403")
     public Object page403() {
         return ResponseUtil.unauthz();
     }

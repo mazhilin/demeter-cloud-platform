@@ -29,7 +29,7 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/console/admin/customer/")
+@RequestMapping(value = "/admin/customer/")
 @Validated
 public class ConsoleCustomerController extends BaseController {
 
@@ -97,7 +97,7 @@ public class ConsoleCustomerController extends BaseController {
     @RequiresPermissions("admin:customer:edit")
     @RequiresPermissionsDesc(
             menu = {"作品中心", "作者管理"},
-            button = "作者编辑")
+            button = "编辑")
     @PostMapping("/edit")
     public Object edit(@RequestBody CustomerUser customer) {
         logger.info("【请求开始】作品中心->作者管理->编辑,请求参数:{}", JSONObject.toJSONString(customer));
@@ -114,7 +114,7 @@ public class ConsoleCustomerController extends BaseController {
             logger.error("作品中心->作者管理-编辑 ,错误：{}", "编辑数据失败！");
             return ResponseUtil.updatedDataFailed();
         }
-        logger.info("【请求结束】作品中心->管理->作者编辑,响应结果:{}", JSONObject.toJSONString(customer));
+        logger.info("【请求结束】作品中心->作者管理->编辑,响应结果:{}", JSONObject.toJSONString(customer));
         return ResponseUtil.ok(customer);
     }
 

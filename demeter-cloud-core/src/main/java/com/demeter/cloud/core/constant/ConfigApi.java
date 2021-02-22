@@ -8,6 +8,6 @@ package com.demeter.cloud.core.constant;
  * @version 1.0.0
  * <p>Copyright © 2018-2020 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
-public class ConfigApi {
+public final class ConfigApi {
     public static final String MEMBER_AVATAR_PICTURE = "member_avatar_picture";
 }
