@@ -37,7 +37,6 @@ public class GatewayActivityController extends BaseController {
     private CompanyService companyService;
     @GetMapping("/index")
     public Object activityInfoList(){
-        List<ActivityTemplate> target = new ArrayList<>();
         Map templateMap = new HashMap();
         Map resultMap = new HashMap();
         Map companyMap = new HashMap();
