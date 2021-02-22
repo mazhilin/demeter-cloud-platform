@@ -72,4 +72,11 @@ public interface ActivityTemplateService {
      * @param id 文件索引
      */
     void deleteById(Integer id);
+
+    /**
+     * 删除
+     *
+     * @param templateId 模板ID
+     */
+    ActivityTemplate queryActivityTemplateById(int Id);
 }

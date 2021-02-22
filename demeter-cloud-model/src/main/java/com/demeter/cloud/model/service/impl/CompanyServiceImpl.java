@@ -84,7 +84,9 @@ public class CompanyServiceImpl extends BaseService implements CompanyService {
      */
     @Override
     public Company queryById(Integer id) {
-        return companyMapper.selectByPrimaryKey(id);
+        CompanyExample example = new CompanyExample();
+        example.or().andIsDeleteEqualTo((byte)0).andStatusEqualTo((byte)1);
+        return companyMapper.selectOneByExample(example);
     }
 
     /**
