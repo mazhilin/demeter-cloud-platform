@@ -40,7 +40,7 @@ import java.util.*;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/admin/authority/")
+@RequestMapping(value = "/console/admin/authority/")
 @Validated
 public class ConsoleAuthorityController extends BaseController {
 

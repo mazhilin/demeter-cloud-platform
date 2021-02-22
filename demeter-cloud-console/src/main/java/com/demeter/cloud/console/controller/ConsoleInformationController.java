@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/admin/information/")
+@RequestMapping(value = "/console/admin/information/")
 @Validated
 public class ConsoleInformationController extends BaseController {
 }

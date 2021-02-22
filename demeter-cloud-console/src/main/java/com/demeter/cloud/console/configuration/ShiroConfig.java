@@ -34,17 +34,16 @@ public class ShiroConfig {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
 		Map<String, String> filterChainDefinitionMap = Maps.newConcurrentMap();
-
 		filterChainDefinitionMap.put("/admin/authority/login", "anon");
 		filterChainDefinitionMap.put("/admin/authority/401", "anon");
 		filterChainDefinitionMap.put("/admin/authority/index", "anon");
 		filterChainDefinitionMap.put("/admin/authority/403", "anon");
 		filterChainDefinitionMap.put("/admin/**", "authc");
+		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		// 统一权限配置
 		shiroFilterFactoryBean.setLoginUrl("/admin/authority/401");
 		shiroFilterFactoryBean.setSuccessUrl("/admin/authority/index");
 		shiroFilterFactoryBean.setUnauthorizedUrl("/admin/authority/403");
-		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
 	}
 

@@ -29,8 +29,6 @@ server:
       min-spare: 100
     max-http-form-post-size: 2048
     max-swallow-size: 2048
-  servlet:
-    context-path: /console
 
 #系统日志配置
 logging:

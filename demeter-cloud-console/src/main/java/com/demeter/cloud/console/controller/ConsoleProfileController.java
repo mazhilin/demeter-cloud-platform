@@ -29,7 +29,7 @@ import static com.demeter.cloud.console.web.ConsoleWebResponse.ADMIN_INVALID_OLD
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/admin/profile")
+@RequestMapping(value = "/console/admin/profile")
 @Validated
 public class ConsoleProfileController extends BaseController {
 

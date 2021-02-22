@@ -1,4 +1,4 @@
-package com.demeter.cloud.core.storage.config;
+package com.demeter.cloud.core.storage.configuration;
 
 import lombok.Getter;
 import lombok.Setter;

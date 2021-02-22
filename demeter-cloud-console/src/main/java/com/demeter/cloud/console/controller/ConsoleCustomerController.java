@@ -29,7 +29,7 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/admin/customer/")
+@RequestMapping(value = "/console/admin/customer/")
 @Validated
 public class ConsoleCustomerController extends BaseController {
 

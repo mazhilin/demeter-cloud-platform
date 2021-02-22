@@ -29,7 +29,7 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/admin/config/")
+@RequestMapping(value = "/console/admin/config/")
 @Validated
 public class ConsoleConfigController extends BaseController {
 

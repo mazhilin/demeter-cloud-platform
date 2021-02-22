@@ -61,11 +61,30 @@ spring:
       pool-prepared-statements:  true
       max-pool-prepared-statement-per-connection-size:  20
       validation-query:  SELECT 1 FROM DUAL
+      validation-query-timeout: 360000
       test-on-borrow:  false
       test-on-return:  false
       test-while-idle:  true
       time-between-eviction-runs-millis:  60000
       filters:  stat,wall
+      # WebStatFilter配置
+      web-stat-filter:
+        enabled: true
+        profile-enable: true
+        url-pattern: /*
+        exclusions: '*.gif,*.png,*.jpg,*.html,*.js,*.css,*.ico,/druid/*'
+        # StatViewServlet配置
+      stat-view-servlet:
+        enabled: true
+        login-username: root
+        login-password: 123456@Abc
+        url-pattern: /druid/*
+        reset-enable: true
+      use-global-data-source-stat: true
+      use-local-session-state: true
+      default-auto-commit: true
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
   redis:
     port: 6379
     database: 0

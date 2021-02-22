@@ -32,7 +32,7 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/admin/dictionary/item/")
+@RequestMapping(value = "/console/admin/dictionary/item/")
 @Validated
 public class ConsoleDictionaryItemController extends BaseController {
 

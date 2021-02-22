@@ -28,7 +28,7 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/admin/parameter/")
+@RequestMapping(value = "/console/admin/parameter/")
 @Validated
 public class ConsoleParameterController extends BaseController {
     @Autowired

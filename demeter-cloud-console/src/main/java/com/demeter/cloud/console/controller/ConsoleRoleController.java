@@ -32,7 +32,7 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/admin/role/")
+@RequestMapping(value = "/console/admin/role/")
 @Validated
 public class ConsoleRoleController extends BaseController {
 

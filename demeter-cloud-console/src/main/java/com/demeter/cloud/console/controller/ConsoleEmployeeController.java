@@ -34,7 +34,7 @@ import java.util.Map;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/admin/employee/")
+@RequestMapping(value = "/console/admin/employee/")
 @Validated
 public class ConsoleEmployeeController extends BaseController {
     @Autowired

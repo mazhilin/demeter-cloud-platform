@@ -33,7 +33,7 @@ import java.util.Set;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping(value = "/admin/permission/")
+@RequestMapping(value = "/console/admin/permission/")
 @Validated
 public class ConsolePermissionController extends BaseController {
     @Autowired
