@@ -44,7 +44,7 @@ public class ConsoleDictionaryController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"配置中心", "数据字典"},
             button = "列表")
-    @GetMapping("/list")
+    @GetMapping(value = "list")
     public Object list(
             String name,
             String code,
@@ -82,7 +82,7 @@ public class ConsoleDictionaryController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"配置中心", "数据字典"},
             button = "编辑")
-    @PostMapping("/edit")
+    @PostMapping(value = "edit")
     public Object edit(@RequestBody Dictionary dictionary) {
         logger.info("【请求开始】配置中心->数据字典->编辑,请求参数:{}", JSONObject.toJSONString(dictionary));
 
@@ -104,7 +104,7 @@ public class ConsoleDictionaryController extends BaseController {
 
     @RequiresPermissions("admin:dictionary:show")
     @RequiresPermissionsDesc(menu = {"配置中心", "数据字典"}, button = "详情")
-    @GetMapping("/show")
+    @GetMapping(value = "show")
     public Object show(@NotNull Integer id) {
         logger.info("【请求开始】配置中心->数字字典->详情,请求参数,id:{}", id);
 
@@ -118,7 +118,7 @@ public class ConsoleDictionaryController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"配置中心", "数据字典"},
             button = "新增")
-    @PostMapping("/create")
+    @PostMapping(value = "create")
     public Object create(@RequestBody Dictionary dictionary) {
         logger.info("【请求开始】配置中心->数字字典->新增,请求参数:{}", JSONObject.toJSONString(dictionary));
 
@@ -139,7 +139,7 @@ public class ConsoleDictionaryController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"配置中心", "数据字典"},
             button = "更新")
-    @PostMapping("/update")
+    @PostMapping(value = "update")
     public Object update(@RequestBody Dictionary dictionary) {
         logger.info("【请求开始】配置中心->数据字典->更新,请求参数:{}", JSONObject.toJSONString(dictionary));
 
@@ -163,7 +163,7 @@ public class ConsoleDictionaryController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"配置中心", "数据字典"},
             button = "删除")
-    @PostMapping("/delete")
+    @PostMapping(value = "delete")
     public Object delete(@RequestBody Dictionary dictionary) {
         logger.info("【请求开始】配置中心->数据字典->删除,请求参数:{}", JSONObject.toJSONString(dictionary));
         dictionaryService.deleteById(dictionary.getId());
