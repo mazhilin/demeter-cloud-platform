@@ -51,6 +51,7 @@ public class GatewayEnrollController extends BaseController {
         enrollInfo.setCreateTime(nowTime);
         enrollInfo.setStatus(true);
 
+
         enrollInfoService.add(enrollInfo);
         return "报名成功";
     }
