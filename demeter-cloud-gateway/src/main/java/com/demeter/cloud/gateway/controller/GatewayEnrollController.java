@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
 @RestController
-@RequestMapping("/api/gateway/enroll")
+@RequestMapping(value = "/api/gateway/enroll")
 @Validated
 public class GatewayEnrollController extends BaseController {
 }
