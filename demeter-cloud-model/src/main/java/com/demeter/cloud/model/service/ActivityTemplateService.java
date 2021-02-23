@@ -76,7 +76,7 @@ public interface ActivityTemplateService {
     /**
      * 删除
      *
-     * @param templateId 模板ID
+     * @param  模板IDi
      */
-    ActivityTemplate queryActivityTemplateById(int Id);
+    ActivityTemplate queryActivityTemplateById(int d);
 }
