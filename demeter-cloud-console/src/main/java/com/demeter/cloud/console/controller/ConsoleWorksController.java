@@ -5,6 +5,7 @@ import com.demeter.cloud.console.annotation.RequiresPermissionsDesc;
 import com.demeter.cloud.core.util.ResponseUtil;
 import com.demeter.cloud.core.validator.Order;
 import com.demeter.cloud.core.validator.Sort;
+import com.demeter.cloud.model.entity.ActivityTemplate;
 import com.demeter.cloud.model.entity.WorksInfo;
 import com.demeter.cloud.model.persistence.controller.BaseController;
 import com.demeter.cloud.model.service.WorksInfoService;
@@ -15,6 +16,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -89,6 +91,17 @@ public class ConsoleWorksController extends BaseController {
         return ResponseUtil.ok(worksInfo);
     }
 
+    @RequiresPermissions("admin:works:show")
+    @RequiresPermissionsDesc(menu = {"作品中心", "作品管理"}, button = "详情")
+    @GetMapping(value = "show")
+    public Object show(@NotNull Integer id) {
+        logger.info("【请求开始】作品中心->作品管理->详情,请求参数,id:{}", id);
+
+        WorksInfo worksInfo = worksInfoService.queryById(id);
+
+        logger.info("【请求结束】作品中心->作品管理->详情,响应结果:{}", JSONObject.toJSONString(worksInfo));
+        return ResponseUtil.ok(worksInfo);
+    }
 
     /**
      * @param worksInfo 参数对象

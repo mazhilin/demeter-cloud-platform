@@ -15,6 +15,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,6 +89,18 @@ public class ConsoleParameterController extends BaseController {
         return ResponseUtil.ok(parameter);
     }
 
+
+    @RequiresPermissions("admin:parameter:show")
+    @RequiresPermissionsDesc(menu = {"配置中心", "参数管理"}, button = "详情")
+    @GetMapping(value = "show")
+    public Object show(@NotNull Integer id) {
+        logger.info("【请求开始】配置中心->参数管理->详情,请求参数,id:{}", id);
+
+        PublicParameter parameter = publicParameterService.queryById(id);
+
+        logger.info("【请求结束】配置中心->参数管理->详情,响应结果:{}", JSONObject.toJSONString(parameter));
+        return ResponseUtil.ok(parameter);
+    }
 
     /**
      * @param parameter 参数对象

@@ -1,5 +1,6 @@
 package com.demeter.cloud.console.controller;
 
+import com.demeter.cloud.model.persistence.controller.BaseController;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,5 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/admin/order/")
 @Validated
-public class ConsoleOrderController {
+public class ConsoleOrderController extends BaseController {
+
 }

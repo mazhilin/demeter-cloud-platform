@@ -75,7 +75,7 @@ public class ConsoleConfigController extends BaseController {
     @RequiresPermissions("admin:config:show")
     @RequiresPermissionsDesc(menu = {"配置中心", "配置管理"}, button = "详情")
     @GetMapping(value = "show")
-    public Object read(@NotNull Integer id) {
+    public Object show(@NotNull Integer id) {
         logger.info("【请求开始】配置中心->配置管理->详情,请求参数,id:{}", id);
 
         ConfigParameter parameter = configParameterService.queryById(id);

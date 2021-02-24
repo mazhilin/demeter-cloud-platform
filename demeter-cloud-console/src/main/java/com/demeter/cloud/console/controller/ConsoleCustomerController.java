@@ -71,6 +71,27 @@ public class ConsoleCustomerController extends BaseController {
         return null;
     }
 
+
+    @RequiresPermissions("admin:customer:show")
+    @RequiresPermissionsDesc(
+            menu = {"作品中心", "作者管理"},
+            button = "新增")
+    @PostMapping("/show")
+    public Object show(@RequestBody CustomerUser customer) {
+        logger.info("【请求开始】作品中心->作者管理->新增,请求参数:{}", JSONObject.toJSONString(customer));
+
+        Object error = validate(customer);
+        if (error != null) {
+            return error;
+        }
+        customerUserService.add(customer);
+
+        logger.info("【请求结束】作品中心->作者管理->新增,响应结果:{}", JSONObject.toJSONString(customer));
+        return ResponseUtil.ok(customer);
+    }
+
+
+
     @RequiresPermissions("admin:customer:create")
     @RequiresPermissionsDesc(
             menu = {"作品中心", "作者管理"},
