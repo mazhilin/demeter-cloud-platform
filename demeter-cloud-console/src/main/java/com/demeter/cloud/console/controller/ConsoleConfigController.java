@@ -162,7 +162,7 @@ public class ConsoleConfigController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"配置中心", "配置管理"},
             button = "删除")
-    @PostMapping("/delete")
+    @PostMapping(value ="delete")
     public Object delete(@RequestBody ConfigParameter parameter) {
         logger.info("【请求开始】配置中心->配置管理->删除,请求参数:{}", JSONObject.toJSONString(parameter));
         configParameterService.deleteById(parameter.getId());

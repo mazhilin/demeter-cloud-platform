@@ -23,6 +23,7 @@
         <module>demeter-cloud-console</module>
         <module>demeter-cloud-core</module>
         <module>demeter-cloud-dependencies</module>
+        <module>demeter-cloud-framework</module>
         <module>demeter-cloud-gateway</module>
     <!--    <module>demeter-cloud-generator</module>-->
         <module>demeter-cloud-model</module>

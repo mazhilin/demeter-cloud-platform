@@ -28,7 +28,7 @@ import java.util.Objects;
 @Service("adminUserService")
 @Transactional(rollbackFor = {BusinessException.class, RuntimeException.class, Exception.class})
 public class AdminUserServiceImpl extends BaseService implements AdminUserService {
-    private final AdminUser.Column[] result = new AdminUser.Column[]{AdminUser.Column.id, AdminUser.Column.account, AdminUser.Column.name, AdminUser.Column.type, AdminUser.Column.profilePicture, AdminUser.Column.roleIds, AdminUser.Column.lastLoginIp, AdminUser.Column.lastLoginTime};
+    private final AdminUser.Column[] result = new AdminUser.Column[]{AdminUser.Column.id, AdminUser.Column.account, AdminUser.Column.name,AdminUser.Column.mobile, AdminUser.Column.type, AdminUser.Column.profilePicture, AdminUser.Column.roleIds, AdminUser.Column.status,AdminUser.Column.lastLoginIp, AdminUser.Column.lastLoginTime};
 
     @Resource
     private AdminUserMapper adminUserMapper;

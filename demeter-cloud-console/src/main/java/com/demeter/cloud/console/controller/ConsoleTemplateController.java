@@ -9,6 +9,7 @@ import com.demeter.cloud.model.entity.ActivityTemplate;
 import com.demeter.cloud.model.persistence.controller.BaseController;
 import com.demeter.cloud.model.service.ActivityTemplateService;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Maps;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,14 +36,26 @@ public class ConsoleTemplateController extends BaseController {
     @Resource
     private ActivityTemplateService activityTemplateService;
 
+
+    /**
+     * 查询模板列表
+     *
+     * @param code  模板编码
+     * @param name  模板名称
+     * @param page  页码数
+     * @param limit 条目数
+     * @param sort  排序参数
+     * @param order 排序
+     * @return 返回列表
+     */
     @RequiresPermissions("admin:template:list")
     @RequiresPermissionsDesc(
             menu = {"活动中心", "模板管理"},
             button = "列表")
-    @GetMapping("/list")
+    @GetMapping(value = "list")
     public Object list(
-            String name,
-            String code,
+            @RequestParam(name = "code", required = false) String code,
+            @RequestParam(value = "name", required = false) String name,
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "10") Integer limit,
             @Sort @RequestParam(defaultValue = "create_time") String sort,
@@ -52,7 +64,7 @@ public class ConsoleTemplateController extends BaseController {
         List<ActivityTemplate> templateInfoList =
                 activityTemplateService.queryList(name, code, page, limit, sort, order);
         long total = PageInfo.of(templateInfoList).getTotal();
-        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> data = Maps.newConcurrentMap();
         data.put("total", total);
         data.put("items", templateInfoList);
         logger.info("【请求结束】【请求开始】活动中心->模板管理->列表:响应结果:{}", JSONObject.toJSONString(data));
@@ -75,7 +87,7 @@ public class ConsoleTemplateController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"活动中心", "模板管理"},
             button = "新增")
-    @PostMapping("/create")
+    @PostMapping(value = "create")
     public Object create(@RequestBody ActivityTemplate template) {
         logger.info("【请求开始】活动中心->模板管理->新增,请求参数:{}", JSONObject.toJSONString(template));
 
@@ -111,7 +123,7 @@ public class ConsoleTemplateController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"活动中心", "模板管理"},
             button = "编辑")
-    @PostMapping("/edit")
+    @PostMapping(value = "edit")
     public Object edit(@RequestBody ActivityTemplate template) {
         logger.info("【请求开始】活动中心->模板管理->编辑,请求参数:{}", JSONObject.toJSONString(template));
 
@@ -139,7 +151,7 @@ public class ConsoleTemplateController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"活动中心", "模板管理"},
             button = "更新")
-    @PostMapping("/update")
+    @PostMapping(value = "update")
     public Object update(@RequestBody ActivityTemplate template) {
         logger.info("【请求开始】活动中心->模板管理->更新,请求参数:{}", JSONObject.toJSONString(template));
 
@@ -163,7 +175,7 @@ public class ConsoleTemplateController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"活动中心", "模板管理"},
             button = "删除")
-    @PostMapping("/delete")
+    @PostMapping(value = "delete")
     public Object delete(@RequestBody ActivityTemplate template) {
         logger.info("【请求开始】活动中心->模板管理->删除,请求参数:{}", JSONObject.toJSONString(template));
         activityTemplateService.deleteById(template.getId());

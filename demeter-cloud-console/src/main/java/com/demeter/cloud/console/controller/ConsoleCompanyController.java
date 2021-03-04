@@ -39,7 +39,7 @@ public class ConsoleCompanyController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"企业中心", "企业管理"},
             button = "列表")
-    @GetMapping("/list")
+    @GetMapping(value ="list")
     public Object list(
             String name,
             String code,
@@ -74,7 +74,7 @@ public class ConsoleCompanyController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"企业中心", "企业管理"},
             button = "新增")
-    @PostMapping("/create")
+    @PostMapping(value ="create")
     public Object create(@RequestBody Company company) {
         logger.info("【请求开始】企业中心->企业管理->新增,请求参数:{}", JSONObject.toJSONString(company));
 
@@ -97,7 +97,7 @@ public class ConsoleCompanyController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"企业中心", "企业管理"},
             button = "编辑")
-    @PostMapping("/edit")
+    @PostMapping(value ="edit")
     public Object edit(@RequestBody Company company) {
         logger.info("【请求开始】企业中心->企业管理->编辑,请求参数:{}", JSONObject.toJSONString(company));
 
@@ -125,7 +125,7 @@ public class ConsoleCompanyController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"企业中心", "企业管理"},
             button = "更新")
-    @PostMapping("/update")
+    @PostMapping(value ="update")
     public Object update(@RequestBody Company company) {
         logger.info("【请求开始】企业中心->企业管理->更新,请求参数:{}", JSONObject.toJSONString(company));
 
@@ -149,7 +149,7 @@ public class ConsoleCompanyController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"企业中心", "企业管理"},
             button = "删除")
-    @PostMapping("/delete")
+    @PostMapping(value ="delete")
     public Object delete(@RequestBody Company company) {
         logger.info("【请求开始】企业中心->企业管理->删除,请求参数:{}", JSONObject.toJSONString(company));
         companyService.deleteById(company.getId());

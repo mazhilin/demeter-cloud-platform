@@ -31,17 +31,41 @@ public class Company {
 
     private String introduction;
 
+    private String briefPictures;
+
+    private String briefVideos;
+
+    private String portalWebsite;
+
     private String contacts;
 
     private String mobile;
 
-    private String address;
+    private String account;
 
     private String latitude;
 
     private String longitude;
 
     private String copyright;
+
+    private Integer adminUserId;
+
+    private Integer provinceId;
+
+    private String provinceName;
+
+    private Integer cityId;
+
+    private String cityName;
+
+    private Integer districtId;
+
+    private String districtName;
+
+    private String address;
+
+    private String zipCode;
 
     private Byte isDelete;
 
@@ -89,6 +113,30 @@ public class Company {
         this.introduction = introduction;
     }
 
+    public String getBriefPictures() {
+        return briefPictures;
+    }
+
+    public void setBriefPictures(String briefPictures) {
+        this.briefPictures = briefPictures;
+    }
+
+    public String getBriefVideos() {
+        return briefVideos;
+    }
+
+    public void setBriefVideos(String briefVideos) {
+        this.briefVideos = briefVideos;
+    }
+
+    public String getPortalWebsite() {
+        return portalWebsite;
+    }
+
+    public void setPortalWebsite(String portalWebsite) {
+        this.portalWebsite = portalWebsite;
+    }
+
     public String getContacts() {
         return contacts;
     }
@@ -105,12 +153,12 @@ public class Company {
         this.mobile = mobile;
     }
 
-    public String getAddress() {
-        return address;
+    public String getAccount() {
+        return account;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     public String getLatitude() {
@@ -135,6 +183,78 @@ public class Company {
 
     public void setCopyright(String copyright) {
         this.copyright = copyright;
+    }
+
+    public Integer getAdminUserId() {
+        return adminUserId;
+    }
+
+    public void setAdminUserId(Integer adminUserId) {
+        this.adminUserId = adminUserId;
+    }
+
+    public Integer getProvinceId() {
+        return provinceId;
+    }
+
+    public void setProvinceId(Integer provinceId) {
+        this.provinceId = provinceId;
+    }
+
+    public String getProvinceName() {
+        return provinceName;
+    }
+
+    public void setProvinceName(String provinceName) {
+        this.provinceName = provinceName;
+    }
+
+    public Integer getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public Integer getDistrictId() {
+        return districtId;
+    }
+
+    public void setDistrictId(Integer districtId) {
+        this.districtId = districtId;
+    }
+
+    public String getDistrictName() {
+        return districtName;
+    }
+
+    public void setDistrictName(String districtName) {
+        this.districtName = districtName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     public Byte getIsDelete() {
@@ -203,12 +323,24 @@ public class Company {
         sb.append(", code=").append(code);
         sb.append(", name=").append(name);
         sb.append(", introduction=").append(introduction);
+        sb.append(", briefPictures=").append(briefPictures);
+        sb.append(", briefVideos=").append(briefVideos);
+        sb.append(", portalWebsite=").append(portalWebsite);
         sb.append(", contacts=").append(contacts);
         sb.append(", mobile=").append(mobile);
-        sb.append(", address=").append(address);
+        sb.append(", account=").append(account);
         sb.append(", latitude=").append(latitude);
         sb.append(", longitude=").append(longitude);
         sb.append(", copyright=").append(copyright);
+        sb.append(", adminUserId=").append(adminUserId);
+        sb.append(", provinceId=").append(provinceId);
+        sb.append(", provinceName=").append(provinceName);
+        sb.append(", cityId=").append(cityId);
+        sb.append(", cityName=").append(cityName);
+        sb.append(", districtId=").append(districtId);
+        sb.append(", districtName=").append(districtName);
+        sb.append(", address=").append(address);
+        sb.append(", zipCode=").append(zipCode);
         sb.append(", isDelete=").append(isDelete);
         sb.append(", createBy=").append(createBy);
         sb.append(", createTime=").append(createTime);
@@ -233,22 +365,34 @@ public class Company {
         }
         Company other = (Company) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getCode() == null ? other.getCode() == null : this.getCode().equals(other.getCode()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getIntroduction() == null ? other.getIntroduction() == null : this.getIntroduction().equals(other.getIntroduction()))
-            && (this.getContacts() == null ? other.getContacts() == null : this.getContacts().equals(other.getContacts()))
-            && (this.getMobile() == null ? other.getMobile() == null : this.getMobile().equals(other.getMobile()))
-            && (this.getAddress() == null ? other.getAddress() == null : this.getAddress().equals(other.getAddress()))
-            && (this.getLatitude() == null ? other.getLatitude() == null : this.getLatitude().equals(other.getLatitude()))
-            && (this.getLongitude() == null ? other.getLongitude() == null : this.getLongitude().equals(other.getLongitude()))
-            && (this.getCopyright() == null ? other.getCopyright() == null : this.getCopyright().equals(other.getCopyright()))
-            && (this.getIsDelete() == null ? other.getIsDelete() == null : this.getIsDelete().equals(other.getIsDelete()))
-            && (this.getCreateBy() == null ? other.getCreateBy() == null : this.getCreateBy().equals(other.getCreateBy()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateBy() == null ? other.getUpdateBy() == null : this.getUpdateBy().equals(other.getUpdateBy()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()));
+                && (this.getCode() == null ? other.getCode() == null : this.getCode().equals(other.getCode()))
+                && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+                && (this.getIntroduction() == null ? other.getIntroduction() == null : this.getIntroduction().equals(other.getIntroduction()))
+                && (this.getBriefPictures() == null ? other.getBriefPictures() == null : this.getBriefPictures().equals(other.getBriefPictures()))
+                && (this.getBriefVideos() == null ? other.getBriefVideos() == null : this.getBriefVideos().equals(other.getBriefVideos()))
+                && (this.getPortalWebsite() == null ? other.getPortalWebsite() == null : this.getPortalWebsite().equals(other.getPortalWebsite()))
+                && (this.getContacts() == null ? other.getContacts() == null : this.getContacts().equals(other.getContacts()))
+                && (this.getMobile() == null ? other.getMobile() == null : this.getMobile().equals(other.getMobile()))
+                && (this.getAccount() == null ? other.getAccount() == null : this.getAccount().equals(other.getAccount()))
+                && (this.getLatitude() == null ? other.getLatitude() == null : this.getLatitude().equals(other.getLatitude()))
+                && (this.getLongitude() == null ? other.getLongitude() == null : this.getLongitude().equals(other.getLongitude()))
+                && (this.getCopyright() == null ? other.getCopyright() == null : this.getCopyright().equals(other.getCopyright()))
+                && (this.getAdminUserId() == null ? other.getAdminUserId() == null : this.getAdminUserId().equals(other.getAdminUserId()))
+                && (this.getProvinceId() == null ? other.getProvinceId() == null : this.getProvinceId().equals(other.getProvinceId()))
+                && (this.getProvinceName() == null ? other.getProvinceName() == null : this.getProvinceName().equals(other.getProvinceName()))
+                && (this.getCityId() == null ? other.getCityId() == null : this.getCityId().equals(other.getCityId()))
+                && (this.getCityName() == null ? other.getCityName() == null : this.getCityName().equals(other.getCityName()))
+                && (this.getDistrictId() == null ? other.getDistrictId() == null : this.getDistrictId().equals(other.getDistrictId()))
+                && (this.getDistrictName() == null ? other.getDistrictName() == null : this.getDistrictName().equals(other.getDistrictName()))
+                && (this.getAddress() == null ? other.getAddress() == null : this.getAddress().equals(other.getAddress()))
+                && (this.getZipCode() == null ? other.getZipCode() == null : this.getZipCode().equals(other.getZipCode()))
+                && (this.getIsDelete() == null ? other.getIsDelete() == null : this.getIsDelete().equals(other.getIsDelete()))
+                && (this.getCreateBy() == null ? other.getCreateBy() == null : this.getCreateBy().equals(other.getCreateBy()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+                && (this.getUpdateBy() == null ? other.getUpdateBy() == null : this.getUpdateBy().equals(other.getUpdateBy()))
+                && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
+                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+                && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()));
     }
 
     @Override
@@ -259,12 +403,24 @@ public class Company {
         result = prime * result + ((getCode() == null) ? 0 : getCode().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getIntroduction() == null) ? 0 : getIntroduction().hashCode());
+        result = prime * result + ((getBriefPictures() == null) ? 0 : getBriefPictures().hashCode());
+        result = prime * result + ((getBriefVideos() == null) ? 0 : getBriefVideos().hashCode());
+        result = prime * result + ((getPortalWebsite() == null) ? 0 : getPortalWebsite().hashCode());
         result = prime * result + ((getContacts() == null) ? 0 : getContacts().hashCode());
         result = prime * result + ((getMobile() == null) ? 0 : getMobile().hashCode());
-        result = prime * result + ((getAddress() == null) ? 0 : getAddress().hashCode());
+        result = prime * result + ((getAccount() == null) ? 0 : getAccount().hashCode());
         result = prime * result + ((getLatitude() == null) ? 0 : getLatitude().hashCode());
         result = prime * result + ((getLongitude() == null) ? 0 : getLongitude().hashCode());
         result = prime * result + ((getCopyright() == null) ? 0 : getCopyright().hashCode());
+        result = prime * result + ((getAdminUserId() == null) ? 0 : getAdminUserId().hashCode());
+        result = prime * result + ((getProvinceId() == null) ? 0 : getProvinceId().hashCode());
+        result = prime * result + ((getProvinceName() == null) ? 0 : getProvinceName().hashCode());
+        result = prime * result + ((getCityId() == null) ? 0 : getCityId().hashCode());
+        result = prime * result + ((getCityName() == null) ? 0 : getCityName().hashCode());
+        result = prime * result + ((getDistrictId() == null) ? 0 : getDistrictId().hashCode());
+        result = prime * result + ((getDistrictName() == null) ? 0 : getDistrictName().hashCode());
+        result = prime * result + ((getAddress() == null) ? 0 : getAddress().hashCode());
+        result = prime * result + ((getZipCode() == null) ? 0 : getZipCode().hashCode());
         result = prime * result + ((getIsDelete() == null) ? 0 : getIsDelete().hashCode());
         result = prime * result + ((getCreateBy() == null) ? 0 : getCreateBy().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -298,12 +454,24 @@ public class Company {
         code("code", "code", "VARCHAR", false),
         name("name", "name", "VARCHAR", true),
         introduction("introduction", "introduction", "VARCHAR", false),
+        briefPictures("brief_pictures", "briefPictures", "VARCHAR", false),
+        briefVideos("brief_videos", "briefVideos", "VARCHAR", false),
+        portalWebsite("portal_website", "portalWebsite", "VARCHAR", false),
         contacts("contacts", "contacts", "VARCHAR", false),
         mobile("mobile", "mobile", "VARCHAR", false),
-        address("address", "address", "VARCHAR", false),
+        account("account", "account", "VARCHAR", false),
         latitude("latitude", "latitude", "VARCHAR", false),
         longitude("longitude", "longitude", "VARCHAR", false),
         copyright("copyright", "copyright", "VARCHAR", false),
+        adminUserId("admin_user_id", "adminUserId", "INTEGER", false),
+        provinceId("province_id", "provinceId", "INTEGER", false),
+        provinceName("province_name", "provinceName", "VARCHAR", false),
+        cityId("city_id", "cityId", "INTEGER", false),
+        cityName("city_name", "cityName", "VARCHAR", false),
+        districtId("district_id", "districtId", "INTEGER", false),
+        districtName("district_name", "districtName", "VARCHAR", false),
+        address("address", "address", "VARCHAR", false),
+        zipCode("zip_code", "zipCode", "VARCHAR", false),
         isDelete("is_delete", "isDelete", "TINYINT", false),
         createBy("create_by", "createBy", "VARCHAR", false),
         createTime("create_time", "createTime", "TIMESTAMP", false),

@@ -1,6 +1,7 @@
 package com.demeter.cloud.core.constant;
 
-import com.demeter.cloud.core.ConstantHandler;
+
+import com.demeter.cloud.framework.ConstantHandler;
 
 import java.util.Objects;
 

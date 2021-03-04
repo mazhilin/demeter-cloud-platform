@@ -89,7 +89,7 @@
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
         <!--表名-->
-        <table tableName="demeter_enroll_info" domainObjectName="EnrollInfo" >
+        <table tableName="demeter_company" domainObjectName="Company" >
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <domainObjectRenamingRule searchString="demeter_" replaceString="" />
         </table>

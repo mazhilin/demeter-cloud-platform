@@ -3,6 +3,7 @@ package com.demeter.cloud.console.utils;
 import com.demeter.cloud.console.annotation.RequiresPermissionsDesc;
 import com.demeter.cloud.console.web.Permission;
 import com.demeter.cloud.console.web.PermissionData;
+import com.demeter.cloud.core.util.CheckEmptyUtil;
 import com.demeter.cloud.model.exception.BusinessException;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -16,6 +17,7 @@ import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -47,7 +49,7 @@ public class ConsolePermissionUtil {
             String api = permission.getApi();
 
             String[] menus = requiresPermissionsDesc.menu();
-            if (menus.length != 2) {
+            if (CheckEmptyUtil.isNotEmpty(menus) && menus.length != 2) {
                 throw new BusinessException("目前只支持两级菜单!");
             }
             String rootMenu = menus[0];
@@ -62,7 +64,7 @@ public class ConsolePermissionUtil {
                 rootData = new PermissionData();
                 rootData.setId(rootMenu);
                 rootData.setLabel(rootMenu);
-                rootData.setChildren(new ArrayList<>());
+                rootData.setChildren(Lists.newLinkedList());
                 root.add(rootData);
             }
             String itemMenu = menus[1];
@@ -77,7 +79,7 @@ public class ConsolePermissionUtil {
                 itemData = new PermissionData();
                 itemData.setId(itemMenu);
                 itemData.setLabel(itemMenu);
-                itemData.setChildren(new ArrayList<>());
+                itemData.setChildren(Lists.newLinkedList());
                 rootData.getChildren().add(itemData);
             }
 
@@ -95,12 +97,7 @@ public class ConsolePermissionUtil {
                 buttonData.setLabel(requiresPermissionsDesc.button());
                 buttonData.setApi(api);
                 itemData.getChildren().add(buttonData);
-            } else {
-                // 目前限制Controller里面每个方法的RequiresPermissionsDesc注解是唯一的
-                // 如果允许相同，可能会造成内部权限不一致。
-                throw new BusinessException("权限已经存在，不能添加新权限!");
             }
-
         }
         return root;
     }
@@ -115,6 +112,9 @@ public class ConsolePermissionUtil {
     @SuppressWarnings("rawtypes")
     public static List<Permission> permissionList(ApplicationContext context, String basicPackage) {
         Map<String, Object> map = context.getBeansWithAnnotation(Controller.class);
+        if (CheckEmptyUtil.isEmpty(map)){
+            map = context.getBeansWithAnnotation(RestController.class);
+        }
         List<Permission> permissions = new ArrayList<>();
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             Object bean = entry.getValue();
@@ -164,7 +164,7 @@ public class ConsolePermissionUtil {
                 }
                 // TODO
                 // 这里只支持GetMapping注解或者PostMapping注解，应该进一步提供灵活性
-                throw new RuntimeException("目前权限管理应该在method的前面使用GetMapping注解或者PostMapping注解");
+                throw new BusinessException("目前权限管理应该在method的前面使用GetMapping注解或者PostMapping注解");
             }
         }
         return permissions;

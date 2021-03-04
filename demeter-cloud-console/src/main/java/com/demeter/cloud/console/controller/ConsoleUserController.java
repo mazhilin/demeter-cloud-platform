@@ -176,26 +176,14 @@ public class ConsoleUserController extends BaseController {
     public Object update(@RequestBody AdminUser admin) {
         logger.info("【请求开始】系统中心->用户管理->更新,请求参数:{}", JSONObject.toJSONString(admin));
 
-        Object error = validate(admin);
-        if (error != null) {
-            return error;
-        }
-
         Integer anotherAdminId = admin.getId();
         if (anotherAdminId == null) {
             return ResponseUtil.badArgument();
         }
-
-        String rawPassword = admin.getPassword();
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String encodedPassword = encoder.encode(rawPassword);
-        admin.setPassword(encodedPassword);
-
         if (adminUserService.updateById(admin) == 0) {
             logger.error("系统中心->用户管理-更新 ,错误：{}", "更新数据失败！");
             return ResponseUtil.updatedDataFailed();
         }
-
         logger.info("【请求结束】系统中心->用户管理->更新,响应结果:{}", JSONObject.toJSONString(admin));
         return ResponseUtil.ok(admin);
     }

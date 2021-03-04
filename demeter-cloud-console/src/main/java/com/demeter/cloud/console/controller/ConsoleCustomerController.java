@@ -40,7 +40,7 @@ public class ConsoleCustomerController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"作品中心", "作者管理"},
             button = "列表")
-    @GetMapping("/list")
+    @GetMapping(value ="list")
     public Object list(
             String name,
             String code,
@@ -76,7 +76,7 @@ public class ConsoleCustomerController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"作品中心", "作者管理"},
             button = "新增")
-    @PostMapping("/show")
+    @PostMapping(value ="show")
     public Object show(@RequestBody CustomerUser customer) {
         logger.info("【请求开始】作品中心->作者管理->新增,请求参数:{}", JSONObject.toJSONString(customer));
 
@@ -96,7 +96,7 @@ public class ConsoleCustomerController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"作品中心", "作者管理"},
             button = "新增")
-    @PostMapping("/create")
+    @PostMapping(value ="create")
     public Object create(@RequestBody CustomerUser customer) {
         logger.info("【请求开始】作品中心->作者管理->新增,请求参数:{}", JSONObject.toJSONString(customer));
 
@@ -119,7 +119,7 @@ public class ConsoleCustomerController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"作品中心", "作者管理"},
             button = "编辑")
-    @PostMapping("/edit")
+    @PostMapping(value ="edit")
     public Object edit(@RequestBody CustomerUser customer) {
         logger.info("【请求开始】作品中心->作者管理->编辑,请求参数:{}", JSONObject.toJSONString(customer));
 
@@ -147,7 +147,7 @@ public class ConsoleCustomerController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"作品中心", "作者管理"},
             button = "更新")
-    @PostMapping("/update")
+    @PostMapping(value ="update")
     public Object update(@RequestBody CustomerUser customer) {
         logger.info("【请求开始】作品中心->作者管理->作者更新,请求参数:{}", JSONObject.toJSONString(customer));
 
@@ -171,7 +171,7 @@ public class ConsoleCustomerController extends BaseController {
     @RequiresPermissionsDesc(
             menu = {"作品中心", "作者管理"},
             button = "删除")
-    @PostMapping("/delete")
+    @PostMapping(value ="delete")
     public Object delete(@RequestBody CustomerUser customer) {
         logger.info("【请求开始】作品中心->作者管理->删除,请求参数:{}", JSONObject.toJSONString(customer));
         customerUserService.deleteById(customer.getId());
