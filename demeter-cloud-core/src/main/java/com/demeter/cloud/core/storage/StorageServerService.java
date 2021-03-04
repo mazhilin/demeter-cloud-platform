@@ -1,11 +1,13 @@
 package com.demeter.cloud.core.storage;
 
 import com.demeter.cloud.core.util.CharUtil;
+import com.demeter.cloud.core.util.IpAddressUtil;
 import com.demeter.cloud.model.entity.StorageFile;
 import com.demeter.cloud.model.service.StorageFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.stream.Stream;
@@ -49,7 +51,7 @@ public class StorageServerService {
      * @param fileName      文件索引名
      */
     public String store(
-            InputStream inputStream, long contentLength, String contentType, String fileName) {
+            InputStream inputStream, long contentLength, String contentType, String fileName, HttpServletRequest request) {
         String key = generateKey(fileName);
         storage.store(inputStream, contentLength, contentType, key);
 
@@ -61,6 +63,7 @@ public class StorageServerService {
         storageFile.setContentType(contentType);
         storageFile.setKey(key);
         storageFile.setUrl(url);
+        storageFile.setIpAddress(IpAddressUtil.getIpAddress(request));
         storageService.add(storageFile);
 
         return url;

@@ -2,11 +2,11 @@ package com.demeter.cloud.console.controller;
 
 import com.demeter.cloud.core.util.CheckEmptyUtil;
 import com.demeter.cloud.core.util.ResponseUtil;
+import com.demeter.cloud.model.data.RegionData;
 import com.demeter.cloud.model.entity.RegionInfo;
 import com.demeter.cloud.model.persistence.controller.BaseController;
 import com.demeter.cloud.model.service.RegionInfoService;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * <p>封装Dcloud项目ConsoleComponentController类.<br></p>
@@ -33,6 +31,7 @@ public class ConsoleComponentController extends BaseController {
     @Autowired
     private RegionInfoService regionInfoService;
 
+
     /**
      * 查询区域下拉列表
      *
@@ -40,27 +39,48 @@ public class ConsoleComponentController extends BaseController {
      */
     @GetMapping(value = "regionList")
     public Object regionList() {
-        List<Map<String, Object>> regionList = Lists.newLinkedList();
+        List<RegionData> regionList = regionTreeList();
+        return ResponseUtil.ok(regionList);
+    }
+
+    protected List<RegionData> regionTreeList() {
+        List<RegionData> regionList = Lists.newLinkedList();
         List<RegionInfo> provinceList = regionInfoService.queryProvinceList();
         if (CheckEmptyUtil.isNotEmpty(provinceList)) {
-            Objects.requireNonNull(provinceList).parallelStream().forEachOrdered(province -> {
-                Map<String, Object> builderProvinceData = Maps.newConcurrentMap();
-                builderProvinceData.put("value", province.getId());
-                builderProvinceData.put("label", province.getName());
-                builderProvinceData.put("code", province.getCode());
-                List<Map<String, Object>> cityList = Lists.newLinkedList();
-                List<RegionInfo> queryCityList = regionInfoService.queryCityListByParentId(province.getId());
-                Objects.requireNonNull(queryCityList).parallelStream().forEachOrdered(city -> {
-                    Map<String, Object> builderCityData = Maps.newConcurrentMap();
-                    builderCityData.put("value", city.getId());
-                    builderCityData.put("label", city.getName());
-                    builderCityData.put("code", city.getCode());
-                    cityList.add(builderCityData);
-                });
-                builderProvinceData.put("child", cityList);
-                regionList.add(builderProvinceData);
-            });
+            for (RegionInfo province : provinceList) {
+                RegionData provinceData = new RegionData();
+                provinceData.setValue(province.getId());
+                provinceData.setType(province.getType().intValue());
+                provinceData.setLevel(province.getLevel());
+                provinceData.setLabel(province.getName());
+                provinceData.setCode(province.getCode().toString());
+                List<RegionInfo> cityList = regionInfoService.queryCityListByParentId(province.getId());
+                if (CheckEmptyUtil.isNotEmpty(cityList)) {
+                    for (RegionInfo city : cityList) {
+                        RegionData cityData = new RegionData();
+                        cityData.setValue(city.getId());
+                        cityData.setType(city.getType().intValue());
+                        cityData.setLevel(city.getLevel());
+                        cityData.setLabel(city.getName());
+                        cityData.setCode(city.getCode().toString());
+                        List<RegionInfo> districtList = regionInfoService.queryDistrictListByParentId(city.getId());
+                        if (CheckEmptyUtil.isNotEmpty(districtList)) {
+                            for (RegionInfo district : districtList) {
+                                RegionData districtData = new RegionData();
+                                districtData.setValue(district.getId());
+                                districtData.setType(district.getType().intValue());
+                                districtData.setLevel(district.getLevel());
+                                districtData.setLabel(district.getName());
+                                districtData.setCode(district.getCode().toString());
+                                cityData.getChild().add(districtData);
+                            }
+                        }
+                        provinceData.getChild().add(cityData);
+                    }
+                }
+                regionList.add(provinceData);
+            }
         }
-        return ResponseUtil.ok(regionList);
+        return regionList;
     }
 }

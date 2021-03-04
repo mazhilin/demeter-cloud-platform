@@ -41,6 +41,8 @@ public class StorageFile {
 
     private String url;
 
+    private String ipAddress;
+
     private Byte isDelete;
 
     private String createBy;
@@ -127,6 +129,14 @@ public class StorageFile {
         this.url = url;
     }
 
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
     public Byte getIsDelete() {
         return isDelete;
     }
@@ -198,6 +208,7 @@ public class StorageFile {
         sb.append(", size=").append(size);
         sb.append(", duration=").append(duration);
         sb.append(", url=").append(url);
+        sb.append(", ipAddress=").append(ipAddress);
         sb.append(", isDelete=").append(isDelete);
         sb.append(", createBy=").append(createBy);
         sb.append(", createTime=").append(createTime);
@@ -230,6 +241,7 @@ public class StorageFile {
             && (this.getSize() == null ? other.getSize() == null : this.getSize().equals(other.getSize()))
             && (this.getDuration() == null ? other.getDuration() == null : this.getDuration().equals(other.getDuration()))
             && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
+            && (this.getIpAddress() == null ? other.getIpAddress() == null : this.getIpAddress().equals(other.getIpAddress()))
             && (this.getIsDelete() == null ? other.getIsDelete() == null : this.getIsDelete().equals(other.getIsDelete()))
             && (this.getCreateBy() == null ? other.getCreateBy() == null : this.getCreateBy().equals(other.getCreateBy()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -252,6 +264,7 @@ public class StorageFile {
         result = prime * result + ((getSize() == null) ? 0 : getSize().hashCode());
         result = prime * result + ((getDuration() == null) ? 0 : getDuration().hashCode());
         result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
+        result = prime * result + ((getIpAddress() == null) ? 0 : getIpAddress().hashCode());
         result = prime * result + ((getIsDelete() == null) ? 0 : getIsDelete().hashCode());
         result = prime * result + ((getCreateBy() == null) ? 0 : getCreateBy().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -290,6 +303,7 @@ public class StorageFile {
         size("size", "size", "INTEGER", true),
         duration("duration", "duration", "VARCHAR", false),
         url("url", "url", "VARCHAR", false),
+        ipAddress("ip_address", "ipAddress", "VARCHAR", false),
         isDelete("is_delete", "isDelete", "TINYINT", false),
         createBy("create_by", "createBy", "VARCHAR", false),
         createTime("create_time", "createTime", "TIMESTAMP", false),

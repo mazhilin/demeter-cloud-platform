@@ -56,8 +56,7 @@ public class ConsoleAuthorityController extends BaseController {
     private PermissionInfoService permissionInfoService;
 
     @PostMapping(value = "login")
-    public Object login(@RequestBody String body,
-                        HttpServletRequest request) {
+    public Object login(@RequestBody String body) {
         logger.info("【请求开始】系统管理->用户登录,请求参数:body:{}", body);
         String account = JacksonUtil.parseString(body, "account");
         String password = JacksonUtil.parseString(body, "password");

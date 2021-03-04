@@ -38,8 +38,7 @@ public class RegionInfoServiceImpl extends BaseService implements RegionInfoServ
     @Override
     public List<RegionInfo> queryRegionList() {
         RegionInfoExample example = new RegionInfoExample();
-        byte region = 4;
-        example.or().andTypeNotEqualTo(region).andIsDeleteEqualTo((byte) 0).andStatusEqualTo((byte) 1);
+        example.or().andIsDeleteEqualTo((byte) 0).andStatusEqualTo((byte) 1);
         return regionInfoMapper.selectByExample(example);
     }
 
@@ -144,7 +143,7 @@ public class RegionInfoServiceImpl extends BaseService implements RegionInfoServ
     public List<RegionInfo> queryProvinceList() {
         RegionInfoExample example = new RegionInfoExample();
         byte province = 1;
-        example.or().andTypeNotEqualTo(province).andIsDeleteEqualTo((byte) 0).andStatusEqualTo((byte) 1);
+        example.or().andParentIdEqualTo(0).andTypeEqualTo(province).andIsDeleteEqualTo((byte) 0).andStatusEqualTo((byte) 1);
         return regionInfoMapper.selectByExample(example);
     }
 
@@ -157,8 +156,22 @@ public class RegionInfoServiceImpl extends BaseService implements RegionInfoServ
     @Override
     public List<RegionInfo> queryCityListByParentId(Integer parentId) {
         RegionInfoExample example = new RegionInfoExample();
-        byte city = 1;
+        byte city = 2;
         example.or().andParentIdEqualTo(parentId).andTypeEqualTo(city).andIsDeleteEqualTo((byte) 0).andStatusEqualTo((byte) 1);
+        return regionInfoMapper.selectByExample(example);
+    }
+
+    /**
+     * 根据父级编码查询区县列表
+     *
+     * @param parentId 父级编码
+     * @return 返回列表
+     */
+    @Override
+    public List<RegionInfo> queryDistrictListByParentId(Integer parentId) {
+        RegionInfoExample example = new RegionInfoExample();
+        byte district = 3;
+        example.or().andParentIdEqualTo(parentId).andTypeEqualTo(district).andIsDeleteEqualTo((byte) 0).andStatusEqualTo((byte) 1);
         return regionInfoMapper.selectByExample(example);
     }
 }

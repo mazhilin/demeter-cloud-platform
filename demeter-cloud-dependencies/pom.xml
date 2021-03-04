@@ -48,6 +48,7 @@
         <aliyun-sms-api.verison>1.0.0</aliyun-sms-api.verison>
         <common-pool2.version>2.9.0</common-pool2.version>
         <common-io.version>2.8.0</common-io.version>
+        <tomcat-servlet-api.version>9.0.38</tomcat-servlet-api.version>
     </properties>
 
     <dependencyManagement>
@@ -138,6 +139,11 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-servlet-api</artifactId>
+                <version>${tomcat-servlet-api.version}</version>
             </dependency>
             <!-- Spring Boot Mybatis 依赖 -->
             <dependency>

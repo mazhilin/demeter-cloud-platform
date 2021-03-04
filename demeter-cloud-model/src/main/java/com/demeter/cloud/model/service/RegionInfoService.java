@@ -37,6 +37,14 @@ public interface RegionInfoService {
     List<RegionInfo> queryCityListByParentId(Integer parentId);
 
     /**
+     * 根据父级编码查询区县列表
+     *
+     * @param parentId 父级编码
+     * @return 返回列表
+     */
+    List<RegionInfo> queryDistrictListByParentId(Integer parentId);
+
+    /**
      * 查询列表
      *
      * @param name  名称

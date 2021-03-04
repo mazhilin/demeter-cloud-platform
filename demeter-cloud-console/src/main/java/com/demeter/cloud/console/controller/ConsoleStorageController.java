@@ -10,6 +10,7 @@ import com.demeter.cloud.model.entity.StorageFile;
 import com.demeter.cloud.model.persistence.controller.BaseController;
 import com.demeter.cloud.model.service.StorageFileService;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Maps;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -89,10 +90,9 @@ public class ConsoleStorageController extends BaseController {
         logger.info("【请求开始】系统中心->资源管理->新增,请求参数,file:{}", file.getOriginalFilename());
 
         String originalFilename = file.getOriginalFilename();
-        String url =
-                storageService.store(
-                        file.getInputStream(), file.getSize(), file.getContentType(), originalFilename);
-        Map<String, Object> data = new HashMap<>();
+        String url = storageService.store(
+                file.getInputStream(), file.getSize(), file.getContentType(), originalFilename, request);
+        Map<String, Object> data = Maps.newConcurrentMap();
         data.put("url", url);
         logger.info("【请求结束】系统中心->资源管理->新增:响应结果:{}", JSONObject.toJSONString(data));
         return ResponseUtil.ok(data);
