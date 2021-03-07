@@ -1,4 +1,4 @@
-package com.demeter.cloud.framework.utils;
+package com.demeter.cloud.utils;
 
 import java.util.List;
 import java.util.Map;

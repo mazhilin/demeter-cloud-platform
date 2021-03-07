@@ -3,7 +3,7 @@ package com.demeter.cloud.console.utils;
 import com.demeter.cloud.console.annotation.RequiresPermissionsDesc;
 import com.demeter.cloud.console.web.Permission;
 import com.demeter.cloud.console.web.PermissionData;
-import com.demeter.cloud.framework.utils.CheckEmptyUtil;
+import com.demeter.cloud.utils.CheckEmptyUtil;
 import com.demeter.cloud.model.exception.BusinessException;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;

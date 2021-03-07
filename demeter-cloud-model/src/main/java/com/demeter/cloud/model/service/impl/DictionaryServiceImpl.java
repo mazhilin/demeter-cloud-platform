@@ -4,7 +4,7 @@ import com.demeter.cloud.model.entity.Dictionary;
 import com.demeter.cloud.model.entity.DictionaryExample;
 import com.demeter.cloud.model.exception.BusinessException;
 import com.demeter.cloud.model.mapper.DictionaryMapper;
-import com.demeter.cloud.framework.persistence.service.BaseService;
+import com.demeter.cloud.persistence.service.BaseService;
 import com.demeter.cloud.model.service.DictionaryService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;

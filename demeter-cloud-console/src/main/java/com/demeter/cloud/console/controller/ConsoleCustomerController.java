@@ -6,7 +6,7 @@ import com.demeter.cloud.core.utils.ResponseUtil;
 import com.demeter.cloud.core.validator.Order;
 import com.demeter.cloud.core.validator.Sort;
 import com.demeter.cloud.model.entity.CustomerUser;
-import com.demeter.cloud.framework.persistence.controller.BaseController;
+import com.demeter.cloud.persistence.controller.BaseController;
 import com.demeter.cloud.model.service.CustomerUserService;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

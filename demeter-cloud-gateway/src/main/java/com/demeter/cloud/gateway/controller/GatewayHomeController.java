@@ -2,7 +2,7 @@ package com.demeter.cloud.gateway.controller;
 
 import com.demeter.cloud.core.utils.ResponseUtil;
 import com.demeter.cloud.gateway.manager.GatewayHomeManager;
-import com.demeter.cloud.framework.persistence.controller.BaseController;
+import com.demeter.cloud.persistence.controller.BaseController;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

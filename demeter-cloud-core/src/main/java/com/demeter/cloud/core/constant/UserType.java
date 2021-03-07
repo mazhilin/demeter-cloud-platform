@@ -1,7 +1,7 @@
 package com.demeter.cloud.core.constant;
 
 
-import com.demeter.cloud.framework.BaseHandler;
+import com.demeter.cloud.BaseHandler;
 
 /**
  * <p>封装Dcloud项目UserType类.<br></p>

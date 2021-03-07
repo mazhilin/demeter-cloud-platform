@@ -7,7 +7,7 @@ import com.demeter.cloud.core.validator.Order;
 import com.demeter.cloud.core.validator.Sort;
 import com.demeter.cloud.model.entity.AdminUser;
 import com.demeter.cloud.model.entity.RegionInfo;
-import com.demeter.cloud.framework.persistence.controller.BaseController;
+import com.demeter.cloud.persistence.controller.BaseController;
 import com.demeter.cloud.model.service.RegionInfoService;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;

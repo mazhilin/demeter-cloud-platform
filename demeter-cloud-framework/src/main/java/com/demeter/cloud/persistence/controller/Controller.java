@@ -1,4 +1,4 @@
-package com.demeter.cloud.framework.persistence.controller;
+package com.demeter.cloud.persistence.controller;
 
 /**
  * <p>封装Dcloud项目Controller类.<br></p>

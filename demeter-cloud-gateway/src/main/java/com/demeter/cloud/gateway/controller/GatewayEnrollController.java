@@ -2,7 +2,7 @@ package com.demeter.cloud.gateway.controller;
 
 import com.demeter.cloud.gateway.utils.IpHelper;
 import com.demeter.cloud.model.entity.EnrollInfo;
-import com.demeter.cloud.framework.persistence.controller.BaseController;
+import com.demeter.cloud.persistence.controller.BaseController;
 import com.demeter.cloud.model.service.CustomerUserService;
 import com.demeter.cloud.model.service.EnrollInfoService;
 import org.springframework.http.HttpStatus;

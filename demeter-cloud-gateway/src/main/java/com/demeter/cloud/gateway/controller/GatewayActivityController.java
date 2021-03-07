@@ -3,7 +3,7 @@ package com.demeter.cloud.gateway.controller;
 import com.demeter.cloud.model.entity.ActivityInfo;
 import com.demeter.cloud.model.entity.ActivityTemplate;
 import com.demeter.cloud.model.entity.Company;
-import com.demeter.cloud.framework.persistence.controller.BaseController;
+import com.demeter.cloud.persistence.controller.BaseController;
 import com.demeter.cloud.model.service.ActivityInfoService;
 import com.demeter.cloud.model.service.ActivityTemplateService;
 import com.demeter.cloud.model.service.CompanyService;

@@ -4,7 +4,7 @@ import com.demeter.cloud.model.entity.WorksInfo;
 import com.demeter.cloud.model.entity.WorksInfoExample;
 import com.demeter.cloud.model.exception.BusinessException;
 import com.demeter.cloud.model.mapper.WorksInfoMapper;
-import com.demeter.cloud.framework.persistence.service.BaseService;
+import com.demeter.cloud.persistence.service.BaseService;
 import com.demeter.cloud.model.service.WorksInfoService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;

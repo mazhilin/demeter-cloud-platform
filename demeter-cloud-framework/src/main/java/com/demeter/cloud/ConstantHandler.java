@@ -1,4 +1,4 @@
-package com.demeter.cloud.framework;
+package com.demeter.cloud;
 
 /**
  * <p>封装Dcloud项目ConstantHanlder类.<br></p>

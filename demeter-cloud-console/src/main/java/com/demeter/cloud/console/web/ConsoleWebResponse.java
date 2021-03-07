@@ -1,7 +1,7 @@
 package com.demeter.cloud.console.web;
 
 
-import com.demeter.cloud.framework.BaseHandler;
+import com.demeter.cloud.BaseHandler;
 
 /**
  * <p>封装Dcloud项目ConsoleWebResponse类.<br></p>

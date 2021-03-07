@@ -1,4 +1,4 @@
-package com.demeter.cloud.framework.persistence.controller;
+package com.demeter.cloud.persistence.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

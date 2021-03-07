@@ -4,7 +4,7 @@ import com.demeter.cloud.model.entity.RegionInfo;
 import com.demeter.cloud.model.entity.RegionInfoExample;
 import com.demeter.cloud.model.exception.BusinessException;
 import com.demeter.cloud.model.mapper.RegionInfoMapper;
-import com.demeter.cloud.framework.persistence.service.BaseService;
+import com.demeter.cloud.persistence.service.BaseService;
 import com.demeter.cloud.model.service.RegionInfoService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;

@@ -7,7 +7,7 @@ import com.demeter.cloud.core.validator.Order;
 import com.demeter.cloud.core.validator.Sort;
 import com.demeter.cloud.model.entity.Dictionary;
 import com.demeter.cloud.model.entity.DictionaryItem;
-import com.demeter.cloud.framework.persistence.controller.BaseController;
+import com.demeter.cloud.persistence.controller.BaseController;
 import com.demeter.cloud.model.service.DictionaryItemService;
 import com.demeter.cloud.model.service.DictionaryService;
 import com.github.pagehelper.PageInfo;

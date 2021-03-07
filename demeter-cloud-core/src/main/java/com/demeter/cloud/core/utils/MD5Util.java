@@ -1,7 +1,7 @@
 package com.demeter.cloud.core.utils;
 
 import com.demeter.cloud.core.constant.Constants;
-import com.demeter.cloud.framework.utils.CheckEmptyUtil;
+import com.demeter.cloud.utils.CheckEmptyUtil;
 import org.apache.commons.codec.binary.Hex;
 
 import java.security.MessageDigest;

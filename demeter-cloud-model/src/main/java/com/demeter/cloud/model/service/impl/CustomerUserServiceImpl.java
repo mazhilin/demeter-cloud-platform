@@ -4,7 +4,7 @@ import com.demeter.cloud.model.entity.CustomerUser;
 import com.demeter.cloud.model.entity.CustomerUserExample;
 import com.demeter.cloud.model.exception.BusinessException;
 import com.demeter.cloud.model.mapper.CustomerUserMapper;
-import com.demeter.cloud.framework.persistence.service.BaseService;
+import com.demeter.cloud.persistence.service.BaseService;
 import com.demeter.cloud.model.service.CustomerUserService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;

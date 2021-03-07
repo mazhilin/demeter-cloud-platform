@@ -8,7 +8,7 @@ import com.demeter.cloud.core.utils.ResponseUtil;
 import com.demeter.cloud.core.validator.Order;
 import com.demeter.cloud.core.validator.Sort;
 import com.demeter.cloud.model.entity.RoleInfo;
-import com.demeter.cloud.framework.persistence.controller.BaseController;
+import com.demeter.cloud.persistence.controller.BaseController;
 import com.demeter.cloud.model.service.RoleInfoService;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

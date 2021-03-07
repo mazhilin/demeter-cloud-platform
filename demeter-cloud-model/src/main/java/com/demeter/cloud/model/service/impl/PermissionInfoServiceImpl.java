@@ -4,7 +4,7 @@ import com.demeter.cloud.model.entity.PermissionInfo;
 import com.demeter.cloud.model.entity.PermissionInfoExample;
 import com.demeter.cloud.model.exception.BusinessException;
 import com.demeter.cloud.model.mapper.PermissionInfoMapper;
-import com.demeter.cloud.framework.persistence.service.BaseService;
+import com.demeter.cloud.persistence.service.BaseService;
 import com.demeter.cloud.model.service.PermissionInfoService;
 import com.google.common.collect.Sets;
 import org.springframework.stereotype.Service;
