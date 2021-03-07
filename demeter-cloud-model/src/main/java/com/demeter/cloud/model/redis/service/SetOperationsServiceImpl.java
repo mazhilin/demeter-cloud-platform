@@ -1,6 +1,6 @@
 package com.demeter.cloud.model.redis.service;
 
-import com.demeter.cloud.model.persistence.service.BaseService;
+import com.demeter.cloud.framework.persistence.service.BaseService;
 import com.demeter.cloud.model.redis.SetOperationsService;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisOperations;

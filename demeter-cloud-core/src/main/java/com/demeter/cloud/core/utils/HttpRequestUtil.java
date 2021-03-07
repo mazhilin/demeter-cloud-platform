@@ -1,4 +1,4 @@
-package com.demeter.cloud.core.util;
+package com.demeter.cloud.core.utils;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;

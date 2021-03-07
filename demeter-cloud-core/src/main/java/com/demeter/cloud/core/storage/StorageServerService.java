@@ -1,7 +1,7 @@
 package com.demeter.cloud.core.storage;
 
-import com.demeter.cloud.core.util.CharUtil;
-import com.demeter.cloud.core.util.IpAddressUtil;
+import com.demeter.cloud.core.utils.CharUtil;
+import com.demeter.cloud.core.utils.IpAddressUtil;
 import com.demeter.cloud.model.entity.StorageFile;
 import com.demeter.cloud.model.service.StorageFileService;
 import org.springframework.beans.factory.annotation.Autowired;

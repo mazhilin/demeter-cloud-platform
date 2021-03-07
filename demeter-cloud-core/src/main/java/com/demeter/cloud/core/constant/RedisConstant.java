@@ -58,9 +58,9 @@ public class RedisConstant {
     public static final String APP_SYSTEM_CITY_PROVINCE_LIST = "app:system:city:provinceList:";
 
     /**
-     * 省市区 级联
+     * 省/市/区级联
      */
-    public static final String APP_SYSTEM_CITY_ALL_LIST = "app:system:city:allList:";
+    public static final String APP_SYSTEM_REGION_LIST = "app:system:region:list";
 
     /**
      * 快速录入客户

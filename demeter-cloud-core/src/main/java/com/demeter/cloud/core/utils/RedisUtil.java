@@ -1,4 +1,4 @@
-package com.demeter.cloud.core.util;
+package com.demeter.cloud.core.utils;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;

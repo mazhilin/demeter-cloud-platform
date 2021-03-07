@@ -2,11 +2,11 @@ package com.demeter.cloud.console.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.demeter.cloud.console.annotation.RequiresPermissionsDesc;
-import com.demeter.cloud.core.util.ResponseUtil;
+import com.demeter.cloud.core.utils.ResponseUtil;
 import com.demeter.cloud.core.validator.Order;
 import com.demeter.cloud.core.validator.Sort;
 import com.demeter.cloud.model.entity.PublicParameter;
-import com.demeter.cloud.model.persistence.controller.BaseController;
+import com.demeter.cloud.framework.persistence.controller.BaseController;
 import com.demeter.cloud.model.service.PublicParameterService;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

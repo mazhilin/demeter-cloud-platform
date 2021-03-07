@@ -1,10 +1,9 @@
 package com.demeter.cloud.model.service.impl;
 
 import com.demeter.cloud.model.entity.EnrollInfo;
-import com.demeter.cloud.model.entity.EnrollInfoExample;
 import com.demeter.cloud.model.exception.BusinessException;
 import com.demeter.cloud.model.mapper.EnrollInfoMapper;
-import com.demeter.cloud.model.persistence.service.BaseService;
+import com.demeter.cloud.framework.persistence.service.BaseService;
 import com.demeter.cloud.model.service.EnrollInfoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

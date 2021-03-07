@@ -1,4 +1,4 @@
-package com.demeter.cloud.model.persistence.service;
+package com.demeter.cloud.framework.persistence.service;
 
 /**
  * <p>封装Dcloud项目Service类.<br></p>

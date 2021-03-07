@@ -1,7 +1,7 @@
 package com.demeter.cloud.console.utils;
 
 import com.demeter.cloud.console.web.ConsoleWebResponse;
-import com.demeter.cloud.core.util.ResponseUtil;
+import com.demeter.cloud.core.utils.ResponseUtil;
 
 /**
  * <p>封装Dcloud项目ConsoleWebResponseUtil类.<br></p>

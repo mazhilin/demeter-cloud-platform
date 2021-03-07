@@ -4,7 +4,7 @@ import com.demeter.cloud.model.entity.StorageFile;
 import com.demeter.cloud.model.entity.StorageFileExample;
 import com.demeter.cloud.model.exception.BusinessException;
 import com.demeter.cloud.model.mapper.StorageFileMapper;
-import com.demeter.cloud.model.persistence.service.BaseService;
+import com.demeter.cloud.framework.persistence.service.BaseService;
 import com.demeter.cloud.model.service.StorageFileService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;

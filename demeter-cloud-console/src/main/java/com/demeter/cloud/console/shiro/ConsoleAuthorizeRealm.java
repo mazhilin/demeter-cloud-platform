@@ -1,6 +1,6 @@
 package com.demeter.cloud.console.shiro;
 
-import com.demeter.cloud.core.util.bcrypt.BCryptPasswordEncoder;
+import com.demeter.cloud.core.utils.bcrypt.BCryptPasswordEncoder;
 import com.demeter.cloud.model.entity.AdminUser;
 import com.demeter.cloud.model.service.AdminUserService;
 import com.demeter.cloud.model.service.PermissionInfoService;

@@ -2,12 +2,12 @@ package com.demeter.cloud.console.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.demeter.cloud.console.annotation.RequiresPermissionsDesc;
-import com.demeter.cloud.core.util.ResponseUtil;
+import com.demeter.cloud.core.utils.ResponseUtil;
 import com.demeter.cloud.core.validator.Order;
 import com.demeter.cloud.core.validator.Sort;
 import com.demeter.cloud.model.entity.Dictionary;
 import com.demeter.cloud.model.entity.DictionaryItem;
-import com.demeter.cloud.model.persistence.controller.BaseController;
+import com.demeter.cloud.framework.persistence.controller.BaseController;
 import com.demeter.cloud.model.service.DictionaryItemService;
 import com.demeter.cloud.model.service.DictionaryService;
 import com.github.pagehelper.PageInfo;

@@ -1,6 +1,6 @@
 package com.demeter.cloud.console.configuration;
 
-import com.demeter.cloud.core.util.ResponseUtil;
+import com.demeter.cloud.core.utils.ResponseUtil;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.AuthorizationException;
 import org.springframework.core.Ordered;

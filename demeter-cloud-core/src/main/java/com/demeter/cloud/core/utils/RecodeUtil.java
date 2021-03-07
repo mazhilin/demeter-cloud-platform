@@ -1,4 +1,4 @@
-package com.demeter.cloud.core.util;
+package com.demeter.cloud.core.utils;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;

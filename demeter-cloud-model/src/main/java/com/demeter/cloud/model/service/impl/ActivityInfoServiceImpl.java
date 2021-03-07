@@ -4,7 +4,7 @@ import com.demeter.cloud.model.entity.ActivityInfo;
 import com.demeter.cloud.model.entity.ActivityInfoExample;
 import com.demeter.cloud.model.exception.BusinessException;
 import com.demeter.cloud.model.mapper.ActivityInfoMapper;
-import com.demeter.cloud.model.persistence.service.BaseService;
+import com.demeter.cloud.framework.persistence.service.BaseService;
 import com.demeter.cloud.model.service.ActivityInfoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

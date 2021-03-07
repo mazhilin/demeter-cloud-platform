@@ -1,6 +1,6 @@
 package com.demeter.cloud.gateway.controller;
 
-import com.demeter.cloud.model.persistence.controller.BaseController;
+import com.demeter.cloud.framework.persistence.controller.BaseController;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

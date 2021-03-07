@@ -1,11 +1,11 @@
 package com.demeter.cloud.console.controller;
 
 import com.demeter.cloud.console.utils.ConsoleWebResponseUtil;
-import com.demeter.cloud.core.util.JacksonUtil;
-import com.demeter.cloud.core.util.ResponseUtil;
-import com.demeter.cloud.core.util.bcrypt.BCryptPasswordEncoder;
+import com.demeter.cloud.core.utils.JacksonUtil;
+import com.demeter.cloud.core.utils.ResponseUtil;
+import com.demeter.cloud.core.utils.bcrypt.BCryptPasswordEncoder;
 import com.demeter.cloud.model.entity.AdminUser;
-import com.demeter.cloud.model.persistence.controller.BaseController;
+import com.demeter.cloud.framework.persistence.controller.BaseController;
 import com.demeter.cloud.model.service.AdminUserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;

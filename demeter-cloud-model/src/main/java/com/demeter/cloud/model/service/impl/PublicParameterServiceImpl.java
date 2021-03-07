@@ -4,7 +4,7 @@ import com.demeter.cloud.model.entity.PublicParameter;
 import com.demeter.cloud.model.entity.PublicParameterExample;
 import com.demeter.cloud.model.exception.BusinessException;
 import com.demeter.cloud.model.mapper.PublicParameterMapper;
-import com.demeter.cloud.model.persistence.service.BaseService;
+import com.demeter.cloud.framework.persistence.service.BaseService;
 import com.demeter.cloud.model.service.PublicParameterService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;

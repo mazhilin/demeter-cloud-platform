@@ -1,6 +1,6 @@
 package com.demeter.cloud.gateway.manager;
 
-import com.demeter.cloud.core.util.CharUtil;
+import com.demeter.cloud.core.utils.CharUtil;
 import com.demeter.cloud.gateway.web.GatewayApiToken;
 
 import java.time.LocalDateTime;

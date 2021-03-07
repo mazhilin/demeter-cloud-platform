@@ -1,7 +1,7 @@
 package com.demeter.cloud.core.storage;
 
 
-import com.demeter.cloud.core.util.CheckEmptyUtil;
+import com.demeter.cloud.framework.utils.CheckEmptyUtil;
 import com.demeter.cloud.model.exception.BusinessException;
 import io.minio.MinioClient;
 import io.minio.ObjectStat;

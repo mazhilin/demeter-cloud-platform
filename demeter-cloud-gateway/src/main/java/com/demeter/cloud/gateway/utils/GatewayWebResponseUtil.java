@@ -1,6 +1,6 @@
 package com.demeter.cloud.gateway.utils;
 
-import com.demeter.cloud.core.util.ResponseUtil;
+import com.demeter.cloud.core.utils.ResponseUtil;
 import com.demeter.cloud.gateway.web.GatewayWebResponse;
 
 /**

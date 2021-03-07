@@ -1,4 +1,4 @@
-package com.demeter.cloud.core.util.bcrypt;
+package com.demeter.cloud.core.utils.bcrypt;
 // Copyright (c) 2006 Damien Miller <djm@mindrot.org>
 
 //

@@ -1,6 +1,6 @@
 package com.demeter.cloud.core.configuration;
 
-import com.demeter.cloud.core.util.ResponseUtil;
+import com.demeter.cloud.core.utils.ResponseUtil;
 import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;

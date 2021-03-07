@@ -5,7 +5,7 @@ import com.demeter.cloud.model.entity.AdminUser;
 import com.demeter.cloud.model.entity.AdminUserExample;
 import com.demeter.cloud.model.exception.BusinessException;
 import com.demeter.cloud.model.mapper.AdminUserMapper;
-import com.demeter.cloud.model.persistence.service.BaseService;
+import com.demeter.cloud.framework.persistence.service.BaseService;
 import com.demeter.cloud.model.service.AdminUserService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
