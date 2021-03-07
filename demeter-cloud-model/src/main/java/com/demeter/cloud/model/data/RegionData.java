@@ -26,7 +26,7 @@ public class RegionData implements Serializable {
     /**
      * 区域编码
      */
-    private String code;
+    private Integer code;
     /**
      * 区域类型
      */
@@ -56,11 +56,11 @@ public class RegionData implements Serializable {
         this.label = label;
     }
 
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
