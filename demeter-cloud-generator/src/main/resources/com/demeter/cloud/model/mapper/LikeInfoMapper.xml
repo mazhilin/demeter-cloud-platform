@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.demeter.cloud.model.mapper.BrowseInfoMapper">
-  <resultMap id="BaseResultMap" type="com.demeter.cloud.model.entity.BrowseInfo">
+<mapper namespace="com.demeter.cloud.model.mapper.LikeInfoMapper">
+  <resultMap id="BaseResultMap" type="com.demeter.cloud.model.entity.LikeInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="subject_id" jdbcType="INTEGER" property="subjectId" />
     <result column="source_type" jdbcType="TINYINT" property="sourceType" />
@@ -9,6 +9,7 @@
     <result column="virtual_multiple" jdbcType="TINYINT" property="virtualMultiple" />
     <result column="actual_number" jdbcType="INTEGER" property="actualNumber" />
     <result column="ip_address" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="like_status" jdbcType="TINYINT" property="likeStatus" />
     <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -77,15 +78,16 @@
   </sql>
   <sql id="Base_Column_List">
     id, subject_id, source_type, virtual_number, virtual_multiple, actual_number, ip_address, 
-    is_delete, create_by, create_time, update_by, update_time, `status`, remark
+    like_status, is_delete, create_by, create_time, update_by, update_time, `status`, 
+    remark
   </sql>
-  <select id="selectByExample" parameterType="com.demeter.cloud.model.entity.BrowseInfoExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.demeter.cloud.model.entity.LikeInfoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from demeter_browse_info
+    from demeter_like_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -111,10 +113,11 @@
       </when>
       <otherwise>
         id, subject_id, source_type, virtual_number, virtual_multiple, actual_number, ip_address, 
-          is_delete, create_by, create_time, update_by, update_time, `status`, remark
+          like_status, is_delete, create_by, create_time, update_by, update_time, `status`, 
+          remark
       </otherwise>
     </choose>
-    from demeter_browse_info
+    from demeter_like_info
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -125,7 +128,7 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from demeter_browse_info
+    from demeter_like_info
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectByPrimaryKeyWithLogicalDelete" parameterType="map" resultMap="BaseResultMap">
@@ -136,7 +139,7 @@
     -->
     select 
     <include refid="Base_Column_List" />
-    from demeter_browse_info
+    from demeter_like_info
     where id = #{id,jdbcType=INTEGER}
       and is_delete = 
     <choose>
@@ -163,42 +166,43 @@
       </when>
       <otherwise>
         id, subject_id, source_type, virtual_number, virtual_multiple, actual_number, ip_address, 
-          is_delete, create_by, create_time, update_by, update_time, `status`, remark
+          like_status, is_delete, create_by, create_time, update_by, update_time, `status`, 
+          remark
       </otherwise>
     </choose>
-    from demeter_browse_info
+    from demeter_like_info
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from demeter_browse_info
+    delete from demeter_like_info
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.demeter.cloud.model.entity.BrowseInfoExample">
-    delete from demeter_browse_info
+  <delete id="deleteByExample" parameterType="com.demeter.cloud.model.entity.LikeInfoExample">
+    delete from demeter_like_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.demeter.cloud.model.entity.BrowseInfo">
+  <insert id="insert" parameterType="com.demeter.cloud.model.entity.LikeInfo">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into demeter_browse_info (subject_id, source_type, virtual_number, 
+    insert into demeter_like_info (subject_id, source_type, virtual_number, 
       virtual_multiple, actual_number, ip_address, 
-      is_delete, create_by, create_time, 
-      update_by, update_time, `status`, 
-      remark)
+      like_status, is_delete, create_by, 
+      create_time, update_by, update_time, 
+      `status`, remark)
     values (#{subjectId,jdbcType=INTEGER}, #{sourceType,jdbcType=TINYINT}, #{virtualNumber,jdbcType=INTEGER}, 
       #{virtualMultiple,jdbcType=TINYINT}, #{actualNumber,jdbcType=INTEGER}, #{ipAddress,jdbcType=VARCHAR}, 
-      #{isDelete,jdbcType=TINYINT}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, 
-      #{remark,jdbcType=VARCHAR})
+      #{likeStatus,jdbcType=TINYINT}, #{isDelete,jdbcType=TINYINT}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.demeter.cloud.model.entity.BrowseInfo">
+  <insert id="insertSelective" parameterType="com.demeter.cloud.model.entity.LikeInfo">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into demeter_browse_info
+    insert into demeter_like_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="subjectId != null">
         subject_id,
@@ -217,6 +221,9 @@
       </if>
       <if test="ipAddress != null">
         ip_address,
+      </if>
+      <if test="likeStatus != null">
+        like_status,
       </if>
       <if test="isDelete != null">
         is_delete,
@@ -259,6 +266,9 @@
       <if test="ipAddress != null">
         #{ipAddress,jdbcType=VARCHAR},
       </if>
+      <if test="likeStatus != null">
+        #{likeStatus,jdbcType=TINYINT},
+      </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=TINYINT},
       </if>
@@ -282,14 +292,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.demeter.cloud.model.entity.BrowseInfoExample" resultType="java.lang.Long">
-    select count(*) from demeter_browse_info
+  <select id="countByExample" parameterType="com.demeter.cloud.model.entity.LikeInfoExample" resultType="java.lang.Long">
+    select count(*) from demeter_like_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update demeter_browse_info
+    update demeter_like_info
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
@@ -311,6 +321,9 @@
       </if>
       <if test="record.ipAddress != null">
         ip_address = #{record.ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.likeStatus != null">
+        like_status = #{record.likeStatus,jdbcType=TINYINT},
       </if>
       <if test="record.isDelete != null">
         is_delete = #{record.isDelete,jdbcType=TINYINT},
@@ -339,7 +352,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update demeter_browse_info
+    update demeter_like_info
     set id = #{record.id,jdbcType=INTEGER},
       subject_id = #{record.subjectId,jdbcType=INTEGER},
       source_type = #{record.sourceType,jdbcType=TINYINT},
@@ -347,6 +360,7 @@
       virtual_multiple = #{record.virtualMultiple,jdbcType=TINYINT},
       actual_number = #{record.actualNumber,jdbcType=INTEGER},
       ip_address = #{record.ipAddress,jdbcType=VARCHAR},
+      like_status = #{record.likeStatus,jdbcType=TINYINT},
       is_delete = #{record.isDelete,jdbcType=TINYINT},
       create_by = #{record.createBy,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -358,8 +372,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.demeter.cloud.model.entity.BrowseInfo">
-    update demeter_browse_info
+  <update id="updateByPrimaryKeySelective" parameterType="com.demeter.cloud.model.entity.LikeInfo">
+    update demeter_like_info
     <set>
       <if test="subjectId != null">
         subject_id = #{subjectId,jdbcType=INTEGER},
@@ -378,6 +392,9 @@
       </if>
       <if test="ipAddress != null">
         ip_address = #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="likeStatus != null">
+        like_status = #{likeStatus,jdbcType=TINYINT},
       </if>
       <if test="isDelete != null">
         is_delete = #{isDelete,jdbcType=TINYINT},
@@ -403,14 +420,15 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.demeter.cloud.model.entity.BrowseInfo">
-    update demeter_browse_info
+  <update id="updateByPrimaryKey" parameterType="com.demeter.cloud.model.entity.LikeInfo">
+    update demeter_like_info
     set subject_id = #{subjectId,jdbcType=INTEGER},
       source_type = #{sourceType,jdbcType=TINYINT},
       virtual_number = #{virtualNumber,jdbcType=INTEGER},
       virtual_multiple = #{virtualMultiple,jdbcType=TINYINT},
       actual_number = #{actualNumber,jdbcType=INTEGER},
       ip_address = #{ipAddress,jdbcType=VARCHAR},
+      like_status = #{likeStatus,jdbcType=TINYINT},
       is_delete = #{isDelete,jdbcType=TINYINT},
       create_by = #{createBy,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -420,7 +438,7 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectOneByExample" parameterType="com.demeter.cloud.model.entity.BrowseInfoExample" resultMap="BaseResultMap">
+  <select id="selectOneByExample" parameterType="com.demeter.cloud.model.entity.LikeInfoExample" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
       This element is automatically generated by MyBatis Generator, do not modify.
@@ -428,7 +446,7 @@
     -->
     select
     <include refid="Base_Column_List" />
-    from demeter_browse_info
+    from demeter_like_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -452,10 +470,11 @@
       </when>
       <otherwise>
         id, subject_id, source_type, virtual_number, virtual_multiple, actual_number, ip_address, 
-          is_delete, create_by, create_time, update_by, update_time, `status`, remark
+          like_status, is_delete, create_by, create_time, update_by, update_time, `status`, 
+          remark
       </otherwise>
     </choose>
-    from demeter_browse_info
+    from demeter_like_info
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -470,7 +489,7 @@
       This element is automatically generated by MyBatis Generator, do not modify.
       @project https://github.com/itfsw/mybatis-generator-plugin
     -->
-    update demeter_browse_info set is_delete = 1
+    update demeter_like_info set is_delete = 1
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -481,7 +500,7 @@
       This element is automatically generated by MyBatis Generator, do not modify.
       @project https://github.com/itfsw/mybatis-generator-plugin
     -->
-    update demeter_browse_info set is_delete = 1
+    update demeter_like_info set is_delete = 1
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

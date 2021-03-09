@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.demeter.cloud.model.mapper.BrowseInfoMapper">
-  <resultMap id="BaseResultMap" type="com.demeter.cloud.model.entity.BrowseInfo">
+<mapper namespace="com.demeter.cloud.model.mapper.OrderGoodsMapper">
+  <resultMap id="BaseResultMap" type="com.demeter.cloud.model.entity.OrderGoods">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="subject_id" jdbcType="INTEGER" property="subjectId" />
-    <result column="source_type" jdbcType="TINYINT" property="sourceType" />
-    <result column="virtual_number" jdbcType="INTEGER" property="virtualNumber" />
-    <result column="virtual_multiple" jdbcType="TINYINT" property="virtualMultiple" />
-    <result column="actual_number" jdbcType="INTEGER" property="actualNumber" />
-    <result column="ip_address" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="goods_sn" jdbcType="VARCHAR" property="goodsSn" />
+    <result column="number" jdbcType="SMALLINT" property="number" />
+    <result column="product_price" jdbcType="DECIMAL" property="productPrice" />
+    <result column="product_picture" jdbcType="VARCHAR" property="productPicture" />
     <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -76,16 +77,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, subject_id, source_type, virtual_number, virtual_multiple, actual_number, ip_address, 
+    id, order_id, goods_id, goods_name, goods_sn, `number`, product_price, product_picture, 
     is_delete, create_by, create_time, update_by, update_time, `status`, remark
   </sql>
-  <select id="selectByExample" parameterType="com.demeter.cloud.model.entity.BrowseInfoExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.demeter.cloud.model.entity.OrderGoodsExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from demeter_browse_info
+    from demeter_order_goods
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -110,11 +111,11 @@
         </foreach>
       </when>
       <otherwise>
-        id, subject_id, source_type, virtual_number, virtual_multiple, actual_number, ip_address, 
+        id, order_id, goods_id, goods_name, goods_sn, `number`, product_price, product_picture, 
           is_delete, create_by, create_time, update_by, update_time, `status`, remark
       </otherwise>
     </choose>
-    from demeter_browse_info
+    from demeter_order_goods
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -125,7 +126,7 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from demeter_browse_info
+    from demeter_order_goods
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectByPrimaryKeyWithLogicalDelete" parameterType="map" resultMap="BaseResultMap">
@@ -136,7 +137,7 @@
     -->
     select 
     <include refid="Base_Column_List" />
-    from demeter_browse_info
+    from demeter_order_goods
     where id = #{id,jdbcType=INTEGER}
       and is_delete = 
     <choose>
@@ -162,61 +163,64 @@
         </foreach>
       </when>
       <otherwise>
-        id, subject_id, source_type, virtual_number, virtual_multiple, actual_number, ip_address, 
+        id, order_id, goods_id, goods_name, goods_sn, `number`, product_price, product_picture, 
           is_delete, create_by, create_time, update_by, update_time, `status`, remark
       </otherwise>
     </choose>
-    from demeter_browse_info
+    from demeter_order_goods
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from demeter_browse_info
+    delete from demeter_order_goods
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.demeter.cloud.model.entity.BrowseInfoExample">
-    delete from demeter_browse_info
+  <delete id="deleteByExample" parameterType="com.demeter.cloud.model.entity.OrderGoodsExample">
+    delete from demeter_order_goods
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.demeter.cloud.model.entity.BrowseInfo">
+  <insert id="insert" parameterType="com.demeter.cloud.model.entity.OrderGoods">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into demeter_browse_info (subject_id, source_type, virtual_number, 
-      virtual_multiple, actual_number, ip_address, 
-      is_delete, create_by, create_time, 
-      update_by, update_time, `status`, 
-      remark)
-    values (#{subjectId,jdbcType=INTEGER}, #{sourceType,jdbcType=TINYINT}, #{virtualNumber,jdbcType=INTEGER}, 
-      #{virtualMultiple,jdbcType=TINYINT}, #{actualNumber,jdbcType=INTEGER}, #{ipAddress,jdbcType=VARCHAR}, 
-      #{isDelete,jdbcType=TINYINT}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, 
-      #{remark,jdbcType=VARCHAR})
+    insert into demeter_order_goods (order_id, goods_id, goods_name, 
+      goods_sn, `number`, product_price, 
+      product_picture, is_delete, create_by, 
+      create_time, update_by, update_time, 
+      `status`, remark)
+    values (#{orderId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, 
+      #{goodsSn,jdbcType=VARCHAR}, #{number,jdbcType=SMALLINT}, #{productPrice,jdbcType=DECIMAL}, 
+      #{productPicture,jdbcType=VARCHAR}, #{isDelete,jdbcType=TINYINT}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.demeter.cloud.model.entity.BrowseInfo">
+  <insert id="insertSelective" parameterType="com.demeter.cloud.model.entity.OrderGoods">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into demeter_browse_info
+    insert into demeter_order_goods
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="subjectId != null">
-        subject_id,
+      <if test="orderId != null">
+        order_id,
       </if>
-      <if test="sourceType != null">
-        source_type,
+      <if test="goodsId != null">
+        goods_id,
       </if>
-      <if test="virtualNumber != null">
-        virtual_number,
+      <if test="goodsName != null">
+        goods_name,
       </if>
-      <if test="virtualMultiple != null">
-        virtual_multiple,
+      <if test="goodsSn != null">
+        goods_sn,
       </if>
-      <if test="actualNumber != null">
-        actual_number,
+      <if test="number != null">
+        `number`,
       </if>
-      <if test="ipAddress != null">
-        ip_address,
+      <if test="productPrice != null">
+        product_price,
+      </if>
+      <if test="productPicture != null">
+        product_picture,
       </if>
       <if test="isDelete != null">
         is_delete,
@@ -241,23 +245,26 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="subjectId != null">
-        #{subjectId,jdbcType=INTEGER},
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
       </if>
-      <if test="sourceType != null">
-        #{sourceType,jdbcType=TINYINT},
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
       </if>
-      <if test="virtualNumber != null">
-        #{virtualNumber,jdbcType=INTEGER},
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
       </if>
-      <if test="virtualMultiple != null">
-        #{virtualMultiple,jdbcType=TINYINT},
+      <if test="goodsSn != null">
+        #{goodsSn,jdbcType=VARCHAR},
       </if>
-      <if test="actualNumber != null">
-        #{actualNumber,jdbcType=INTEGER},
+      <if test="number != null">
+        #{number,jdbcType=SMALLINT},
       </if>
-      <if test="ipAddress != null">
-        #{ipAddress,jdbcType=VARCHAR},
+      <if test="productPrice != null">
+        #{productPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="productPicture != null">
+        #{productPicture,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=TINYINT},
@@ -282,35 +289,38 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.demeter.cloud.model.entity.BrowseInfoExample" resultType="java.lang.Long">
-    select count(*) from demeter_browse_info
+  <select id="countByExample" parameterType="com.demeter.cloud.model.entity.OrderGoodsExample" resultType="java.lang.Long">
+    select count(*) from demeter_order_goods
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update demeter_browse_info
+    update demeter_order_goods
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.subjectId != null">
-        subject_id = #{record.subjectId,jdbcType=INTEGER},
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=INTEGER},
       </if>
-      <if test="record.sourceType != null">
-        source_type = #{record.sourceType,jdbcType=TINYINT},
+      <if test="record.goodsId != null">
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
       </if>
-      <if test="record.virtualNumber != null">
-        virtual_number = #{record.virtualNumber,jdbcType=INTEGER},
+      <if test="record.goodsName != null">
+        goods_name = #{record.goodsName,jdbcType=VARCHAR},
       </if>
-      <if test="record.virtualMultiple != null">
-        virtual_multiple = #{record.virtualMultiple,jdbcType=TINYINT},
+      <if test="record.goodsSn != null">
+        goods_sn = #{record.goodsSn,jdbcType=VARCHAR},
       </if>
-      <if test="record.actualNumber != null">
-        actual_number = #{record.actualNumber,jdbcType=INTEGER},
+      <if test="record.number != null">
+        `number` = #{record.number,jdbcType=SMALLINT},
       </if>
-      <if test="record.ipAddress != null">
-        ip_address = #{record.ipAddress,jdbcType=VARCHAR},
+      <if test="record.productPrice != null">
+        product_price = #{record.productPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.productPicture != null">
+        product_picture = #{record.productPicture,jdbcType=VARCHAR},
       </if>
       <if test="record.isDelete != null">
         is_delete = #{record.isDelete,jdbcType=TINYINT},
@@ -339,14 +349,15 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update demeter_browse_info
+    update demeter_order_goods
     set id = #{record.id,jdbcType=INTEGER},
-      subject_id = #{record.subjectId,jdbcType=INTEGER},
-      source_type = #{record.sourceType,jdbcType=TINYINT},
-      virtual_number = #{record.virtualNumber,jdbcType=INTEGER},
-      virtual_multiple = #{record.virtualMultiple,jdbcType=TINYINT},
-      actual_number = #{record.actualNumber,jdbcType=INTEGER},
-      ip_address = #{record.ipAddress,jdbcType=VARCHAR},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      goods_id = #{record.goodsId,jdbcType=INTEGER},
+      goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      goods_sn = #{record.goodsSn,jdbcType=VARCHAR},
+      `number` = #{record.number,jdbcType=SMALLINT},
+      product_price = #{record.productPrice,jdbcType=DECIMAL},
+      product_picture = #{record.productPicture,jdbcType=VARCHAR},
       is_delete = #{record.isDelete,jdbcType=TINYINT},
       create_by = #{record.createBy,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -358,26 +369,29 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.demeter.cloud.model.entity.BrowseInfo">
-    update demeter_browse_info
+  <update id="updateByPrimaryKeySelective" parameterType="com.demeter.cloud.model.entity.OrderGoods">
+    update demeter_order_goods
     <set>
-      <if test="subjectId != null">
-        subject_id = #{subjectId,jdbcType=INTEGER},
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=INTEGER},
       </if>
-      <if test="sourceType != null">
-        source_type = #{sourceType,jdbcType=TINYINT},
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
       </if>
-      <if test="virtualNumber != null">
-        virtual_number = #{virtualNumber,jdbcType=INTEGER},
+      <if test="goodsName != null">
+        goods_name = #{goodsName,jdbcType=VARCHAR},
       </if>
-      <if test="virtualMultiple != null">
-        virtual_multiple = #{virtualMultiple,jdbcType=TINYINT},
+      <if test="goodsSn != null">
+        goods_sn = #{goodsSn,jdbcType=VARCHAR},
       </if>
-      <if test="actualNumber != null">
-        actual_number = #{actualNumber,jdbcType=INTEGER},
+      <if test="number != null">
+        `number` = #{number,jdbcType=SMALLINT},
       </if>
-      <if test="ipAddress != null">
-        ip_address = #{ipAddress,jdbcType=VARCHAR},
+      <if test="productPrice != null">
+        product_price = #{productPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="productPicture != null">
+        product_picture = #{productPicture,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         is_delete = #{isDelete,jdbcType=TINYINT},
@@ -403,14 +417,15 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.demeter.cloud.model.entity.BrowseInfo">
-    update demeter_browse_info
-    set subject_id = #{subjectId,jdbcType=INTEGER},
-      source_type = #{sourceType,jdbcType=TINYINT},
-      virtual_number = #{virtualNumber,jdbcType=INTEGER},
-      virtual_multiple = #{virtualMultiple,jdbcType=TINYINT},
-      actual_number = #{actualNumber,jdbcType=INTEGER},
-      ip_address = #{ipAddress,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.demeter.cloud.model.entity.OrderGoods">
+    update demeter_order_goods
+    set order_id = #{orderId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_sn = #{goodsSn,jdbcType=VARCHAR},
+      `number` = #{number,jdbcType=SMALLINT},
+      product_price = #{productPrice,jdbcType=DECIMAL},
+      product_picture = #{productPicture,jdbcType=VARCHAR},
       is_delete = #{isDelete,jdbcType=TINYINT},
       create_by = #{createBy,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -420,7 +435,7 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectOneByExample" parameterType="com.demeter.cloud.model.entity.BrowseInfoExample" resultMap="BaseResultMap">
+  <select id="selectOneByExample" parameterType="com.demeter.cloud.model.entity.OrderGoodsExample" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
       This element is automatically generated by MyBatis Generator, do not modify.
@@ -428,7 +443,7 @@
     -->
     select
     <include refid="Base_Column_List" />
-    from demeter_browse_info
+    from demeter_order_goods
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -451,11 +466,11 @@
         </foreach>
       </when>
       <otherwise>
-        id, subject_id, source_type, virtual_number, virtual_multiple, actual_number, ip_address, 
+        id, order_id, goods_id, goods_name, goods_sn, `number`, product_price, product_picture, 
           is_delete, create_by, create_time, update_by, update_time, `status`, remark
       </otherwise>
     </choose>
-    from demeter_browse_info
+    from demeter_order_goods
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -470,7 +485,7 @@
       This element is automatically generated by MyBatis Generator, do not modify.
       @project https://github.com/itfsw/mybatis-generator-plugin
     -->
-    update demeter_browse_info set is_delete = 1
+    update demeter_order_goods set is_delete = 1
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -481,7 +496,7 @@
       This element is automatically generated by MyBatis Generator, do not modify.
       @project https://github.com/itfsw/mybatis-generator-plugin
     -->
-    update demeter_browse_info set is_delete = 1
+    update demeter_order_goods set is_delete = 1
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

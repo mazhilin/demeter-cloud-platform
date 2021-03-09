@@ -2,9 +2,8 @@ package com.demeter.cloud.model.mapper;
 
 import com.demeter.cloud.model.entity.BrowseInfo;
 import com.demeter.cloud.model.entity.BrowseInfoExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface BrowseInfoMapper {
     long countByExample(BrowseInfoExample example);

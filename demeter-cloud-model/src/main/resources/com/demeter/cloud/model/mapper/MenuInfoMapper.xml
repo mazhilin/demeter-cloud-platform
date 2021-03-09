@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.demeter.cloud.model.mapper.BrowseInfoMapper">
-  <resultMap id="BaseResultMap" type="com.demeter.cloud.model.entity.BrowseInfo">
+<mapper namespace="com.demeter.cloud.model.mapper.MenuInfoMapper">
+  <resultMap id="BaseResultMap" type="com.demeter.cloud.model.entity.MenuInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="subject_id" jdbcType="INTEGER" property="subjectId" />
-    <result column="source_type" jdbcType="TINYINT" property="sourceType" />
-    <result column="virtual_number" jdbcType="INTEGER" property="virtualNumber" />
-    <result column="virtual_multiple" jdbcType="TINYINT" property="virtualMultiple" />
-    <result column="actual_number" jdbcType="INTEGER" property="actualNumber" />
-    <result column="ip_address" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="is_leaf" jdbcType="INTEGER" property="isLeaf" />
+    <result column="menu_type" jdbcType="INTEGER" property="menuType" />
+    <result column="scope" jdbcType="INTEGER" property="scope" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="logo" jdbcType="VARCHAR" property="logo" />
+    <result column="show_in_menu" jdbcType="INTEGER" property="showInMenu" />
     <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -76,16 +81,17 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, subject_id, source_type, virtual_number, virtual_multiple, actual_number, ip_address, 
-    is_delete, create_by, create_time, update_by, update_time, `status`, remark
+    id, code, `name`, parent_id, `level`, is_leaf, menu_type, `scope`, sort, url, logo, 
+    show_in_menu, is_delete, create_by, create_time, update_by, update_time, `status`, 
+    remark
   </sql>
-  <select id="selectByExample" parameterType="com.demeter.cloud.model.entity.BrowseInfoExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.demeter.cloud.model.entity.MenuInfoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from demeter_browse_info
+    from demeter_menu_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -110,11 +116,12 @@
         </foreach>
       </when>
       <otherwise>
-        id, subject_id, source_type, virtual_number, virtual_multiple, actual_number, ip_address, 
-          is_delete, create_by, create_time, update_by, update_time, `status`, remark
+        id, code, `name`, parent_id, `level`, is_leaf, menu_type, `scope`, sort, url, logo, 
+          show_in_menu, is_delete, create_by, create_time, update_by, update_time, `status`, 
+          remark
       </otherwise>
     </choose>
-    from demeter_browse_info
+    from demeter_menu_info
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -125,7 +132,7 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from demeter_browse_info
+    from demeter_menu_info
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectByPrimaryKeyWithLogicalDelete" parameterType="map" resultMap="BaseResultMap">
@@ -136,7 +143,7 @@
     -->
     select 
     <include refid="Base_Column_List" />
-    from demeter_browse_info
+    from demeter_menu_info
     where id = #{id,jdbcType=INTEGER}
       and is_delete = 
     <choose>
@@ -162,61 +169,79 @@
         </foreach>
       </when>
       <otherwise>
-        id, subject_id, source_type, virtual_number, virtual_multiple, actual_number, ip_address, 
-          is_delete, create_by, create_time, update_by, update_time, `status`, remark
+        id, code, `name`, parent_id, `level`, is_leaf, menu_type, `scope`, sort, url, logo, 
+          show_in_menu, is_delete, create_by, create_time, update_by, update_time, `status`, 
+          remark
       </otherwise>
     </choose>
-    from demeter_browse_info
+    from demeter_menu_info
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from demeter_browse_info
+    delete from demeter_menu_info
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.demeter.cloud.model.entity.BrowseInfoExample">
-    delete from demeter_browse_info
+  <delete id="deleteByExample" parameterType="com.demeter.cloud.model.entity.MenuInfoExample">
+    delete from demeter_menu_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.demeter.cloud.model.entity.BrowseInfo">
+  <insert id="insert" parameterType="com.demeter.cloud.model.entity.MenuInfo">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into demeter_browse_info (subject_id, source_type, virtual_number, 
-      virtual_multiple, actual_number, ip_address, 
-      is_delete, create_by, create_time, 
-      update_by, update_time, `status`, 
-      remark)
-    values (#{subjectId,jdbcType=INTEGER}, #{sourceType,jdbcType=TINYINT}, #{virtualNumber,jdbcType=INTEGER}, 
-      #{virtualMultiple,jdbcType=TINYINT}, #{actualNumber,jdbcType=INTEGER}, #{ipAddress,jdbcType=VARCHAR}, 
-      #{isDelete,jdbcType=TINYINT}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, 
-      #{remark,jdbcType=VARCHAR})
+    insert into demeter_menu_info (code, `name`, parent_id, 
+      `level`, is_leaf, menu_type, 
+      `scope`, sort, url, logo, 
+      show_in_menu, is_delete, create_by, 
+      create_time, update_by, update_time, 
+      `status`, remark)
+    values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+      #{level,jdbcType=INTEGER}, #{isLeaf,jdbcType=INTEGER}, #{menuType,jdbcType=INTEGER}, 
+      #{scope,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, 
+      #{showInMenu,jdbcType=INTEGER}, #{isDelete,jdbcType=TINYINT}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.demeter.cloud.model.entity.BrowseInfo">
+  <insert id="insertSelective" parameterType="com.demeter.cloud.model.entity.MenuInfo">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into demeter_browse_info
+    insert into demeter_menu_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="subjectId != null">
-        subject_id,
+      <if test="code != null">
+        code,
       </if>
-      <if test="sourceType != null">
-        source_type,
+      <if test="name != null">
+        `name`,
       </if>
-      <if test="virtualNumber != null">
-        virtual_number,
+      <if test="parentId != null">
+        parent_id,
       </if>
-      <if test="virtualMultiple != null">
-        virtual_multiple,
+      <if test="level != null">
+        `level`,
       </if>
-      <if test="actualNumber != null">
-        actual_number,
+      <if test="isLeaf != null">
+        is_leaf,
       </if>
-      <if test="ipAddress != null">
-        ip_address,
+      <if test="menuType != null">
+        menu_type,
+      </if>
+      <if test="scope != null">
+        `scope`,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="logo != null">
+        logo,
+      </if>
+      <if test="showInMenu != null">
+        show_in_menu,
       </if>
       <if test="isDelete != null">
         is_delete,
@@ -241,23 +266,38 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="subjectId != null">
-        #{subjectId,jdbcType=INTEGER},
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
       </if>
-      <if test="sourceType != null">
-        #{sourceType,jdbcType=TINYINT},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
-      <if test="virtualNumber != null">
-        #{virtualNumber,jdbcType=INTEGER},
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
       </if>
-      <if test="virtualMultiple != null">
-        #{virtualMultiple,jdbcType=TINYINT},
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
       </if>
-      <if test="actualNumber != null">
-        #{actualNumber,jdbcType=INTEGER},
+      <if test="isLeaf != null">
+        #{isLeaf,jdbcType=INTEGER},
       </if>
-      <if test="ipAddress != null">
-        #{ipAddress,jdbcType=VARCHAR},
+      <if test="menuType != null">
+        #{menuType,jdbcType=INTEGER},
+      </if>
+      <if test="scope != null">
+        #{scope,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null">
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="showInMenu != null">
+        #{showInMenu,jdbcType=INTEGER},
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=TINYINT},
@@ -282,35 +322,50 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.demeter.cloud.model.entity.BrowseInfoExample" resultType="java.lang.Long">
-    select count(*) from demeter_browse_info
+  <select id="countByExample" parameterType="com.demeter.cloud.model.entity.MenuInfoExample" resultType="java.lang.Long">
+    select count(*) from demeter_menu_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update demeter_browse_info
+    update demeter_menu_info
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.subjectId != null">
-        subject_id = #{record.subjectId,jdbcType=INTEGER},
+      <if test="record.code != null">
+        code = #{record.code,jdbcType=VARCHAR},
       </if>
-      <if test="record.sourceType != null">
-        source_type = #{record.sourceType,jdbcType=TINYINT},
+      <if test="record.name != null">
+        `name` = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.virtualNumber != null">
-        virtual_number = #{record.virtualNumber,jdbcType=INTEGER},
+      <if test="record.parentId != null">
+        parent_id = #{record.parentId,jdbcType=INTEGER},
       </if>
-      <if test="record.virtualMultiple != null">
-        virtual_multiple = #{record.virtualMultiple,jdbcType=TINYINT},
+      <if test="record.level != null">
+        `level` = #{record.level,jdbcType=INTEGER},
       </if>
-      <if test="record.actualNumber != null">
-        actual_number = #{record.actualNumber,jdbcType=INTEGER},
+      <if test="record.isLeaf != null">
+        is_leaf = #{record.isLeaf,jdbcType=INTEGER},
       </if>
-      <if test="record.ipAddress != null">
-        ip_address = #{record.ipAddress,jdbcType=VARCHAR},
+      <if test="record.menuType != null">
+        menu_type = #{record.menuType,jdbcType=INTEGER},
+      </if>
+      <if test="record.scope != null">
+        `scope` = #{record.scope,jdbcType=INTEGER},
+      </if>
+      <if test="record.sort != null">
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.url != null">
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logo != null">
+        logo = #{record.logo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.showInMenu != null">
+        show_in_menu = #{record.showInMenu,jdbcType=INTEGER},
       </if>
       <if test="record.isDelete != null">
         is_delete = #{record.isDelete,jdbcType=TINYINT},
@@ -339,14 +394,19 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update demeter_browse_info
+    update demeter_menu_info
     set id = #{record.id,jdbcType=INTEGER},
-      subject_id = #{record.subjectId,jdbcType=INTEGER},
-      source_type = #{record.sourceType,jdbcType=TINYINT},
-      virtual_number = #{record.virtualNumber,jdbcType=INTEGER},
-      virtual_multiple = #{record.virtualMultiple,jdbcType=TINYINT},
-      actual_number = #{record.actualNumber,jdbcType=INTEGER},
-      ip_address = #{record.ipAddress,jdbcType=VARCHAR},
+      code = #{record.code,jdbcType=VARCHAR},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      `level` = #{record.level,jdbcType=INTEGER},
+      is_leaf = #{record.isLeaf,jdbcType=INTEGER},
+      menu_type = #{record.menuType,jdbcType=INTEGER},
+      `scope` = #{record.scope,jdbcType=INTEGER},
+      sort = #{record.sort,jdbcType=INTEGER},
+      url = #{record.url,jdbcType=VARCHAR},
+      logo = #{record.logo,jdbcType=VARCHAR},
+      show_in_menu = #{record.showInMenu,jdbcType=INTEGER},
       is_delete = #{record.isDelete,jdbcType=TINYINT},
       create_by = #{record.createBy,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -358,26 +418,41 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.demeter.cloud.model.entity.BrowseInfo">
-    update demeter_browse_info
+  <update id="updateByPrimaryKeySelective" parameterType="com.demeter.cloud.model.entity.MenuInfo">
+    update demeter_menu_info
     <set>
-      <if test="subjectId != null">
-        subject_id = #{subjectId,jdbcType=INTEGER},
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
       </if>
-      <if test="sourceType != null">
-        source_type = #{sourceType,jdbcType=TINYINT},
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="virtualNumber != null">
-        virtual_number = #{virtualNumber,jdbcType=INTEGER},
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
       </if>
-      <if test="virtualMultiple != null">
-        virtual_multiple = #{virtualMultiple,jdbcType=TINYINT},
+      <if test="level != null">
+        `level` = #{level,jdbcType=INTEGER},
       </if>
-      <if test="actualNumber != null">
-        actual_number = #{actualNumber,jdbcType=INTEGER},
+      <if test="isLeaf != null">
+        is_leaf = #{isLeaf,jdbcType=INTEGER},
       </if>
-      <if test="ipAddress != null">
-        ip_address = #{ipAddress,jdbcType=VARCHAR},
+      <if test="menuType != null">
+        menu_type = #{menuType,jdbcType=INTEGER},
+      </if>
+      <if test="scope != null">
+        `scope` = #{scope,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null">
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="showInMenu != null">
+        show_in_menu = #{showInMenu,jdbcType=INTEGER},
       </if>
       <if test="isDelete != null">
         is_delete = #{isDelete,jdbcType=TINYINT},
@@ -403,14 +478,19 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.demeter.cloud.model.entity.BrowseInfo">
-    update demeter_browse_info
-    set subject_id = #{subjectId,jdbcType=INTEGER},
-      source_type = #{sourceType,jdbcType=TINYINT},
-      virtual_number = #{virtualNumber,jdbcType=INTEGER},
-      virtual_multiple = #{virtualMultiple,jdbcType=TINYINT},
-      actual_number = #{actualNumber,jdbcType=INTEGER},
-      ip_address = #{ipAddress,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.demeter.cloud.model.entity.MenuInfo">
+    update demeter_menu_info
+    set code = #{code,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      `level` = #{level,jdbcType=INTEGER},
+      is_leaf = #{isLeaf,jdbcType=INTEGER},
+      menu_type = #{menuType,jdbcType=INTEGER},
+      `scope` = #{scope,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      show_in_menu = #{showInMenu,jdbcType=INTEGER},
       is_delete = #{isDelete,jdbcType=TINYINT},
       create_by = #{createBy,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -420,7 +500,7 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectOneByExample" parameterType="com.demeter.cloud.model.entity.BrowseInfoExample" resultMap="BaseResultMap">
+  <select id="selectOneByExample" parameterType="com.demeter.cloud.model.entity.MenuInfoExample" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
       This element is automatically generated by MyBatis Generator, do not modify.
@@ -428,7 +508,7 @@
     -->
     select
     <include refid="Base_Column_List" />
-    from demeter_browse_info
+    from demeter_menu_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -451,11 +531,12 @@
         </foreach>
       </when>
       <otherwise>
-        id, subject_id, source_type, virtual_number, virtual_multiple, actual_number, ip_address, 
-          is_delete, create_by, create_time, update_by, update_time, `status`, remark
+        id, code, `name`, parent_id, `level`, is_leaf, menu_type, `scope`, sort, url, logo, 
+          show_in_menu, is_delete, create_by, create_time, update_by, update_time, `status`, 
+          remark
       </otherwise>
     </choose>
-    from demeter_browse_info
+    from demeter_menu_info
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -470,7 +551,7 @@
       This element is automatically generated by MyBatis Generator, do not modify.
       @project https://github.com/itfsw/mybatis-generator-plugin
     -->
-    update demeter_browse_info set is_delete = 1
+    update demeter_menu_info set is_delete = 1
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -481,7 +562,7 @@
       This element is automatically generated by MyBatis Generator, do not modify.
       @project https://github.com/itfsw/mybatis-generator-plugin
     -->
-    update demeter_browse_info set is_delete = 1
+    update demeter_menu_info set is_delete = 1
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
