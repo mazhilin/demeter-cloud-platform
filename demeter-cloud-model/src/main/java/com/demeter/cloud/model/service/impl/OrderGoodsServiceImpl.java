@@ -1,13 +1,19 @@
 package com.demeter.cloud.model.service.impl;
 
+import com.demeter.cloud.model.entity.MenuInfoExample;
 import com.demeter.cloud.model.entity.OrderGoods;
+import com.demeter.cloud.model.entity.OrderGoodsExample;
 import com.demeter.cloud.model.exception.BusinessException;
+import com.demeter.cloud.model.mapper.OrderGoodsMapper;
 import com.demeter.cloud.model.service.OrderGoodsService;
 import com.demeter.cloud.persistence.service.BaseService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -32,7 +38,9 @@ public class OrderGoodsServiceImpl extends BaseService implements OrderGoodsServ
      */
     @Override
     public List<OrderGoods> queryOrderList() {
-        return null;
+        OrderGoodsExample example = new OrderGoodsExample();
+        example.or().andIsDeleteEqualTo((byte) 0).andStatusEqualTo((byte) 1);
+        return orderGoodsMapper.selectByExample(example);
     }
 
     /**
@@ -48,7 +56,24 @@ public class OrderGoodsServiceImpl extends BaseService implements OrderGoodsServ
      */
     @Override
     public List<OrderGoods> queryList(String name, String code, Integer page, Integer limit, String sort, String order) {
-        return null;
+        OrderGoodsExample example = new OrderGoodsExample();
+        OrderGoodsExample.Criteria criteria = example.createCriteria();
+
+        if (!StringUtils.isEmpty(name)) {
+
+        }
+        if (!StringUtils.isEmpty(code)) {
+
+        }
+        criteria.andIsDeleteEqualTo((byte) 0);
+        criteria.andStatusEqualTo((byte) 1);
+
+        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
+            example.setOrderByClause(sort + " " + order);
+        }
+
+        PageHelper.startPage(page, limit);
+        return orderGoodsMapper.selectByExample(example);
     }
 
     /**
@@ -59,7 +84,7 @@ public class OrderGoodsServiceImpl extends BaseService implements OrderGoodsServ
      */
     @Override
     public OrderGoods queryById(Integer id) {
-        return null;
+        return orderGoodsMapper.selectByPrimaryKey(id);
     }
 
     /**
@@ -70,7 +95,8 @@ public class OrderGoodsServiceImpl extends BaseService implements OrderGoodsServ
      */
     @Override
     public int update(OrderGoods orderGoods) {
-        return 0;
+        orderGoods.setUpdateTime(LocalDateTime.now());
+        return orderGoodsMapper.updateByPrimaryKeySelective(orderGoods);
     }
 
     /**
@@ -80,7 +106,9 @@ public class OrderGoodsServiceImpl extends BaseService implements OrderGoodsServ
      */
     @Override
     public void add(OrderGoods orderGoods) {
-
+        orderGoods.setCreateTime(LocalDateTime.now());
+        orderGoods.setUpdateTime(LocalDateTime.now());
+        orderGoodsMapper.insertSelective(orderGoods);
     }
 
     /**
@@ -90,6 +118,6 @@ public class OrderGoodsServiceImpl extends BaseService implements OrderGoodsServ
      */
     @Override
     public void deleteById(Integer id) {
-
+        orderGoodsMapper.logicalDeleteByPrimaryKey(id);
     }
 }

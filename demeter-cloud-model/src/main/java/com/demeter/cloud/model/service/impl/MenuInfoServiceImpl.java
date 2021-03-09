@@ -1,11 +1,11 @@
 package com.demeter.cloud.model.service.impl;
 
-import com.demeter.cloud.model.entity.OrderGoodsExample;
-import com.demeter.cloud.model.entity.OrderInfo;
-import com.demeter.cloud.model.entity.OrderInfoExample;
+import com.demeter.cloud.model.entity.LikeInfoExample;
+import com.demeter.cloud.model.entity.MenuInfo;
+import com.demeter.cloud.model.entity.MenuInfoExample;
 import com.demeter.cloud.model.exception.BusinessException;
-import com.demeter.cloud.model.mapper.OrderInfoMapper;
-import com.demeter.cloud.model.service.OrderInfoService;
+import com.demeter.cloud.model.mapper.MenuInfoMapper;
+import com.demeter.cloud.model.service.MenuInfoService;
 import com.demeter.cloud.persistence.service.BaseService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
@@ -17,29 +17,30 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * <p>封装Dcloud项目OrderInfoServiceImpl类.<br></p>
+ * <p>封装Dcloud项目MenuInfoServiceImpl类.<br></p>
  * <p>//TODO...<br></p>
  *
- * @author Powered by marklin 2021-03-09 23:16
+ * @author Powered by marklin 2021-03-10 00:02
  * @version 1.0.0
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
-@Service("orderInfoService")
+@Service("menuInfoService")
 @Transactional(rollbackFor = {BusinessException.class, RuntimeException.class, Exception.class})
-public class OrderInfoServiceImpl extends BaseService implements OrderInfoService {
+public class MenuInfoServiceImpl extends BaseService implements MenuInfoService {
+
     @Resource
-    private OrderInfoMapper orderInfoMapper;
+    private MenuInfoMapper menuInfoMapper;
 
     /**
-     * 查询列表
+     * 查询活动列表
      *
      * @return 返回列表
      */
     @Override
-    public List<OrderInfo> queryOrderList() {
-        OrderInfoExample example = new OrderInfoExample();
+    public List<MenuInfo> queryCategoryList() {
+        MenuInfoExample example = new MenuInfoExample();
         example.or().andIsDeleteEqualTo((byte) 0).andStatusEqualTo((byte) 1);
-        return orderInfoMapper.selectByExample(example);
+        return menuInfoMapper.selectByExample(example);
     }
 
     /**
@@ -54,9 +55,9 @@ public class OrderInfoServiceImpl extends BaseService implements OrderInfoServic
      * @return 返回列表
      */
     @Override
-    public List<OrderInfo> queryList(String name, String code, Integer page, Integer limit, String sort, String order) {
-        OrderInfoExample example = new OrderInfoExample();
-        OrderInfoExample.Criteria criteria = example.createCriteria();
+    public List<MenuInfo> queryList(String name, String code, Integer page, Integer limit, String sort, String order) {
+        MenuInfoExample example = new MenuInfoExample();
+        MenuInfoExample.Criteria criteria = example.createCriteria();
 
         if (!StringUtils.isEmpty(name)) {
 
@@ -72,7 +73,7 @@ public class OrderInfoServiceImpl extends BaseService implements OrderInfoServic
         }
 
         PageHelper.startPage(page, limit);
-        return orderInfoMapper.selectByExample(example);
+        return menuInfoMapper.selectByExample(example);
     }
 
     /**
@@ -82,32 +83,32 @@ public class OrderInfoServiceImpl extends BaseService implements OrderInfoServic
      * @return 返回文件信息
      */
     @Override
-    public OrderInfo queryById(Integer id) {
-        return orderInfoMapper.selectByPrimaryKey(id.toString());
+    public MenuInfo queryById(Integer id) {
+        return menuInfoMapper.selectByPrimaryKey(id);
     }
 
     /**
      * 更新
      *
-     * @param order 信息
+     * @param menu 信息
      * @return 返回文件信息
      */
     @Override
-    public int update(OrderInfo order) {
-        order.setUpdateTime(LocalDateTime.now());
-        return orderInfoMapper.updateByPrimaryKeySelective(order);
+    public int update(MenuInfo menu) {
+        menu.setUpdateTime(LocalDateTime.now());
+        return menuInfoMapper.updateByPrimaryKeySelective(menu);
     }
 
     /**
      * 新增
      *
-     * @param order 文件信息
+     * @param menu 文件信息
      */
     @Override
-    public void add(OrderInfo order) {
-        order.setCreateTime(LocalDateTime.now());
-        order.setUpdateTime(LocalDateTime.now());
-        orderInfoMapper.insertSelective(order);
+    public void add(MenuInfo menu) {
+        menu.setCreateTime(LocalDateTime.now());
+        menu.setUpdateTime(LocalDateTime.now());
+        menuInfoMapper.insertSelective(menu);
     }
 
     /**
@@ -117,6 +118,6 @@ public class OrderInfoServiceImpl extends BaseService implements OrderInfoServic
      */
     @Override
     public void deleteById(Integer id) {
-        orderInfoMapper.logicalDeleteByPrimaryKey(id.toString());
+        menuInfoMapper.logicalDeleteByPrimaryKey(id);
     }
 }

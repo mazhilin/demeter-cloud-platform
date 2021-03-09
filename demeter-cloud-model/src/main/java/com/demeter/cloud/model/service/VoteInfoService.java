@@ -1,25 +1,24 @@
 package com.demeter.cloud.model.service;
 
-
-import com.demeter.cloud.model.entity.GoodsCategory;
+import com.demeter.cloud.model.entity.VoteInfo;
 
 import java.util.List;
 
 /**
- * <p>封装Dcloud项目GoodsCategoryService类.<br></p>
+ * <p>封装Dcloud项目VoteInfoService类.<br></p>
  * <p>//TODO...<br></p>
  *
- * @author Powered by marklin 2021-03-09 23:07
+ * @author Powered by marklin 2021-03-10 00:10
  * @version 1.0.0
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
-public interface GoodsCategoryService {
+public interface VoteInfoService {
     /**
      * 查询活动列表
      *
      * @return 返回列表
      */
-    List<GoodsCategory> queryCategoryList();
+    List<VoteInfo> queryCategoryList();
 
     /**
      * 查询列表
@@ -31,7 +30,7 @@ public interface GoodsCategoryService {
      * @param order 排序
      * @return 返回列表
      */
-    List<GoodsCategory> queryList(String name, String code, Integer page, Integer limit, String sort, String order);
+    List<VoteInfo> queryList(String name, String code, Integer page, Integer limit, String sort, String order);
 
 
     /**
@@ -40,23 +39,23 @@ public interface GoodsCategoryService {
      * @param id id
      * @return 返回文件信息
      */
-    GoodsCategory queryById(Integer id);
+    VoteInfo queryById(Integer id);
 
 
     /**
      * 更新
      *
-     * @param category 信息
+     * @param vote 信息
      * @return 返回文件信息
      */
-    int update(GoodsCategory category);
+    int update(VoteInfo vote);
 
     /**
      * 新增
      *
-     * @param category 文件信息
+     * @param vote 文件信息
      */
-    void add(GoodsCategory category);
+    void add(VoteInfo vote);
 
 
     /**

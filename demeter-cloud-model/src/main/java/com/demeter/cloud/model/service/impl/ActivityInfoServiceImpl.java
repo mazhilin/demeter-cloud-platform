@@ -4,12 +4,16 @@ import com.demeter.cloud.model.entity.ActivityInfo;
 import com.demeter.cloud.model.entity.ActivityInfoExample;
 import com.demeter.cloud.model.exception.BusinessException;
 import com.demeter.cloud.model.mapper.ActivityInfoMapper;
-import com.demeter.cloud.persistence.service.BaseService;
 import com.demeter.cloud.model.service.ActivityInfoService;
+import com.demeter.cloud.persistence.service.BaseService;
+import com.demeter.cloud.utils.CheckEmptyUtil;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -50,7 +54,24 @@ public class ActivityInfoServiceImpl extends BaseService implements ActivityInfo
      */
     @Override
     public List<ActivityInfo> queryList(String name, String code, Integer page, Integer limit, String sort, String order) {
-        return null;
+        ActivityInfoExample example = new ActivityInfoExample();
+        ActivityInfoExample.Criteria criteria = example.createCriteria();
+
+        if (!StringUtils.isEmpty(name)) {
+            criteria.andNameLike("%" + name + "%");
+        }
+        if (!StringUtils.isEmpty(code)) {
+            criteria.andCodeEqualTo(code);
+        }
+        criteria.andIsDeleteEqualTo((byte) 0);
+        criteria.andStatusEqualTo((byte) 1);
+
+        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
+            example.setOrderByClause(sort + " " + order);
+        }
+
+        PageHelper.startPage(page, limit);
+        return activityInfoMapper.selectByExample(example);
     }
 
     /**
@@ -61,7 +82,7 @@ public class ActivityInfoServiceImpl extends BaseService implements ActivityInfo
      */
     @Override
     public ActivityInfo queryById(Integer id) {
-        return null;
+        return activityInfoMapper.selectByPrimaryKey(id);
     }
 
     /**
@@ -72,7 +93,8 @@ public class ActivityInfoServiceImpl extends BaseService implements ActivityInfo
      */
     @Override
     public int update(ActivityInfo activity) {
-        return 0;
+        activity.setUpdateTime(LocalDateTime.now());
+        return activityInfoMapper.updateByPrimaryKeySelective(activity);
     }
 
     /**
@@ -82,7 +104,9 @@ public class ActivityInfoServiceImpl extends BaseService implements ActivityInfo
      */
     @Override
     public void add(ActivityInfo activity) {
-
+        activity.setCreateTime(LocalDateTime.now());
+        activity.setUpdateTime(LocalDateTime.now());
+        activityInfoMapper.insertSelective(activity);
     }
 
     /**
@@ -93,7 +117,14 @@ public class ActivityInfoServiceImpl extends BaseService implements ActivityInfo
      */
     @Override
     public ActivityInfo queryByCode(String code) {
-        return null;
+        ActivityInfoExample example = new ActivityInfoExample();
+        ActivityInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andIsDeleteEqualTo((byte) 0);
+        criteria.andStatusEqualTo((byte) 1);
+        if (CheckEmptyUtil.isNotEmpty(code)) {
+            criteria.andCodeEqualTo(code);
+        }
+        return activityInfoMapper.selectOneByExample(example);
     }
 
     /**
@@ -103,6 +134,6 @@ public class ActivityInfoServiceImpl extends BaseService implements ActivityInfo
      */
     @Override
     public void deleteById(Integer id) {
-
+        activityInfoMapper.logicalDeleteByPrimaryKey(id);
     }
 }

@@ -4,12 +4,16 @@ import com.demeter.cloud.model.entity.ActivityTemplate;
 import com.demeter.cloud.model.entity.ActivityTemplateExample;
 import com.demeter.cloud.model.exception.BusinessException;
 import com.demeter.cloud.model.mapper.ActivityTemplateMapper;
-import com.demeter.cloud.persistence.service.BaseService;
 import com.demeter.cloud.model.service.ActivityTemplateService;
+import com.demeter.cloud.persistence.service.BaseService;
+import com.demeter.cloud.utils.CheckEmptyUtil;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -32,7 +36,9 @@ public class ActivityTemplateServiceImpl extends BaseService implements Activity
      */
     @Override
     public List<ActivityTemplate> queryActivityInfoList() {
-        return null;
+        ActivityTemplateExample example = new ActivityTemplateExample();
+        example.or().andIsDeleteEqualTo((byte) 0).andStatusEqualTo((byte) 1);
+        return activityTemplateMapper.selectByExample(example);
     }
 
     /**
@@ -48,7 +54,24 @@ public class ActivityTemplateServiceImpl extends BaseService implements Activity
      */
     @Override
     public List<ActivityTemplate> queryList(String name, String code, Integer page, Integer limit, String sort, String order) {
-        return null;
+        ActivityTemplateExample example = new ActivityTemplateExample();
+        ActivityTemplateExample.Criteria criteria = example.createCriteria();
+
+        if (!StringUtils.isEmpty(name)) {
+            criteria.andNameLike("%" + name + "%");
+        }
+        if (!StringUtils.isEmpty(code)) {
+            criteria.andCodeEqualTo(code);
+        }
+        criteria.andIsDeleteEqualTo((byte) 0);
+        criteria.andStatusEqualTo((byte) 1);
+
+        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
+            example.setOrderByClause(sort + " " + order);
+        }
+
+        PageHelper.startPage(page, limit);
+        return activityTemplateMapper.selectByExample(example);
     }
 
     /**
@@ -59,7 +82,7 @@ public class ActivityTemplateServiceImpl extends BaseService implements Activity
      */
     @Override
     public ActivityTemplate queryById(Integer id) {
-        return null;
+        return activityTemplateMapper.selectByPrimaryKey(id);
     }
 
     /**
@@ -70,7 +93,8 @@ public class ActivityTemplateServiceImpl extends BaseService implements Activity
      */
     @Override
     public int update(ActivityTemplate template) {
-        return 0;
+        template.setUpdateTime(LocalDateTime.now());
+        return activityTemplateMapper.updateByPrimaryKeySelective(template);
     }
 
     /**
@@ -80,7 +104,9 @@ public class ActivityTemplateServiceImpl extends BaseService implements Activity
      */
     @Override
     public void add(ActivityTemplate template) {
-
+        template.setCreateTime(LocalDateTime.now());
+        template.setUpdateTime(LocalDateTime.now());
+        activityTemplateMapper.insertSelective(template);
     }
 
     /**
@@ -91,7 +117,14 @@ public class ActivityTemplateServiceImpl extends BaseService implements Activity
      */
     @Override
     public ActivityTemplate queryByCode(String code) {
-        return null;
+        ActivityTemplateExample example = new ActivityTemplateExample();
+        ActivityTemplateExample.Criteria criteria = example.createCriteria();
+        criteria.andIsDeleteEqualTo((byte) 0);
+        criteria.andStatusEqualTo((byte) 1);
+        if (CheckEmptyUtil.isNotEmpty(code)) {
+            criteria.andCodeEqualTo(code);
+        }
+        return activityTemplateMapper.selectOneByExample(example);
     }
 
     /**
@@ -101,7 +134,7 @@ public class ActivityTemplateServiceImpl extends BaseService implements Activity
      */
     @Override
     public void deleteById(Integer id) {
-
+        activityTemplateMapper.logicalDeleteByPrimaryKey(id);
     }
 
     /**

@@ -1,11 +1,11 @@
 package com.demeter.cloud.model.service.impl;
 
-import com.demeter.cloud.model.entity.OrderGoodsExample;
-import com.demeter.cloud.model.entity.OrderInfo;
-import com.demeter.cloud.model.entity.OrderInfoExample;
+import com.demeter.cloud.model.entity.GoodsInfoExample;
+import com.demeter.cloud.model.entity.LikeInfo;
+import com.demeter.cloud.model.entity.LikeInfoExample;
 import com.demeter.cloud.model.exception.BusinessException;
-import com.demeter.cloud.model.mapper.OrderInfoMapper;
-import com.demeter.cloud.model.service.OrderInfoService;
+import com.demeter.cloud.model.mapper.LikeInfoMapper;
+import com.demeter.cloud.model.service.LikeInfoService;
 import com.demeter.cloud.persistence.service.BaseService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
@@ -17,29 +17,29 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * <p>封装Dcloud项目OrderInfoServiceImpl类.<br></p>
+ * <p>封装Dcloud项目LikeInfoServiceImpl类.<br></p>
  * <p>//TODO...<br></p>
  *
- * @author Powered by marklin 2021-03-09 23:16
+ * @author Powered by marklin 2021-03-10 00:05
  * @version 1.0.0
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
-@Service("orderInfoService")
+@Service("likeInfoService")
 @Transactional(rollbackFor = {BusinessException.class, RuntimeException.class, Exception.class})
-public class OrderInfoServiceImpl extends BaseService implements OrderInfoService {
+public class LikeInfoServiceImpl extends BaseService implements LikeInfoService {
     @Resource
-    private OrderInfoMapper orderInfoMapper;
+    private LikeInfoMapper likeInfoMapper;
 
     /**
-     * 查询列表
+     * 查询活动列表
      *
      * @return 返回列表
      */
     @Override
-    public List<OrderInfo> queryOrderList() {
-        OrderInfoExample example = new OrderInfoExample();
+    public List<LikeInfo> queryCategoryList() {
+        LikeInfoExample example = new LikeInfoExample();
         example.or().andIsDeleteEqualTo((byte) 0).andStatusEqualTo((byte) 1);
-        return orderInfoMapper.selectByExample(example);
+        return likeInfoMapper.selectByExample(example);
     }
 
     /**
@@ -54,9 +54,9 @@ public class OrderInfoServiceImpl extends BaseService implements OrderInfoServic
      * @return 返回列表
      */
     @Override
-    public List<OrderInfo> queryList(String name, String code, Integer page, Integer limit, String sort, String order) {
-        OrderInfoExample example = new OrderInfoExample();
-        OrderInfoExample.Criteria criteria = example.createCriteria();
+    public List<LikeInfo> queryList(String name, String code, Integer page, Integer limit, String sort, String order) {
+        LikeInfoExample example = new LikeInfoExample();
+        LikeInfoExample.Criteria criteria = example.createCriteria();
 
         if (!StringUtils.isEmpty(name)) {
 
@@ -72,7 +72,7 @@ public class OrderInfoServiceImpl extends BaseService implements OrderInfoServic
         }
 
         PageHelper.startPage(page, limit);
-        return orderInfoMapper.selectByExample(example);
+        return likeInfoMapper.selectByExample(example);
     }
 
     /**
@@ -82,32 +82,32 @@ public class OrderInfoServiceImpl extends BaseService implements OrderInfoServic
      * @return 返回文件信息
      */
     @Override
-    public OrderInfo queryById(Integer id) {
-        return orderInfoMapper.selectByPrimaryKey(id.toString());
+    public LikeInfo queryById(Integer id) {
+        return likeInfoMapper.selectByPrimaryKey(id);
     }
 
     /**
      * 更新
      *
-     * @param order 信息
+     * @param like 信息
      * @return 返回文件信息
      */
     @Override
-    public int update(OrderInfo order) {
-        order.setUpdateTime(LocalDateTime.now());
-        return orderInfoMapper.updateByPrimaryKeySelective(order);
+    public int update(LikeInfo like) {
+        like.setUpdateTime(LocalDateTime.now());
+        return likeInfoMapper.updateByPrimaryKeySelective(like);
     }
 
     /**
      * 新增
      *
-     * @param order 文件信息
+     * @param like 文件信息
      */
     @Override
-    public void add(OrderInfo order) {
-        order.setCreateTime(LocalDateTime.now());
-        order.setUpdateTime(LocalDateTime.now());
-        orderInfoMapper.insertSelective(order);
+    public void add(LikeInfo like) {
+        like.setCreateTime(LocalDateTime.now());
+        like.setUpdateTime(LocalDateTime.now());
+        likeInfoMapper.insertSelective(like);
     }
 
     /**
@@ -117,6 +117,6 @@ public class OrderInfoServiceImpl extends BaseService implements OrderInfoServic
      */
     @Override
     public void deleteById(Integer id) {
-        orderInfoMapper.logicalDeleteByPrimaryKey(id.toString());
+        likeInfoMapper.logicalDeleteByPrimaryKey(id);
     }
 }

@@ -1,14 +1,18 @@
 package com.demeter.cloud.model.service.impl;
 
 import com.demeter.cloud.model.entity.GoodsCategory;
+import com.demeter.cloud.model.entity.GoodsCategoryExample;
 import com.demeter.cloud.model.exception.BusinessException;
 import com.demeter.cloud.model.mapper.GoodsCategoryMapper;
 import com.demeter.cloud.model.service.GoodsCategoryService;
 import com.demeter.cloud.persistence.service.BaseService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -31,7 +35,9 @@ public class GoodsCategoryServiceImpl extends BaseService implements GoodsCatego
      */
     @Override
     public List<GoodsCategory> queryCategoryList() {
-        return null;
+        GoodsCategoryExample example = new GoodsCategoryExample();
+        example.or().andIsDeleteEqualTo((byte) 0).andStatusEqualTo((byte) 1);
+        return goodsCategoryMapper.selectByExample(example);
     }
 
     /**
@@ -47,7 +53,24 @@ public class GoodsCategoryServiceImpl extends BaseService implements GoodsCatego
      */
     @Override
     public List<GoodsCategory> queryList(String name, String code, Integer page, Integer limit, String sort, String order) {
-        return null;
+        GoodsCategoryExample example = new GoodsCategoryExample();
+        GoodsCategoryExample.Criteria criteria = example.createCriteria();
+
+        if (!StringUtils.isEmpty(name)) {
+            criteria.andNameLike("%" + name + "%");
+        }
+        if (!StringUtils.isEmpty(code)) {
+            criteria.andCodeEqualTo(code);
+        }
+        criteria.andIsDeleteEqualTo((byte) 0);
+        criteria.andStatusEqualTo((byte) 1);
+
+        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
+            example.setOrderByClause(sort + " " + order);
+        }
+
+        PageHelper.startPage(page, limit);
+        return goodsCategoryMapper.selectByExample(example);
     }
 
     /**
@@ -58,7 +81,7 @@ public class GoodsCategoryServiceImpl extends BaseService implements GoodsCatego
      */
     @Override
     public GoodsCategory queryById(Integer id) {
-        return null;
+        return goodsCategoryMapper.selectByPrimaryKey(id);
     }
 
     /**
@@ -69,7 +92,8 @@ public class GoodsCategoryServiceImpl extends BaseService implements GoodsCatego
      */
     @Override
     public int update(GoodsCategory category) {
-        return 0;
+        category.setUpdateTime(LocalDateTime.now());
+        return goodsCategoryMapper.updateByPrimaryKeySelective(category);
     }
 
     /**
@@ -79,7 +103,9 @@ public class GoodsCategoryServiceImpl extends BaseService implements GoodsCatego
      */
     @Override
     public void add(GoodsCategory category) {
-
+        category.setCreateTime(LocalDateTime.now());
+        category.setUpdateTime(LocalDateTime.now());
+        goodsCategoryMapper.insertSelective(category);
     }
 
     /**
@@ -89,6 +115,6 @@ public class GoodsCategoryServiceImpl extends BaseService implements GoodsCatego
      */
     @Override
     public void deleteById(Integer id) {
-
+        goodsCategoryMapper.logicalDeleteByPrimaryKey(id);
     }
 }

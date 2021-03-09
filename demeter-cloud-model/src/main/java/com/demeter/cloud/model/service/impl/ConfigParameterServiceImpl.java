@@ -37,7 +37,7 @@ public class ConfigParameterServiceImpl extends BaseService implements ConfigPar
     @Override
     public List<ConfigParameter> queryConfigParameterList() {
         ConfigParameterExample example = new ConfigParameterExample();
-        example.or();
+        example.or().andIsDeleteEqualTo((byte)0).andStatusEqualTo((byte)1);
         return configParameterMapper.selectByExample(example);
     }
 

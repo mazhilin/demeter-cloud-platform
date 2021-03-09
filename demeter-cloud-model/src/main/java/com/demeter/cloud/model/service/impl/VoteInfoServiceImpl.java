@@ -1,11 +1,10 @@
 package com.demeter.cloud.model.service.impl;
 
-import com.demeter.cloud.model.entity.ActivityInfoExample;
-import com.demeter.cloud.model.entity.BrowseInfo;
-import com.demeter.cloud.model.entity.BrowseInfoExample;
+import com.demeter.cloud.model.entity.VoteInfo;
+import com.demeter.cloud.model.entity.VoteInfoExample;
 import com.demeter.cloud.model.exception.BusinessException;
-import com.demeter.cloud.model.mapper.BrowseInfoMapper;
-import com.demeter.cloud.model.service.BrowseInfoService;
+import com.demeter.cloud.model.mapper.VoteInfoMapper;
+import com.demeter.cloud.model.service.VoteInfoService;
 import com.demeter.cloud.persistence.service.BaseService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
@@ -13,22 +12,23 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * <p>封装Dcloud项目BrowseInfoServiceImpl类.<br></p>
+ * <p>封装Dcloud项目VoteInfoServiceImpl类.<br></p>
  * <p>//TODO...<br></p>
  *
- * @author Powered by marklin 2021-03-08 14:18
+ * @author Powered by marklin 2021-03-10 00:12
  * @version 1.0.0
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
-@Service("browseInfoService")
+@Service("menuInfoService")
 @Transactional(rollbackFor = {BusinessException.class, RuntimeException.class, Exception.class})
-public class BrowseInfoServiceImpl extends BaseService implements BrowseInfoService {
+public class VoteInfoServiceImpl extends BaseService implements VoteInfoService {
 
     @Resource
-    private BrowseInfoMapper browseInfoMapper;
+    private VoteInfoMapper voteInfoMapper;
 
     /**
      * 查询活动列表
@@ -36,10 +36,10 @@ public class BrowseInfoServiceImpl extends BaseService implements BrowseInfoServ
      * @return 返回列表
      */
     @Override
-    public List<BrowseInfo> queryBrowseInfoList() {
-        BrowseInfoExample example = new BrowseInfoExample();
-        example.or().andIsDeleteEqualTo((byte)0).andStatusEqualTo((byte)1);
-        return browseInfoMapper.selectByExample(example);
+    public List<VoteInfo> queryCategoryList() {
+        VoteInfoExample example = new VoteInfoExample();
+        example.or().andIsDeleteEqualTo(false).andStatusEqualTo(true);
+        return voteInfoMapper.selectByExample(example);
     }
 
     /**
@@ -54,25 +54,24 @@ public class BrowseInfoServiceImpl extends BaseService implements BrowseInfoServ
      * @return 返回列表
      */
     @Override
-    public List<BrowseInfo> queryList(String name, String code, Integer page, Integer limit, String sort, String order) {
-        BrowseInfoExample example = new BrowseInfoExample();
-        BrowseInfoExample.Criteria criteria = example.createCriteria();
+    public List<VoteInfo> queryList(String name, String code, Integer page, Integer limit, String sort, String order) {
+        VoteInfoExample example = new VoteInfoExample();
+        VoteInfoExample.Criteria criteria = example.createCriteria();
 
         if (!StringUtils.isEmpty(name)) {
 
         }
         if (!StringUtils.isEmpty(code)) {
-
         }
-        criteria.andIsDeleteEqualTo((byte) 0);
-        criteria.andStatusEqualTo((byte) 1);
+        criteria.andIsDeleteEqualTo(false);
+        criteria.andStatusEqualTo(true);
 
         if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
             example.setOrderByClause(sort + " " + order);
         }
 
         PageHelper.startPage(page, limit);
-        return browseInfoMapper.selectByExample(example);
+        return voteInfoMapper.selectByExample(example);
     }
 
     /**
@@ -82,29 +81,32 @@ public class BrowseInfoServiceImpl extends BaseService implements BrowseInfoServ
      * @return 返回文件信息
      */
     @Override
-    public BrowseInfo queryById(Integer id) {
-        return null;
+    public VoteInfo queryById(Integer id) {
+        return voteInfoMapper.selectByPrimaryKey(id);
     }
 
     /**
      * 更新
      *
-     * @param browseInfo 信息
+     * @param vote 信息
      * @return 返回文件信息
      */
     @Override
-    public int update(BrowseInfo browseInfo) {
-        return 0;
+    public int update(VoteInfo vote) {
+        vote.setUpdateTime(LocalDateTime.now());
+        return voteInfoMapper.updateByPrimaryKeySelective(vote);
     }
 
     /**
      * 新增
      *
-     * @param browseInfo 文件信息
+     * @param vote 文件信息
      */
     @Override
-    public void add(BrowseInfo browseInfo) {
-
+    public void add(VoteInfo vote) {
+        vote.setCreateTime(LocalDateTime.now());
+        vote.setUpdateTime(LocalDateTime.now());
+        voteInfoMapper.insertSelective(vote);
     }
 
     /**
@@ -114,6 +116,6 @@ public class BrowseInfoServiceImpl extends BaseService implements BrowseInfoServ
      */
     @Override
     public void deleteById(Integer id) {
-
+        voteInfoMapper.logicalDeleteByPrimaryKey(id);
     }
 }

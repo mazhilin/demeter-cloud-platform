@@ -1,14 +1,18 @@
 package com.demeter.cloud.model.service.impl;
 
-import com.demeter.cloud.model.entity.EnrollInfo;
+import com.demeter.cloud.model.entity.*;
 import com.demeter.cloud.model.exception.BusinessException;
 import com.demeter.cloud.model.mapper.EnrollInfoMapper;
 import com.demeter.cloud.persistence.service.BaseService;
 import com.demeter.cloud.model.service.EnrollInfoService;
+import com.demeter.cloud.utils.CheckEmptyUtil;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -24,8 +28,6 @@ import java.util.List;
 public class EnrollInfoServiceImpl extends BaseService implements EnrollInfoService {
 
     @Resource
-    private EnrollInfoService enrollInfoService;
-    @Resource
     private EnrollInfoMapper enrollInfoMapper;
     /**
      * 查询报名列表
@@ -34,7 +36,11 @@ public class EnrollInfoServiceImpl extends BaseService implements EnrollInfoServ
      */
     @Override
     public List<EnrollInfo> queryEnrollList() {
-        return null;
+        EnrollInfoExample example = new EnrollInfoExample();
+        EnrollInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andIsDeleteEqualTo(false);
+        criteria.andStatusEqualTo(true);
+        return enrollInfoMapper.selectByExample(example);
     }
 
     /**
@@ -50,7 +56,24 @@ public class EnrollInfoServiceImpl extends BaseService implements EnrollInfoServ
      */
     @Override
     public List<EnrollInfo> queryList(String name, String code, Integer page, Integer limit, String sort, String order) {
-        return null;
+        EnrollInfoExample example = new EnrollInfoExample();
+        EnrollInfoExample.Criteria criteria = example.createCriteria();
+
+        if (!StringUtils.isEmpty(name)) {
+
+        }
+        if (!StringUtils.isEmpty(code)) {
+
+        }
+        criteria.andIsDeleteEqualTo(false);
+        criteria.andStatusEqualTo(true);
+
+        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
+            example.setOrderByClause(sort + " " + order);
+        }
+
+        PageHelper.startPage(page, limit);
+        return enrollInfoMapper.selectByExample(example);
     }
 
     /**
@@ -61,7 +84,7 @@ public class EnrollInfoServiceImpl extends BaseService implements EnrollInfoServ
      */
     @Override
     public EnrollInfo queryById(Integer id) {
-        return null;
+        return enrollInfoMapper.selectByPrimaryKey(id);
     }
 
     /**
@@ -72,7 +95,8 @@ public class EnrollInfoServiceImpl extends BaseService implements EnrollInfoServ
      */
     @Override
     public int update(EnrollInfo enroll) {
-        return 0;
+        enroll.setUpdateTime(LocalDateTime.now());
+        return enrollInfoMapper.updateByPrimaryKeySelective(enroll);
     }
 
     /**
@@ -93,7 +117,13 @@ public class EnrollInfoServiceImpl extends BaseService implements EnrollInfoServ
      */
     @Override
     public EnrollInfo queryByCode(String code) {
-        return null;
+        EnrollInfoExample example = new EnrollInfoExample();
+        EnrollInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andIsDeleteEqualTo(false);
+        criteria.andStatusEqualTo(true);
+        if (CheckEmptyUtil.isNotEmpty(code)) {
+        }
+        return enrollInfoMapper.selectOneByExample(example);
     }
 
     /**
@@ -103,6 +133,6 @@ public class EnrollInfoServiceImpl extends BaseService implements EnrollInfoServ
      */
     @Override
     public void deleteById(Integer id) {
-
+        enrollInfoMapper.logicalDeleteByPrimaryKey(id);
     }
 }

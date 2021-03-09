@@ -37,7 +37,7 @@ public class PublicParameterServiceImpl extends BaseService implements PublicPar
     @Override
     public List<PublicParameter> queryPublicParameterList() {
         PublicParameterExample example = new PublicParameterExample();
-        example.or();
+        example.or().andIsDeleteEqualTo((byte) 0).andStatusEqualTo((byte) 1);
         return publicParameterMapper.selectByExample(example);
     }
 
