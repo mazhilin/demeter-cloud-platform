@@ -35,7 +35,7 @@ public class ActivityTemplateServiceImpl extends BaseService implements Activity
      * @return 返回列表
      */
     @Override
-    public List<ActivityTemplate> queryActivityInfoList() {
+    public List<ActivityTemplate> queryActivityTemplateList() {
         ActivityTemplateExample example = new ActivityTemplateExample();
         example.or().andIsDeleteEqualTo((byte) 0).andStatusEqualTo((byte) 1);
         return activityTemplateMapper.selectByExample(example);

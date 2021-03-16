@@ -7,9 +7,17 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="introduction" jdbcType="VARCHAR" property="introduction" />
     <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="customer_user_id" jdbcType="VARCHAR" property="customerUserId" />
+    <result column="customer_id" jdbcType="INTEGER" property="customerId" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
     <result column="rotate_pictures" jdbcType="VARCHAR" property="rotatePictures" />
     <result column="cover_picture" jdbcType="VARCHAR" property="coverPicture" />
+    <result column="virtual_vote" jdbcType="DECIMAL" property="virtualVote" />
+    <result column="actual_vote" jdbcType="DECIMAL" property="actualVote" />
+    <result column="virtual_like" jdbcType="DECIMAL" property="virtualLike" />
+    <result column="actual_like" jdbcType="DECIMAL" property="actualLike" />
+    <result column="source_type" jdbcType="INTEGER" property="sourceType" />
+    <result column="like_status" jdbcType="TINYINT" property="likeStatus" />
+    <result column="ip_address" jdbcType="VARCHAR" property="ipAddress" />
     <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -77,8 +85,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, code, `name`, introduction, content, customer_user_id, rotate_pictures, cover_picture, 
-    is_delete, create_by, create_time, update_by, update_time, `status`, remark
+    id, code, `name`, introduction, content, customer_id, goods_id, rotate_pictures, 
+    cover_picture, virtual_vote, actual_vote, virtual_like, actual_like, source_type, 
+    like_status, ip_address, is_delete, create_by, create_time, update_by, update_time, 
+    `status`, remark
   </sql>
   <select id="selectByExample" parameterType="com.demeter.cloud.model.entity.WorksInfoExample" resultMap="BaseResultMap">
     select
@@ -111,8 +121,10 @@
         </foreach>
       </when>
       <otherwise>
-        id, code, `name`, introduction, content, customer_user_id, rotate_pictures, cover_picture, 
-          is_delete, create_by, create_time, update_by, update_time, `status`, remark
+        id, code, `name`, introduction, content, customer_id, goods_id, rotate_pictures, 
+          cover_picture, virtual_vote, actual_vote, virtual_like, actual_like, source_type, 
+          like_status, ip_address, is_delete, create_by, create_time, update_by, update_time, 
+          `status`, remark
       </otherwise>
     </choose>
     from demeter_works_info
@@ -163,8 +175,10 @@
         </foreach>
       </when>
       <otherwise>
-        id, code, `name`, introduction, content, customer_user_id, rotate_pictures, cover_picture, 
-          is_delete, create_by, create_time, update_by, update_time, `status`, remark
+        id, code, `name`, introduction, content, customer_id, goods_id, rotate_pictures, 
+          cover_picture, virtual_vote, actual_vote, virtual_like, actual_like, source_type, 
+          like_status, ip_address, is_delete, create_by, create_time, update_by, update_time, 
+          `status`, remark
       </otherwise>
     </choose>
     from demeter_works_info
@@ -185,15 +199,21 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into demeter_works_info (code, `name`, introduction, 
-      content, customer_user_id, rotate_pictures, 
-      cover_picture, is_delete, create_by, 
-      create_time, update_by, update_time, 
-      `status`, remark)
+      content, customer_id, goods_id, 
+      rotate_pictures, cover_picture, virtual_vote, 
+      actual_vote, virtual_like, actual_like, 
+      source_type, like_status, ip_address, 
+      is_delete, create_by, create_time, 
+      update_by, update_time, `status`, 
+      remark)
     values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, #{customerUserId,jdbcType=VARCHAR}, #{rotatePictures,jdbcType=VARCHAR}, 
-      #{coverPicture,jdbcType=VARCHAR}, #{isDelete,jdbcType=TINYINT}, #{createBy,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR})
+      #{content,jdbcType=VARCHAR}, #{customerId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, 
+      #{rotatePictures,jdbcType=VARCHAR}, #{coverPicture,jdbcType=VARCHAR}, #{virtualVote,jdbcType=DECIMAL}, 
+      #{actualVote,jdbcType=DECIMAL}, #{virtualLike,jdbcType=DECIMAL}, #{actualLike,jdbcType=DECIMAL}, 
+      #{sourceType,jdbcType=INTEGER}, #{likeStatus,jdbcType=TINYINT}, #{ipAddress,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=TINYINT}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, 
+      #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.demeter.cloud.model.entity.WorksInfo">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -213,14 +233,38 @@
       <if test="content != null">
         content,
       </if>
-      <if test="customerUserId != null">
-        customer_user_id,
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
       </if>
       <if test="rotatePictures != null">
         rotate_pictures,
       </if>
       <if test="coverPicture != null">
         cover_picture,
+      </if>
+      <if test="virtualVote != null">
+        virtual_vote,
+      </if>
+      <if test="actualVote != null">
+        actual_vote,
+      </if>
+      <if test="virtualLike != null">
+        virtual_like,
+      </if>
+      <if test="actualLike != null">
+        actual_like,
+      </if>
+      <if test="sourceType != null">
+        source_type,
+      </if>
+      <if test="likeStatus != null">
+        like_status,
+      </if>
+      <if test="ipAddress != null">
+        ip_address,
       </if>
       <if test="isDelete != null">
         is_delete,
@@ -257,14 +301,38 @@
       <if test="content != null">
         #{content,jdbcType=VARCHAR},
       </if>
-      <if test="customerUserId != null">
-        #{customerUserId,jdbcType=VARCHAR},
+      <if test="customerId != null">
+        #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
       </if>
       <if test="rotatePictures != null">
         #{rotatePictures,jdbcType=VARCHAR},
       </if>
       <if test="coverPicture != null">
         #{coverPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="virtualVote != null">
+        #{virtualVote,jdbcType=DECIMAL},
+      </if>
+      <if test="actualVote != null">
+        #{actualVote,jdbcType=DECIMAL},
+      </if>
+      <if test="virtualLike != null">
+        #{virtualLike,jdbcType=DECIMAL},
+      </if>
+      <if test="actualLike != null">
+        #{actualLike,jdbcType=DECIMAL},
+      </if>
+      <if test="sourceType != null">
+        #{sourceType,jdbcType=INTEGER},
+      </if>
+      <if test="likeStatus != null">
+        #{likeStatus,jdbcType=TINYINT},
+      </if>
+      <if test="ipAddress != null">
+        #{ipAddress,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=TINYINT},
@@ -313,14 +381,38 @@
       <if test="record.content != null">
         content = #{record.content,jdbcType=VARCHAR},
       </if>
-      <if test="record.customerUserId != null">
-        customer_user_id = #{record.customerUserId,jdbcType=VARCHAR},
+      <if test="record.customerId != null">
+        customer_id = #{record.customerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsId != null">
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
       </if>
       <if test="record.rotatePictures != null">
         rotate_pictures = #{record.rotatePictures,jdbcType=VARCHAR},
       </if>
       <if test="record.coverPicture != null">
         cover_picture = #{record.coverPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.virtualVote != null">
+        virtual_vote = #{record.virtualVote,jdbcType=DECIMAL},
+      </if>
+      <if test="record.actualVote != null">
+        actual_vote = #{record.actualVote,jdbcType=DECIMAL},
+      </if>
+      <if test="record.virtualLike != null">
+        virtual_like = #{record.virtualLike,jdbcType=DECIMAL},
+      </if>
+      <if test="record.actualLike != null">
+        actual_like = #{record.actualLike,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sourceType != null">
+        source_type = #{record.sourceType,jdbcType=INTEGER},
+      </if>
+      <if test="record.likeStatus != null">
+        like_status = #{record.likeStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.ipAddress != null">
+        ip_address = #{record.ipAddress,jdbcType=VARCHAR},
       </if>
       <if test="record.isDelete != null">
         is_delete = #{record.isDelete,jdbcType=TINYINT},
@@ -355,9 +447,17 @@
       `name` = #{record.name,jdbcType=VARCHAR},
       introduction = #{record.introduction,jdbcType=VARCHAR},
       content = #{record.content,jdbcType=VARCHAR},
-      customer_user_id = #{record.customerUserId,jdbcType=VARCHAR},
+      customer_id = #{record.customerId,jdbcType=INTEGER},
+      goods_id = #{record.goodsId,jdbcType=INTEGER},
       rotate_pictures = #{record.rotatePictures,jdbcType=VARCHAR},
       cover_picture = #{record.coverPicture,jdbcType=VARCHAR},
+      virtual_vote = #{record.virtualVote,jdbcType=DECIMAL},
+      actual_vote = #{record.actualVote,jdbcType=DECIMAL},
+      virtual_like = #{record.virtualLike,jdbcType=DECIMAL},
+      actual_like = #{record.actualLike,jdbcType=DECIMAL},
+      source_type = #{record.sourceType,jdbcType=INTEGER},
+      like_status = #{record.likeStatus,jdbcType=TINYINT},
+      ip_address = #{record.ipAddress,jdbcType=VARCHAR},
       is_delete = #{record.isDelete,jdbcType=TINYINT},
       create_by = #{record.createBy,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -384,14 +484,38 @@
       <if test="content != null">
         content = #{content,jdbcType=VARCHAR},
       </if>
-      <if test="customerUserId != null">
-        customer_user_id = #{customerUserId,jdbcType=VARCHAR},
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
       </if>
       <if test="rotatePictures != null">
         rotate_pictures = #{rotatePictures,jdbcType=VARCHAR},
       </if>
       <if test="coverPicture != null">
         cover_picture = #{coverPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="virtualVote != null">
+        virtual_vote = #{virtualVote,jdbcType=DECIMAL},
+      </if>
+      <if test="actualVote != null">
+        actual_vote = #{actualVote,jdbcType=DECIMAL},
+      </if>
+      <if test="virtualLike != null">
+        virtual_like = #{virtualLike,jdbcType=DECIMAL},
+      </if>
+      <if test="actualLike != null">
+        actual_like = #{actualLike,jdbcType=DECIMAL},
+      </if>
+      <if test="sourceType != null">
+        source_type = #{sourceType,jdbcType=INTEGER},
+      </if>
+      <if test="likeStatus != null">
+        like_status = #{likeStatus,jdbcType=TINYINT},
+      </if>
+      <if test="ipAddress != null">
+        ip_address = #{ipAddress,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         is_delete = #{isDelete,jdbcType=TINYINT},
@@ -423,9 +547,17 @@
       `name` = #{name,jdbcType=VARCHAR},
       introduction = #{introduction,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
-      customer_user_id = #{customerUserId,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
       rotate_pictures = #{rotatePictures,jdbcType=VARCHAR},
       cover_picture = #{coverPicture,jdbcType=VARCHAR},
+      virtual_vote = #{virtualVote,jdbcType=DECIMAL},
+      actual_vote = #{actualVote,jdbcType=DECIMAL},
+      virtual_like = #{virtualLike,jdbcType=DECIMAL},
+      actual_like = #{actualLike,jdbcType=DECIMAL},
+      source_type = #{sourceType,jdbcType=INTEGER},
+      like_status = #{likeStatus,jdbcType=TINYINT},
+      ip_address = #{ipAddress,jdbcType=VARCHAR},
       is_delete = #{isDelete,jdbcType=TINYINT},
       create_by = #{createBy,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -466,8 +598,10 @@
         </foreach>
       </when>
       <otherwise>
-        id, code, `name`, introduction, content, customer_user_id, rotate_pictures, cover_picture, 
-          is_delete, create_by, create_time, update_by, update_time, `status`, remark
+        id, code, `name`, introduction, content, customer_id, goods_id, rotate_pictures, 
+          cover_picture, virtual_vote, actual_vote, virtual_like, actual_like, source_type, 
+          like_status, ip_address, is_delete, create_by, create_time, update_by, update_time, 
+          `status`, remark
       </otherwise>
     </choose>
     from demeter_works_info

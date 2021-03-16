@@ -1,5 +1,6 @@
 package com.demeter.cloud.console.controller;
 
+import com.demeter.cloud.persistence.controller.BaseController;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,5 +16,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/admin/comment/")
 @Validated
-public class ConsoleCommentController {
+public class ConsoleCommentController extends BaseController {
 }

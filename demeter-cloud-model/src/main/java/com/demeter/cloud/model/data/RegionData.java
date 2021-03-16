@@ -1,6 +1,5 @@
 package com.demeter.cloud.model.data;
 
-import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;

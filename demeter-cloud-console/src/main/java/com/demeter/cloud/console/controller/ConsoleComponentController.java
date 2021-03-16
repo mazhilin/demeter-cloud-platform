@@ -3,11 +3,17 @@ package com.demeter.cloud.console.controller;
 import com.demeter.cloud.core.constant.RedisConstant;
 import com.demeter.cloud.core.utils.JsonServerUtil;
 import com.demeter.cloud.core.utils.ResponseUtil;
+import com.demeter.cloud.model.data.ActivityTemplateData;
+import com.demeter.cloud.model.data.CustomerData;
 import com.demeter.cloud.model.data.RegionData;
+import com.demeter.cloud.model.entity.ActivityTemplate;
 import com.demeter.cloud.model.entity.AdminUser;
+import com.demeter.cloud.model.entity.CustomerUser;
 import com.demeter.cloud.model.entity.RegionInfo;
 import com.demeter.cloud.model.redis.ListOperationsService;
 import com.demeter.cloud.model.redis.ValueOperationsService;
+import com.demeter.cloud.model.service.ActivityTemplateService;
+import com.demeter.cloud.model.service.CustomerUserService;
 import com.demeter.cloud.model.service.RegionInfoService;
 import com.demeter.cloud.persistence.controller.BaseController;
 import com.demeter.cloud.utils.CheckEmptyUtil;
@@ -46,6 +52,12 @@ public class ConsoleComponentController extends BaseController {
 
     @Autowired
     private ValueOperationsService<String, Object> valueOperationsService;
+
+    @Autowired
+    private CustomerUserService customerService;
+
+    @Autowired
+    private ActivityTemplateService activityTemplateService;
 
 
     protected synchronized void regionTreeList() {
@@ -175,6 +187,68 @@ public class ConsoleComponentController extends BaseController {
             });
         }
         return ResponseUtil.ok(districtList);
+    }
+
+    /**
+     * 查询作者下拉列表
+     *
+     * @return 返回列表
+     */
+    @GetMapping(value = "customerList")
+    public Object customerList() {
+        List<CustomerData> customerList = Lists.newLinkedList();
+        List<CustomerUser> queryCustomerList = customerService.queryCustomerUserList();
+        if (CheckEmptyUtil.isNotEmpty(queryCustomerList)) {
+            queryCustomerList.parallelStream().forEachOrdered(province -> {
+                CustomerData customer = new CustomerData();
+                customer.setValue(province.getId());
+                customer.setLabel(province.getName());
+                customerList.add(customer);
+            });
+        }
+        return ResponseUtil.ok(customerList);
+    }
+
+    /**
+     * 查询活动下拉列表
+     *
+     * @return 返回列表
+     */
+    @GetMapping(value = "templateList")
+    public Object templateList() {
+        List<ActivityTemplateData> activityTemplateList = Lists.newLinkedList();
+        List<ActivityTemplate> queryActivityTemplateList = activityTemplateService.queryActivityTemplateList();
+        if (CheckEmptyUtil.isNotEmpty(queryActivityTemplateList)) {
+            queryActivityTemplateList.parallelStream().forEachOrdered(template -> {
+                ActivityTemplateData activityTemplate = new ActivityTemplateData();
+                activityTemplate.setValue(template.getId());
+                activityTemplate.setLabel(template.getName());
+                activityTemplate.setCode(template.getCode());
+                activityTemplateList.add(activityTemplate);
+            });
+        }
+        return ResponseUtil.ok(activityTemplateList);
+    }
+
+    /**
+     * 查询公司列表
+     *
+     * @return 返回列表
+     */
+    @GetMapping(value = "companyList")
+    public Object companyList() {
+        List<ActivityTemplateData> activityTemplateList = Lists.newLinkedList();
+        List<ActivityTemplate> queryActivityTemplateList = activityTemplateService.queryActivityTemplateList();
+        if (CheckEmptyUtil.isNotEmpty(queryActivityTemplateList)) {
+            queryActivityTemplateList.parallelStream().forEachOrdered(template -> {
+                ActivityTemplateData activityTemplate = new ActivityTemplateData();
+                activityTemplate.setValue(template.getId());
+                activityTemplate.setLabel(template.getName());
+                activityTemplate.setCode(template.getCode());
+                activityTemplateList.add(activityTemplate);
+            });
+        }
+        return ResponseUtil.ok(activityTemplateList);
     }
 
 }

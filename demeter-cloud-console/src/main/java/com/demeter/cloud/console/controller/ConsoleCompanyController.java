@@ -1,20 +1,29 @@
 package com.demeter.cloud.console.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.demeter.cloud.console.annotation.RequiresPermissionsDesc;
+import com.demeter.cloud.core.constant.Constants;
+import com.demeter.cloud.core.utils.MD5Util;
 import com.demeter.cloud.core.utils.ResponseUtil;
+import com.demeter.cloud.core.utils.bcrypt.BCryptPasswordEncoder;
 import com.demeter.cloud.core.validator.Order;
 import com.demeter.cloud.core.validator.Sort;
+import com.demeter.cloud.model.entity.AdminUser;
 import com.demeter.cloud.model.entity.Company;
+import com.demeter.cloud.model.service.AdminUserService;
 import com.demeter.cloud.persistence.controller.BaseController;
 import com.demeter.cloud.model.service.CompanyService;
+import com.demeter.cloud.utils.CheckEmptyUtil;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +43,9 @@ public class ConsoleCompanyController extends BaseController {
     
     @Autowired
     private CompanyService companyService;
+
+    @Autowired
+    private AdminUserService adminUserService;
 
     @RequiresPermissions("admin:company:list")
     @RequiresPermissionsDesc(
@@ -63,10 +75,6 @@ public class ConsoleCompanyController extends BaseController {
         if (StringUtils.isEmpty(name)) {
             return ResponseUtil.badArgument();
         }
-        String code = company.getCode();
-        if (StringUtils.isEmpty(code)) {
-            return ResponseUtil.badArgument();
-        }
         return null;
     }
 
@@ -82,6 +90,30 @@ public class ConsoleCompanyController extends BaseController {
         if (error != null) {
             return error;
         }
+        AdminUser adminUser = (AdminUser) SecurityUtils.getSubject().getPrincipal();
+        logger.info("系统中心->用户管理->获取当前登录用户 ,结果：\n{}", JSON.toJSON(adminUser));
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodedPassword = encoder.encode(Constants.DEFAULT_PASSWORD);
+        AdminUser companyUser = new AdminUser();
+        companyUser.setName(company.getContacts());
+        companyUser.setPassword(encodedPassword);
+        companyUser.setType((byte) 0);
+        companyUser.setMobile(company.getMobile());
+        companyUser.setAccount(company.getAccount());
+        companyUser.setNickname(company.getContacts());
+        companyUser.setEmail(company.getMobile() + Constants.DEFAULT_EMAIL);
+        companyUser.setCreateBy(adminUser.getId().toString());
+        companyUser.setCreateTime(LocalDateTime.now());
+        companyUser.setType((byte) 2);
+        companyUser.setUpdateBy(adminUser.getId().toString());
+        companyUser.setUpdateTime(LocalDateTime.now());
+        adminUserService.add(companyUser);
+        company.setCode(MD5Util.encodeByMD5(company.getAccount()));
+        company.setAdminUserId(companyUser.getId());
+        company.setCreateBy(adminUser.getId().toString());
+        company.setCreateTime(LocalDateTime.now());
+        company.setUpdateBy(adminUser.getId().toString());
+        company.setUpdateTime(LocalDateTime.now());
         companyService.add(company);
 
         logger.info("【请求结束】企业中心->企业管理->新增,响应结果:{}", JSONObject.toJSONString(company));

@@ -2,14 +2,18 @@ package com.demeter.cloud.console.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.demeter.cloud.console.annotation.RequiresPermissionsDesc;
+import com.demeter.cloud.core.utils.DateTimeUtil;
+import com.demeter.cloud.core.utils.IpAddressUtil;
 import com.demeter.cloud.core.utils.ResponseUtil;
 import com.demeter.cloud.core.validator.Order;
 import com.demeter.cloud.core.validator.Sort;
 import com.demeter.cloud.model.entity.ActivityTemplate;
+import com.demeter.cloud.model.entity.AdminUser;
 import com.demeter.cloud.persistence.controller.BaseController;
 import com.demeter.cloud.model.service.ActivityTemplateService;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -76,10 +81,6 @@ public class ConsoleTemplateController extends BaseController {
         if (StringUtils.isEmpty(name)) {
             return ResponseUtil.badArgument();
         }
-        String code = template.getCode();
-        if (StringUtils.isEmpty(code)) {
-            return ResponseUtil.badArgument();
-        }
         return null;
     }
 
@@ -95,6 +96,13 @@ public class ConsoleTemplateController extends BaseController {
         if (error != null) {
             return error;
         }
+        template.setCode(
+                DateTimeUtil.getDate(LocalDateTime.now()) + DateTimeUtil.getDateTime(LocalDateTime.now()));
+        AdminUser adminUser = (AdminUser) SecurityUtils.getSubject().getPrincipal();
+        template.setCreateBy(adminUser.getId().toString());
+        template.setUpdateBy(adminUser.getId().toString());
+        template.setCreateTime(LocalDateTime.now());
+        template.setUpdateTime(LocalDateTime.now());
         activityTemplateService.add(template);
 
         logger.info("【请求结束】活动中心->模板管理->新增,响应结果:{}", JSONObject.toJSONString(template));

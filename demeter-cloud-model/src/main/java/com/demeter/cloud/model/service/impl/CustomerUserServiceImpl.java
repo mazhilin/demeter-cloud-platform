@@ -4,8 +4,8 @@ import com.demeter.cloud.model.entity.CustomerUser;
 import com.demeter.cloud.model.entity.CustomerUserExample;
 import com.demeter.cloud.model.exception.BusinessException;
 import com.demeter.cloud.model.mapper.CustomerUserMapper;
-import com.demeter.cloud.persistence.service.BaseService;
 import com.demeter.cloud.model.service.CustomerUserService;
+import com.demeter.cloud.persistence.service.BaseService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,7 +60,7 @@ public class CustomerUserServiceImpl extends BaseService implements CustomerUser
         CustomerUserExample.Criteria criteria = example.createCriteria();
 
         if (!StringUtils.isEmpty(name)) {
-            criteria.andUsernameLike("%" + name + "%");
+            criteria.andNameLike("%" + name + "%");
         }
         if (!StringUtils.isEmpty(mobile)) {
             criteria.andMobileEqualTo(mobile);

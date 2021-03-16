@@ -1,10 +1,11 @@
 package com.demeter.cloud.model.service.impl;
 
-import com.demeter.cloud.model.entity.VoteInfo;
-import com.demeter.cloud.model.entity.VoteInfoExample;
+import com.demeter.cloud.model.entity.OrderInfoExample;
+import com.demeter.cloud.model.entity.PrizeAward;
+import com.demeter.cloud.model.entity.PrizeAwardExample;
 import com.demeter.cloud.model.exception.BusinessException;
-import com.demeter.cloud.model.mapper.VoteInfoMapper;
-import com.demeter.cloud.model.service.VoteInfoService;
+import com.demeter.cloud.model.mapper.PrizeAwardMapper;
+import com.demeter.cloud.model.service.PrizeAwardService;
 import com.demeter.cloud.persistence.service.BaseService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
@@ -16,30 +17,31 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * <p>封装Dcloud项目VoteInfoServiceImpl类.<br></p>
+ * <p>封装Dcloud项目PrizeAwardServiceImpl类.<br></p>
  * <p>//TODO...<br></p>
  *
- * @author Powered by marklin 2021-03-10 00:12
+ * @author Powered by marklin 2021-03-10 11:22
  * @version 1.0.0
  * <p>Copyright © 2018-2021 Pivotal Cloud Technology Systems Incorporated. All rights reserved.<br></p>
  */
-@Service("voteInfoService")
+
+@Service("prizeAwardService")
 @Transactional(rollbackFor = {BusinessException.class, RuntimeException.class, Exception.class})
-public class VoteInfoServiceImpl extends BaseService implements VoteInfoService {
+public class PrizeAwardServiceImpl extends BaseService implements PrizeAwardService {
 
     @Resource
-    private VoteInfoMapper voteInfoMapper;
+    private PrizeAwardMapper prizeAwardMapper;
 
     /**
-     * 查询活动列表
+     * 查询列表
      *
      * @return 返回列表
      */
     @Override
-    public List<VoteInfo> queryCategoryList() {
-        VoteInfoExample example = new VoteInfoExample();
+    public List<PrizeAward> queryOrderList() {
+        PrizeAwardExample example = new PrizeAwardExample();
         example.or().andIsDeleteEqualTo(false).andStatusEqualTo(true);
-        return voteInfoMapper.selectByExample(example);
+        return prizeAwardMapper.selectByExample(example);
     }
 
     /**
@@ -54,14 +56,15 @@ public class VoteInfoServiceImpl extends BaseService implements VoteInfoService 
      * @return 返回列表
      */
     @Override
-    public List<VoteInfo> queryList(String name, String code, Integer page, Integer limit, String sort, String order) {
-        VoteInfoExample example = new VoteInfoExample();
-        VoteInfoExample.Criteria criteria = example.createCriteria();
+    public List<PrizeAward> queryList(String name, String code, Integer page, Integer limit, String sort, String order) {
+        PrizeAwardExample example = new PrizeAwardExample();
+        PrizeAwardExample.Criteria criteria = example.createCriteria();
 
         if (!StringUtils.isEmpty(name)) {
 
         }
         if (!StringUtils.isEmpty(code)) {
+
         }
         criteria.andIsDeleteEqualTo(false);
         criteria.andStatusEqualTo(true);
@@ -71,7 +74,7 @@ public class VoteInfoServiceImpl extends BaseService implements VoteInfoService 
         }
 
         PageHelper.startPage(page, limit);
-        return voteInfoMapper.selectByExample(example);
+        return prizeAwardMapper.selectByExample(example);
     }
 
     /**
@@ -81,32 +84,32 @@ public class VoteInfoServiceImpl extends BaseService implements VoteInfoService 
      * @return 返回文件信息
      */
     @Override
-    public VoteInfo queryById(Integer id) {
-        return voteInfoMapper.selectByPrimaryKey(id);
+    public PrizeAward queryById(Integer id) {
+        return prizeAwardMapper.selectByPrimaryKey(id);
     }
 
     /**
      * 更新
      *
-     * @param vote 信息
+     * @param prizeAward 信息
      * @return 返回文件信息
      */
     @Override
-    public int update(VoteInfo vote) {
-        vote.setUpdateTime(LocalDateTime.now());
-        return voteInfoMapper.updateByPrimaryKeySelective(vote);
+    public int update(PrizeAward prizeAward) {
+        prizeAward.setUpdateTime(LocalDateTime.now());
+        return prizeAwardMapper.updateByPrimaryKeySelective(prizeAward);
     }
 
     /**
      * 新增
      *
-     * @param vote 文件信息
+     * @param prizeAward 文件信息
      */
     @Override
-    public void add(VoteInfo vote) {
-        vote.setCreateTime(LocalDateTime.now());
-        vote.setUpdateTime(LocalDateTime.now());
-        voteInfoMapper.insertSelective(vote);
+    public void add(PrizeAward prizeAward) {
+        prizeAward.setCreateTime(LocalDateTime.now());
+        prizeAward.setUpdateTime(LocalDateTime.now());
+        prizeAwardMapper.insertSelective(prizeAward);
     }
 
     /**
@@ -116,6 +119,6 @@ public class VoteInfoServiceImpl extends BaseService implements VoteInfoService 
      */
     @Override
     public void deleteById(Integer id) {
-        voteInfoMapper.logicalDeleteByPrimaryKey(id);
+        prizeAwardMapper.logicalDeleteByPrimaryKey(id);
     }
 }

@@ -2,19 +2,26 @@ package com.demeter.cloud.console.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.demeter.cloud.console.annotation.RequiresPermissionsDesc;
+import com.demeter.cloud.core.constant.Constants;
+import com.demeter.cloud.core.utils.DateTimeUtil;
 import com.demeter.cloud.core.utils.ResponseUtil;
+import com.demeter.cloud.core.utils.bcrypt.BCryptPasswordEncoder;
 import com.demeter.cloud.core.validator.Order;
 import com.demeter.cloud.core.validator.Sort;
+import com.demeter.cloud.model.entity.AdminUser;
 import com.demeter.cloud.model.entity.CustomerUser;
-import com.demeter.cloud.persistence.controller.BaseController;
 import com.demeter.cloud.model.service.CustomerUserService;
+import com.demeter.cloud.persistence.controller.BaseController;
+import com.demeter.cloud.utils.CheckEmptyUtil;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +66,7 @@ public class ConsoleCustomerController extends BaseController {
     }
 
     private Object validate(CustomerUser customer) {
-        String name = customer.getUsername();
+        String name = customer.getName();
         if (StringUtils.isEmpty(name)) {
             return ResponseUtil.badArgument();
         }
@@ -103,8 +110,18 @@ public class ConsoleCustomerController extends BaseController {
         if (error != null) {
             return error;
         }
+        customer.setAccount(customer.getMobile());
+        customer.setCustomerNumber(DateTimeUtil.getDate(LocalDateTime.now()) + DateTimeUtil.getDateTime(LocalDateTime.now()));
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        customer.setPassword(encoder.encode(Constants.DEFAULT_PASSWORD));
+        customer.setNickname(CheckEmptyUtil.isEmpty(customer.getNickname()) ? customer.getName() : customer.getNickname());
+        AdminUser adminUser = (AdminUser) SecurityUtils.getSubject().getPrincipal();
+        customer.setEmail(CheckEmptyUtil.isEmpty(customer.getEmail()) ? customer.getMobile() + Constants.DEFAULT_EMAIL : customer.getEmail());
+        customer.setCreateBy(adminUser.getId().toString());
+        customer.setUpdateBy(adminUser.getId().toString());
+        customer.setCreateTime(LocalDateTime.now());
+        customer.setUpdateTime(LocalDateTime.now());
         customerUserService.add(customer);
-
         logger.info("【请求结束】作品中心->作者管理->新增,响应结果:{}", JSONObject.toJSONString(customer));
         return ResponseUtil.ok(customer);
     }
@@ -130,6 +147,14 @@ public class ConsoleCustomerController extends BaseController {
         if (customerId == null) {
             return ResponseUtil.badArgument();
         }
+        customer.setAccount(customer.getMobile());
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        customer.setPassword(encoder.encode(Constants.DEFAULT_PASSWORD));
+        customer.setNickname(CheckEmptyUtil.isEmpty(customer.getNickname()) ? customer.getName() : customer.getNickname());
+        AdminUser adminUser = (AdminUser) SecurityUtils.getSubject().getPrincipal();
+        customer.setEmail(CheckEmptyUtil.isEmpty(customer.getEmail()) ? customer.getMobile() + Constants.DEFAULT_EMAIL : customer.getEmail());
+        customer.setUpdateBy(adminUser.getId().toString());
+        customer.setUpdateTime(LocalDateTime.now());
         if (customerUserService.update(customer) == 0) {
             logger.error("作品中心->作者管理-编辑 ,错误：{}", "编辑数据失败！");
             return ResponseUtil.updatedDataFailed();
@@ -158,6 +183,11 @@ public class ConsoleCustomerController extends BaseController {
         if (customerId == null) {
             return ResponseUtil.badArgument();
         }
+        AdminUser adminUser = (AdminUser) SecurityUtils.getSubject().getPrincipal();
+        customer.setNickname(CheckEmptyUtil.isEmpty(customer.getNickname()) ? customer.getName() : customer.getNickname());
+        customer.setEmail(CheckEmptyUtil.isEmpty(customer.getEmail()) ? customer.getMobile() + Constants.DEFAULT_EMAIL : customer.getEmail());
+        customer.setUpdateBy(adminUser.getId().toString());
+        customer.setUpdateTime(LocalDateTime.now());
         if (customerUserService.update(customer) == 0) {
             logger.error("作品中心->作者管理-更新 ,错误：{}", "更新数据失败！");
             return ResponseUtil.updatedDataFailed();

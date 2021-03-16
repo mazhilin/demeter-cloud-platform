@@ -19,7 +19,7 @@ public interface ActivityTemplateService {
      *
      * @return 返回列表
      */
-    List<ActivityTemplate> queryActivityInfoList();
+    List<ActivityTemplate> queryActivityTemplateList();
 
     /**
      * 查询列表

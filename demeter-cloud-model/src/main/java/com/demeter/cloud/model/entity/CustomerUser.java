@@ -28,9 +28,9 @@ public class CustomerUser {
 
     private String account;
 
-    private String username;
-
     private String password;
+
+    private String name;
 
     private String nickname;
 
@@ -51,8 +51,6 @@ public class CustomerUser {
     private String personalWorks;
 
     private LocalDate birthday;
-
-    private String licenseUrl;
 
     private String wechatOpenid;
 
@@ -92,20 +90,20 @@ public class CustomerUser {
         this.account = account;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getNickname() {
@@ -186,14 +184,6 @@ public class CustomerUser {
 
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
-    }
-
-    public String getLicenseUrl() {
-        return licenseUrl;
-    }
-
-    public void setLicenseUrl(String licenseUrl) {
-        this.licenseUrl = licenseUrl;
     }
 
     public String getWechatOpenid() {
@@ -292,8 +282,8 @@ public class CustomerUser {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", account=").append(account);
-        sb.append(", username=").append(username);
         sb.append(", password=").append(password);
+        sb.append(", name=").append(name);
         sb.append(", nickname=").append(nickname);
         sb.append(", gender=").append(gender);
         sb.append(", mobile=").append(mobile);
@@ -304,7 +294,6 @@ public class CustomerUser {
         sb.append(", personalProfile=").append(personalProfile);
         sb.append(", personalWorks=").append(personalWorks);
         sb.append(", birthday=").append(birthday);
-        sb.append(", licenseUrl=").append(licenseUrl);
         sb.append(", wechatOpenid=").append(wechatOpenid);
         sb.append(", lastLoginTime=").append(lastLoginTime);
         sb.append(", lastLoginIp=").append(lastLoginIp);
@@ -334,8 +323,8 @@ public class CustomerUser {
         CustomerUser other = (CustomerUser) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getAccount() == null ? other.getAccount() == null : this.getAccount().equals(other.getAccount()))
-            && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
             && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
+            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getNickname() == null ? other.getNickname() == null : this.getNickname().equals(other.getNickname()))
             && (this.getGender() == null ? other.getGender() == null : this.getGender().equals(other.getGender()))
             && (this.getMobile() == null ? other.getMobile() == null : this.getMobile().equals(other.getMobile()))
@@ -346,7 +335,6 @@ public class CustomerUser {
             && (this.getPersonalProfile() == null ? other.getPersonalProfile() == null : this.getPersonalProfile().equals(other.getPersonalProfile()))
             && (this.getPersonalWorks() == null ? other.getPersonalWorks() == null : this.getPersonalWorks().equals(other.getPersonalWorks()))
             && (this.getBirthday() == null ? other.getBirthday() == null : this.getBirthday().equals(other.getBirthday()))
-            && (this.getLicenseUrl() == null ? other.getLicenseUrl() == null : this.getLicenseUrl().equals(other.getLicenseUrl()))
             && (this.getWechatOpenid() == null ? other.getWechatOpenid() == null : this.getWechatOpenid().equals(other.getWechatOpenid()))
             && (this.getLastLoginTime() == null ? other.getLastLoginTime() == null : this.getLastLoginTime().equals(other.getLastLoginTime()))
             && (this.getLastLoginIp() == null ? other.getLastLoginIp() == null : this.getLastLoginIp().equals(other.getLastLoginIp()))
@@ -366,8 +354,8 @@ public class CustomerUser {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getAccount() == null) ? 0 : getAccount().hashCode());
-        result = prime * result + ((getUsername() == null) ? 0 : getUsername().hashCode());
         result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
+        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getNickname() == null) ? 0 : getNickname().hashCode());
         result = prime * result + ((getGender() == null) ? 0 : getGender().hashCode());
         result = prime * result + ((getMobile() == null) ? 0 : getMobile().hashCode());
@@ -378,7 +366,6 @@ public class CustomerUser {
         result = prime * result + ((getPersonalProfile() == null) ? 0 : getPersonalProfile().hashCode());
         result = prime * result + ((getPersonalWorks() == null) ? 0 : getPersonalWorks().hashCode());
         result = prime * result + ((getBirthday() == null) ? 0 : getBirthday().hashCode());
-        result = prime * result + ((getLicenseUrl() == null) ? 0 : getLicenseUrl().hashCode());
         result = prime * result + ((getWechatOpenid() == null) ? 0 : getWechatOpenid().hashCode());
         result = prime * result + ((getLastLoginTime() == null) ? 0 : getLastLoginTime().hashCode());
         result = prime * result + ((getLastLoginIp() == null) ? 0 : getLastLoginIp().hashCode());
@@ -414,8 +401,8 @@ public class CustomerUser {
     public enum Column {
         id("id", "id", "INTEGER", false),
         account("account", "account", "VARCHAR", false),
-        username("username", "username", "VARCHAR", false),
         password("password", "password", "VARCHAR", true),
+        name("name", "name", "VARCHAR", true),
         nickname("nickname", "nickname", "VARCHAR", false),
         gender("gender", "gender", "TINYINT", false),
         mobile("mobile", "mobile", "VARCHAR", false),
@@ -426,7 +413,6 @@ public class CustomerUser {
         personalProfile("personal_profile", "personalProfile", "VARCHAR", false),
         personalWorks("personal_works", "personalWorks", "VARCHAR", false),
         birthday("birthday", "birthday", "DATE", false),
-        licenseUrl("license_url", "licenseUrl", "VARCHAR", false),
         wechatOpenid("wechat_openid", "wechatOpenid", "VARCHAR", false),
         lastLoginTime("last_login_time", "lastLoginTime", "TIMESTAMP", false),
         lastLoginIp("last_login_ip", "lastLoginIp", "VARCHAR", false),

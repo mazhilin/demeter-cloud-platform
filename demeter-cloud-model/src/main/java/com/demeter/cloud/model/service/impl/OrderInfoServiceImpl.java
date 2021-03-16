@@ -1,6 +1,5 @@
 package com.demeter.cloud.model.service.impl;
 
-import com.demeter.cloud.model.entity.OrderGoodsExample;
 import com.demeter.cloud.model.entity.OrderInfo;
 import com.demeter.cloud.model.entity.OrderInfoExample;
 import com.demeter.cloud.model.exception.BusinessException;

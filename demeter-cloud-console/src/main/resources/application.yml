@@ -6,9 +6,9 @@ spring:
   servlet:
     multipart:
       enabled: true
-      max-file-size: 11557050
-      max-request-size: 11557050
-      file-size-threshold: 11557050
+      max-file-size: 11834419200
+      max-request-size: 11834419200
+      file-size-threshold: 11834419200
       resolve-lazily: true
   freemarker:
     check-template-location: false

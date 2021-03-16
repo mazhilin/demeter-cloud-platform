@@ -4,8 +4,8 @@
   <resultMap id="BaseResultMap" type="com.demeter.cloud.model.entity.CustomerUser">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="account" jdbcType="VARCHAR" property="account" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
     <result column="gender" jdbcType="TINYINT" property="gender" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
@@ -16,7 +16,6 @@
     <result column="personal_profile" jdbcType="VARCHAR" property="personalProfile" />
     <result column="personal_works" jdbcType="VARCHAR" property="personalWorks" />
     <result column="birthday" jdbcType="DATE" property="birthday" />
-    <result column="license_url" jdbcType="VARCHAR" property="licenseUrl" />
     <result column="wechat_openid" jdbcType="VARCHAR" property="wechatOpenid" />
     <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
     <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp" />
@@ -88,10 +87,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, account, username, `password`, nickname, gender, mobile, email, profile_picture, 
-    customer_number, profile_address, personal_profile, personal_works, birthday, license_url, 
-    wechat_openid, last_login_time, last_login_ip, source_type, is_delete, create_by, 
-    create_time, update_by, update_time, `status`, remark
+    id, account, `password`, `name`, nickname, gender, mobile, email, profile_picture, 
+    customer_number, profile_address, personal_profile, personal_works, birthday, wechat_openid, 
+    last_login_time, last_login_ip, source_type, is_delete, create_by, create_time, update_by, 
+    update_time, `status`, remark
   </sql>
   <select id="selectByExample" parameterType="com.demeter.cloud.model.entity.CustomerUserExample" resultMap="BaseResultMap">
     select
@@ -124,10 +123,10 @@
         </foreach>
       </when>
       <otherwise>
-        id, account, username, `password`, nickname, gender, mobile, email, profile_picture, 
-          customer_number, profile_address, personal_profile, personal_works, birthday, license_url, 
-          wechat_openid, last_login_time, last_login_ip, source_type, is_delete, create_by, 
-          create_time, update_by, update_time, `status`, remark
+        id, account, `password`, `name`, nickname, gender, mobile, email, profile_picture, 
+          customer_number, profile_address, personal_profile, personal_works, birthday, wechat_openid, 
+          last_login_time, last_login_ip, source_type, is_delete, create_by, create_time, 
+          update_by, update_time, `status`, remark
       </otherwise>
     </choose>
     from demeter_customer_user
@@ -178,10 +177,10 @@
         </foreach>
       </when>
       <otherwise>
-        id, account, username, `password`, nickname, gender, mobile, email, profile_picture, 
-          customer_number, profile_address, personal_profile, personal_works, birthday, license_url, 
-          wechat_openid, last_login_time, last_login_ip, source_type, is_delete, create_by, 
-          create_time, update_by, update_time, `status`, remark
+        id, account, `password`, `name`, nickname, gender, mobile, email, profile_picture, 
+          customer_number, profile_address, personal_profile, personal_works, birthday, wechat_openid, 
+          last_login_time, last_login_ip, source_type, is_delete, create_by, create_time, 
+          update_by, update_time, `status`, remark
       </otherwise>
     </choose>
     from demeter_customer_user
@@ -201,24 +200,24 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into demeter_customer_user (account, username, `password`, 
+    insert into demeter_customer_user (account, `password`, `name`, 
       nickname, gender, mobile, 
       email, profile_picture, customer_number, 
       profile_address, personal_profile, personal_works, 
-      birthday, license_url, wechat_openid, 
-      last_login_time, last_login_ip, source_type, 
-      is_delete, create_by, create_time, 
-      update_by, update_time, `status`, 
-      remark)
-    values (#{account,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      birthday, wechat_openid, last_login_time, 
+      last_login_ip, source_type, is_delete, 
+      create_by, create_time, update_by, 
+      update_time, `status`, remark
+      )
+    values (#{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{nickname,jdbcType=VARCHAR}, #{gender,jdbcType=TINYINT}, #{mobile,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{profilePicture,jdbcType=VARCHAR}, #{customerNumber,jdbcType=VARCHAR}, 
       #{profileAddress,jdbcType=VARCHAR}, #{personalProfile,jdbcType=VARCHAR}, #{personalWorks,jdbcType=VARCHAR}, 
-      #{birthday,jdbcType=DATE}, #{licenseUrl,jdbcType=VARCHAR}, #{wechatOpenid,jdbcType=VARCHAR}, 
-      #{lastLoginTime,jdbcType=TIMESTAMP}, #{lastLoginIp,jdbcType=VARCHAR}, #{sourceType,jdbcType=TINYINT}, 
-      #{isDelete,jdbcType=TINYINT}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, 
-      #{remark,jdbcType=VARCHAR})
+      #{birthday,jdbcType=DATE}, #{wechatOpenid,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{lastLoginIp,jdbcType=VARCHAR}, #{sourceType,jdbcType=TINYINT}, #{isDelete,jdbcType=TINYINT}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.demeter.cloud.model.entity.CustomerUser">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -229,11 +228,11 @@
       <if test="account != null">
         account,
       </if>
-      <if test="username != null">
-        username,
-      </if>
       <if test="password != null">
         `password`,
+      </if>
+      <if test="name != null">
+        `name`,
       </if>
       <if test="nickname != null">
         nickname,
@@ -264,9 +263,6 @@
       </if>
       <if test="birthday != null">
         birthday,
-      </if>
-      <if test="licenseUrl != null">
-        license_url,
       </if>
       <if test="wechatOpenid != null">
         wechat_openid,
@@ -306,11 +302,11 @@
       <if test="account != null">
         #{account,jdbcType=VARCHAR},
       </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
-      </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="nickname != null">
         #{nickname,jdbcType=VARCHAR},
@@ -341,9 +337,6 @@
       </if>
       <if test="birthday != null">
         #{birthday,jdbcType=DATE},
-      </if>
-      <if test="licenseUrl != null">
-        #{licenseUrl,jdbcType=VARCHAR},
       </if>
       <if test="wechatOpenid != null">
         #{wechatOpenid,jdbcType=VARCHAR},
@@ -395,11 +388,11 @@
       <if test="record.account != null">
         account = #{record.account,jdbcType=VARCHAR},
       </if>
-      <if test="record.username != null">
-        username = #{record.username,jdbcType=VARCHAR},
-      </if>
       <if test="record.password != null">
         `password` = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        `name` = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.nickname != null">
         nickname = #{record.nickname,jdbcType=VARCHAR},
@@ -430,9 +423,6 @@
       </if>
       <if test="record.birthday != null">
         birthday = #{record.birthday,jdbcType=DATE},
-      </if>
-      <if test="record.licenseUrl != null">
-        license_url = #{record.licenseUrl,jdbcType=VARCHAR},
       </if>
       <if test="record.wechatOpenid != null">
         wechat_openid = #{record.wechatOpenid,jdbcType=VARCHAR},
@@ -476,8 +466,8 @@
     update demeter_customer_user
     set id = #{record.id,jdbcType=INTEGER},
       account = #{record.account,jdbcType=VARCHAR},
-      username = #{record.username,jdbcType=VARCHAR},
       `password` = #{record.password,jdbcType=VARCHAR},
+      `name` = #{record.name,jdbcType=VARCHAR},
       nickname = #{record.nickname,jdbcType=VARCHAR},
       gender = #{record.gender,jdbcType=TINYINT},
       mobile = #{record.mobile,jdbcType=VARCHAR},
@@ -488,7 +478,6 @@
       personal_profile = #{record.personalProfile,jdbcType=VARCHAR},
       personal_works = #{record.personalWorks,jdbcType=VARCHAR},
       birthday = #{record.birthday,jdbcType=DATE},
-      license_url = #{record.licenseUrl,jdbcType=VARCHAR},
       wechat_openid = #{record.wechatOpenid,jdbcType=VARCHAR},
       last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
       last_login_ip = #{record.lastLoginIp,jdbcType=VARCHAR},
@@ -510,11 +499,11 @@
       <if test="account != null">
         account = #{account,jdbcType=VARCHAR},
       </if>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
-      </if>
       <if test="password != null">
         `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
       </if>
       <if test="nickname != null">
         nickname = #{nickname,jdbcType=VARCHAR},
@@ -545,9 +534,6 @@
       </if>
       <if test="birthday != null">
         birthday = #{birthday,jdbcType=DATE},
-      </if>
-      <if test="licenseUrl != null">
-        license_url = #{licenseUrl,jdbcType=VARCHAR},
       </if>
       <if test="wechatOpenid != null">
         wechat_openid = #{wechatOpenid,jdbcType=VARCHAR},
@@ -588,8 +574,8 @@
   <update id="updateByPrimaryKey" parameterType="com.demeter.cloud.model.entity.CustomerUser">
     update demeter_customer_user
     set account = #{account,jdbcType=VARCHAR},
-      username = #{username,jdbcType=VARCHAR},
       `password` = #{password,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=TINYINT},
       mobile = #{mobile,jdbcType=VARCHAR},
@@ -600,7 +586,6 @@
       personal_profile = #{personalProfile,jdbcType=VARCHAR},
       personal_works = #{personalWorks,jdbcType=VARCHAR},
       birthday = #{birthday,jdbcType=DATE},
-      license_url = #{licenseUrl,jdbcType=VARCHAR},
       wechat_openid = #{wechatOpenid,jdbcType=VARCHAR},
       last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
       last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
@@ -645,10 +630,10 @@
         </foreach>
       </when>
       <otherwise>
-        id, account, username, `password`, nickname, gender, mobile, email, profile_picture, 
-          customer_number, profile_address, personal_profile, personal_works, birthday, license_url, 
-          wechat_openid, last_login_time, last_login_ip, source_type, is_delete, create_by, 
-          create_time, update_by, update_time, `status`, remark
+        id, account, `password`, `name`, nickname, gender, mobile, email, profile_picture, 
+          customer_number, profile_address, personal_profile, personal_works, birthday, wechat_openid, 
+          last_login_time, last_login_ip, source_type, is_delete, create_by, create_time, 
+          update_by, update_time, `status`, remark
       </otherwise>
     </choose>
     from demeter_customer_user

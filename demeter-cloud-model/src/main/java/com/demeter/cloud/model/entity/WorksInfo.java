@@ -1,5 +1,6 @@
 package com.demeter.cloud.model.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,11 +34,27 @@ public class WorksInfo {
 
     private String content;
 
-    private String customerUserId;
+    private Integer customerId;
+
+    private Integer goodsId;
 
     private String rotatePictures;
 
     private String coverPicture;
+
+    private BigDecimal virtualVote;
+
+    private BigDecimal actualVote;
+
+    private BigDecimal virtualLike;
+
+    private BigDecimal actualLike;
+
+    private Integer sourceType;
+
+    private Byte likeStatus;
+
+    private String ipAddress;
 
     private Byte isDelete;
 
@@ -53,6 +70,7 @@ public class WorksInfo {
 
     private String remark;
 
+    private String customerName;
     public Integer getId() {
         return id;
     }
@@ -93,12 +111,20 @@ public class WorksInfo {
         this.content = content;
     }
 
-    public String getCustomerUserId() {
-        return customerUserId;
+    public Integer getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomerUserId(String customerUserId) {
-        this.customerUserId = customerUserId;
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
+
+    public Integer getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
     }
 
     public String getRotatePictures() {
@@ -115,6 +141,62 @@ public class WorksInfo {
 
     public void setCoverPicture(String coverPicture) {
         this.coverPicture = coverPicture;
+    }
+
+    public BigDecimal getVirtualVote() {
+        return virtualVote;
+    }
+
+    public void setVirtualVote(BigDecimal virtualVote) {
+        this.virtualVote = virtualVote;
+    }
+
+    public BigDecimal getActualVote() {
+        return actualVote;
+    }
+
+    public void setActualVote(BigDecimal actualVote) {
+        this.actualVote = actualVote;
+    }
+
+    public BigDecimal getVirtualLike() {
+        return virtualLike;
+    }
+
+    public void setVirtualLike(BigDecimal virtualLike) {
+        this.virtualLike = virtualLike;
+    }
+
+    public BigDecimal getActualLike() {
+        return actualLike;
+    }
+
+    public void setActualLike(BigDecimal actualLike) {
+        this.actualLike = actualLike;
+    }
+
+    public Integer getSourceType() {
+        return sourceType;
+    }
+
+    public void setSourceType(Integer sourceType) {
+        this.sourceType = sourceType;
+    }
+
+    public Byte getLikeStatus() {
+        return likeStatus;
+    }
+
+    public void setLikeStatus(Byte likeStatus) {
+        this.likeStatus = likeStatus;
+    }
+
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
     }
 
     public Byte getIsDelete() {
@@ -173,6 +255,14 @@ public class WorksInfo {
         this.remark = remark;
     }
 
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -184,9 +274,17 @@ public class WorksInfo {
         sb.append(", name=").append(name);
         sb.append(", introduction=").append(introduction);
         sb.append(", content=").append(content);
-        sb.append(", customerUserId=").append(customerUserId);
+        sb.append(", customerId=").append(customerId);
+        sb.append(", goodsId=").append(goodsId);
         sb.append(", rotatePictures=").append(rotatePictures);
         sb.append(", coverPicture=").append(coverPicture);
+        sb.append(", virtualVote=").append(virtualVote);
+        sb.append(", actualVote=").append(actualVote);
+        sb.append(", virtualLike=").append(virtualLike);
+        sb.append(", actualLike=").append(actualLike);
+        sb.append(", sourceType=").append(sourceType);
+        sb.append(", likeStatus=").append(likeStatus);
+        sb.append(", ipAddress=").append(ipAddress);
         sb.append(", isDelete=").append(isDelete);
         sb.append(", createBy=").append(createBy);
         sb.append(", createTime=").append(createTime);
@@ -215,9 +313,17 @@ public class WorksInfo {
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getIntroduction() == null ? other.getIntroduction() == null : this.getIntroduction().equals(other.getIntroduction()))
             && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()))
-            && (this.getCustomerUserId() == null ? other.getCustomerUserId() == null : this.getCustomerUserId().equals(other.getCustomerUserId()))
+            && (this.getCustomerId() == null ? other.getCustomerId() == null : this.getCustomerId().equals(other.getCustomerId()))
+            && (this.getGoodsId() == null ? other.getGoodsId() == null : this.getGoodsId().equals(other.getGoodsId()))
             && (this.getRotatePictures() == null ? other.getRotatePictures() == null : this.getRotatePictures().equals(other.getRotatePictures()))
             && (this.getCoverPicture() == null ? other.getCoverPicture() == null : this.getCoverPicture().equals(other.getCoverPicture()))
+            && (this.getVirtualVote() == null ? other.getVirtualVote() == null : this.getVirtualVote().equals(other.getVirtualVote()))
+            && (this.getActualVote() == null ? other.getActualVote() == null : this.getActualVote().equals(other.getActualVote()))
+            && (this.getVirtualLike() == null ? other.getVirtualLike() == null : this.getVirtualLike().equals(other.getVirtualLike()))
+            && (this.getActualLike() == null ? other.getActualLike() == null : this.getActualLike().equals(other.getActualLike()))
+            && (this.getSourceType() == null ? other.getSourceType() == null : this.getSourceType().equals(other.getSourceType()))
+            && (this.getLikeStatus() == null ? other.getLikeStatus() == null : this.getLikeStatus().equals(other.getLikeStatus()))
+            && (this.getIpAddress() == null ? other.getIpAddress() == null : this.getIpAddress().equals(other.getIpAddress()))
             && (this.getIsDelete() == null ? other.getIsDelete() == null : this.getIsDelete().equals(other.getIsDelete()))
             && (this.getCreateBy() == null ? other.getCreateBy() == null : this.getCreateBy().equals(other.getCreateBy()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -236,9 +342,17 @@ public class WorksInfo {
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getIntroduction() == null) ? 0 : getIntroduction().hashCode());
         result = prime * result + ((getContent() == null) ? 0 : getContent().hashCode());
-        result = prime * result + ((getCustomerUserId() == null) ? 0 : getCustomerUserId().hashCode());
+        result = prime * result + ((getCustomerId() == null) ? 0 : getCustomerId().hashCode());
+        result = prime * result + ((getGoodsId() == null) ? 0 : getGoodsId().hashCode());
         result = prime * result + ((getRotatePictures() == null) ? 0 : getRotatePictures().hashCode());
         result = prime * result + ((getCoverPicture() == null) ? 0 : getCoverPicture().hashCode());
+        result = prime * result + ((getVirtualVote() == null) ? 0 : getVirtualVote().hashCode());
+        result = prime * result + ((getActualVote() == null) ? 0 : getActualVote().hashCode());
+        result = prime * result + ((getVirtualLike() == null) ? 0 : getVirtualLike().hashCode());
+        result = prime * result + ((getActualLike() == null) ? 0 : getActualLike().hashCode());
+        result = prime * result + ((getSourceType() == null) ? 0 : getSourceType().hashCode());
+        result = prime * result + ((getLikeStatus() == null) ? 0 : getLikeStatus().hashCode());
+        result = prime * result + ((getIpAddress() == null) ? 0 : getIpAddress().hashCode());
         result = prime * result + ((getIsDelete() == null) ? 0 : getIsDelete().hashCode());
         result = prime * result + ((getCreateBy() == null) ? 0 : getCreateBy().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -273,9 +387,17 @@ public class WorksInfo {
         name("name", "name", "VARCHAR", true),
         introduction("introduction", "introduction", "VARCHAR", false),
         content("content", "content", "VARCHAR", false),
-        customerUserId("customer_user_id", "customerUserId", "VARCHAR", false),
+        customerId("customer_id", "customerId", "INTEGER", false),
+        goodsId("goods_id", "goodsId", "INTEGER", false),
         rotatePictures("rotate_pictures", "rotatePictures", "VARCHAR", false),
         coverPicture("cover_picture", "coverPicture", "VARCHAR", false),
+        virtualVote("virtual_vote", "virtualVote", "DECIMAL", false),
+        actualVote("actual_vote", "actualVote", "DECIMAL", false),
+        virtualLike("virtual_like", "virtualLike", "DECIMAL", false),
+        actualLike("actual_like", "actualLike", "DECIMAL", false),
+        sourceType("source_type", "sourceType", "INTEGER", false),
+        likeStatus("like_status", "likeStatus", "TINYINT", false),
+        ipAddress("ip_address", "ipAddress", "VARCHAR", false),
         isDelete("is_delete", "isDelete", "TINYINT", false),
         createBy("create_by", "createBy", "VARCHAR", false),
         createTime("create_time", "createTime", "TIMESTAMP", false),
