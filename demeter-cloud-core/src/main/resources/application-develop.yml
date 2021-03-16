@@ -11,8 +11,8 @@ demeter:
         storage-path: app/fileupload
         # 阿里云对象存储配置信息
       aliyun:
-        access-key-id: LTAI4G2Pn5ztxA2rRgFMJsoh
-        access-key-secret: LFybagHCTfujIH47Rl0PemfF2xGzaD
+        access-key-id: 
+        access-key-secret: 
         endpoint: oss-cn-beijing.aliyuncs.com
         bucket-name: develop-platform
         # 腾讯对象存储配置信息
